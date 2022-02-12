@@ -1,0 +1,2 @@
+# LeetcodePractice
+daily card

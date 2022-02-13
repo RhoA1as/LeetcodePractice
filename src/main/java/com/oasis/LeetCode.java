@@ -1697,6 +1697,39 @@ public class LeetCode {
             dfsEnclaves(row + dir[0], col + dir[1]);
         }
     }
+
+    //https://leetcode-cn.com/problems/maximum-number-of-balloons/ “气球” "balloon"的最大数量
+    public int maxNumberOfBalloons(String text) {
+        if(text == null || text.length() == 0){
+            return 0;
+        }
+        int[] cnts = new int[5];
+        int n = text.length();
+        for (int i = 0; i < n; i++) {
+            switch (text.charAt(i)){
+                case 'a':
+                    cnts[0]++;
+                    break;
+                case 'b':
+                    cnts[1]++;
+                    break;
+                case 'l':
+                    cnts[2]++;
+                    break;
+                case 'n':
+                    cnts[3]++;
+                    break;
+                case 'o':
+                    cnts[4]++;
+                    break;
+                default:
+                    break;
+            }
+        }
+        cnts[2] /= 2;
+        cnts[4] /= 2;
+        return Arrays.stream(cnts).min().getAsInt();
+    }
 }
 
 //https://leetcode-cn.com/problems/shuffle-an-array/ 打乱数组

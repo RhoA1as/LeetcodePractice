@@ -1744,6 +1744,37 @@ public class LeetCode {
         }
         return nums[l];
     }
+
+    //https://leetcode-cn.com/problems/lucky-numbers-in-a-matrix/ 矩阵中的幸运数
+    public List<Integer> luckyNumbers (int[][] matrix) {
+        if(matrix == null || matrix.length == 0 || matrix[0].length == 0){
+            return null;
+        }
+        int m = matrix.length, n = matrix[0].length;
+        List<Integer> ans = new ArrayList<>();
+        int[] rowMin = new int[m];
+        int[] colMax = new int[n];
+        for (int i = 0; i < m; i++) {
+            rowMin[i] = Arrays.stream(matrix[i]).min().getAsInt();
+        }
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                colMax[i] = Math.max(colMax[i], matrix[j][i]);
+            }
+        }
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                int val = matrix[i][j];
+                if(val == rowMin[i]){
+                    if(val == colMax[j]){
+                        ans.add(val);
+                    }
+                    break;
+                }
+            }
+        }
+        return ans;
+    }
 }
 
 //https://leetcode-cn.com/problems/shuffle-an-array/ 打乱数组

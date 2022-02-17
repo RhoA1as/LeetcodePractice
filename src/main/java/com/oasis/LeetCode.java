@@ -1778,6 +1778,29 @@ public class LeetCode {
         }
         return ans;
     }
+
+    //https://leetcode-cn.com/problems/knight-probability-in-chessboard/ 骑士在棋盘上的概率
+    public double knightProbability(int n, int k, int row, int column) {
+        int[][] dirs = {{-2, -1}, {-2, 1}, {2, -1}, {2, 1}, {-1, -2}, {-1, 2}, {1, -2}, {1, 2}};
+        double[][][] dp = new double[k+1][n][n];
+        for (int i = 0; i <= k; i++) {
+            for (int j = 0; j < n; j++) {
+                for (int l = 0; l < n; l++) {
+                    if(i == 0){
+                        dp[i][j][l] = 1;
+                    }else {
+                        for (int[] dir : dirs) {
+                            int x = j + dir[0], y = l + dir[1];
+                            if(x >= 0 && x < n && y >=0 && y < n) {
+                                dp[i][j][l] += dp[i - 1][x][y] / 8;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return dp[k][row][column];
+    }
 }
 
 //https://leetcode-cn.com/problems/shuffle-an-array/ 打乱数组

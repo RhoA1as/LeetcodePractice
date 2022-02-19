@@ -1801,6 +1801,42 @@ public class LeetCode {
         }
         return dp[k][row][column];
     }
+
+    //https://leetcode-cn.com/problems/pancake-sorting/ 煎饼排序
+    public List<Integer> pancakeSort(int[] arr) {
+        if(arr == null || arr.length == 0){
+            return null;
+        }
+        List<Integer> ans = new ArrayList<>();
+        int n = arr.length;
+        int[] idxs = new int[n+1];
+        for (int i = 0; i < n; i++) {
+            idxs[arr[i]] = i;
+        }
+        for (int i = n; i >= 1; i--) {
+            int idx = idxs[i];
+            if(idx == i - 1){
+                continue;
+            }
+            if(idx != 0){
+                ans.add(idx + 1);
+                reverse(arr, 0, idx, idxs);
+            }
+            ans.add(i);
+            reverse(arr, 0, i - 1, idxs);
+        }
+        return ans;
+    }
+
+    public void reverse(int[] arr, int start, int end, int[] idxs){
+        while(start < end){
+            idxs[arr[start]] = end;
+            idxs[arr[end]] = start;
+            int temp = arr[start];
+            arr[start++] = arr[end];
+            arr[end--] = temp;
+        }
+    }
 }
 
 //https://leetcode-cn.com/problems/shuffle-an-array/ 打乱数组

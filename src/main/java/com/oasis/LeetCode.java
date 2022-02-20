@@ -1837,6 +1837,22 @@ public class LeetCode {
             arr[end--] = temp;
         }
     }
+
+    //https://leetcode-cn.com/problems/1-bit-and-2-bit-characters/ 1比特与2比特字符
+    public boolean isOneBitCharacter(int[] bits) {
+        if(bits == null || bits.length == 0){
+            return false;
+        }
+        int idx = 0, n = bits.length;
+        while(idx < n - 1){
+            if(bits[idx] == 1){
+                idx += 2;
+            }else {
+                idx++;
+            }
+        }
+        return idx == n - 1;
+    }
 }
 
 //https://leetcode-cn.com/problems/shuffle-an-array/ 打乱数组

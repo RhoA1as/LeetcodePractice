@@ -1853,6 +1853,38 @@ public class LeetCode {
         }
         return idx == n - 1;
     }
+
+    //https://leetcode-cn.com/problems/push-dominoes/ 推多米诺
+    public String pushDominoes(String dominoes) {
+        if(dominoes == null || dominoes.length() == 0){
+            return dominoes;
+        }
+        char[] chars = dominoes.toCharArray();
+        int n = chars.length;
+        int[] times = new int[n];
+        Deque<int[]> deque = new LinkedList<>();
+        for (int i = 0; i < n; i++) {
+            char c = chars[i];
+            if(c == '.') continue;
+            deque.offer(new int[]{i, 1, c == 'L'? -1: 1});
+            times[i] = 1;
+        }
+        while (!deque.isEmpty()){
+            int[] poll = deque.poll();
+            int idx = poll[0], time = poll[1], force = poll[2];
+            int new_idx = idx + force;
+            if(new_idx < 0 || new_idx >=n || chars[idx] == '.') continue;
+            if(times[new_idx] == 0){
+                times[new_idx] = 1 + time;
+                chars[new_idx] = chars[idx];
+                deque.offer(new int[]{new_idx, time + 1, force});
+            }else if(times[new_idx] == time + 1){
+                chars[new_idx] = '.';
+            }
+        }
+        return String.valueOf(chars);
+    }
+
 }
 
 //https://leetcode-cn.com/problems/shuffle-an-array/ 打乱数组

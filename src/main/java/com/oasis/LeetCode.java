@@ -1885,6 +1885,32 @@ public class LeetCode {
         return String.valueOf(chars);
     }
 
+    //https://leetcode-cn.com/problems/making-file-names-unique/ 保证文件名唯一
+    public String[] getFolderNames(String[] names) {
+        if (names == null || names.length == 0) {
+            return null;
+        }
+        Map<String, Integer> cnts = new HashMap<>();
+        int n = names.length;
+        String[] res = new String[n];
+        for (int i = 0; i < n; i++) {
+            String s = names[i];
+            if (!cnts.containsKey(s)) {
+                res[i] = s;
+                cnts.put(s, 1);
+            } else {
+                int val = cnts.get(s);
+                String new_name;
+                while (cnts.containsKey((new_name = s + "(" + val + ")"))) {
+                    val++;
+                }
+                res[i] = new_name;
+                cnts.put(new_name, 1);
+                cnts.put(s, val);
+            }
+        }
+        return res;
+    }
 }
 
 //https://leetcode-cn.com/problems/shuffle-an-array/ 打乱数组

@@ -1911,6 +1911,30 @@ public class LeetCode {
         }
         return res;
     }
+
+    //https://leetcode-cn.com/problems/reverse-only-letters/ 仅仅反转字母
+    public String reverseOnlyLetters(String s) {
+        if(s == null || s.length() == 0){
+            return s;
+        }
+        char[] chars = s.toCharArray();
+        int l = 0, r = chars.length - 1;
+        while(l < r){
+            while (l < r && !Character.isLetter(chars[l])){
+                l++;
+            }
+            while (r > l && !Character.isLetter(chars[r])){
+                r--;
+            }
+            if(l >= r){
+                break;
+            }
+            char c = chars[l];
+            chars[l++] = chars[r];
+            chars[r--] = c;
+        }
+        return String.valueOf(chars);
+    }
 }
 
 //https://leetcode-cn.com/problems/shuffle-an-array/ 打乱数组

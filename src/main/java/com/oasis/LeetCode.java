@@ -1935,6 +1935,33 @@ public class LeetCode {
         }
         return String.valueOf(chars);
     }
+
+    //https://leetcode-cn.com/problems/where-will-the-ball-fall/ 球会落何处
+    public int[] findBall(int[][] grid) {
+        if(grid == null || grid.length == 0 || grid[0].length == 0){
+            return new int[0];
+        }
+        int m = grid.length, n = grid[0].length;
+        int[] res = new int[n];
+        for (int i = 0; i < n; i++) {
+            int row = 0, col = i;
+            while (true){
+                int dir = grid[row][col];
+                int nxt = col + dir;
+                if(nxt < 0 || nxt == n || dir != grid[row][nxt]){
+                    res[i] = -1;
+                    break;
+                }
+                if(row == m - 1){
+                    res[i] = nxt;
+                    break;
+                }
+                row++;
+                col = nxt;
+            }
+        }
+        return res;
+    }
 }
 
 //https://leetcode-cn.com/problems/shuffle-an-array/ 打乱数组

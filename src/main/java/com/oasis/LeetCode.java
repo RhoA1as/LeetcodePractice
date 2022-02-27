@@ -1962,6 +1962,27 @@ public class LeetCode {
         }
         return res;
     }
+
+    //https://leetcode-cn.com/problems/optimal-division/ 最优除法
+    public String optimalDivision(int[] nums) {
+        if(nums == null || nums.length == 0){
+            return null;
+        }
+        int n = nums.length;
+        if(n == 1){
+            return String.valueOf(nums[0]);
+        }
+        if(n == 2){
+            return nums[0] + "/" + nums[1];
+        }
+        StringBuilder builder = new StringBuilder();
+        builder.append(nums[0]).append("/(").append(nums[1]);
+        for (int i = 2; i < n; i++) {
+            builder.append("/").append(nums[i]);
+        }
+        builder.append(")");
+        return builder.toString();
+    }
 }
 
 //https://leetcode-cn.com/problems/shuffle-an-array/ 打乱数组

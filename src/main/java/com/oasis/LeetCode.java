@@ -1983,6 +1983,33 @@ public class LeetCode {
         builder.append(")");
         return builder.toString();
     }
+
+    //https://leetcode-cn.com/problems/count-vowel-substrings-of-a-string/ 统计字符串中的元音子字符串
+    public int countVowelSubstrings(String word) {
+        if(word == null || word.length() < 5){
+            return 0;
+        }
+        int n = word.length(), ans = 0;
+        char[] words = word.toCharArray();
+        for (int i = 0; i < n; i++) {
+            Set<Character> set = new HashSet<>();
+            for (int j = i; j < n; j++) {
+                if(!isVowel(words[j])){
+                    break;
+                }
+                set.add(words[j]);
+                if(set.size() == 5){
+                    ans++;
+                }
+            }
+        }
+        return ans;
+    }
+
+    public boolean isVowel(char c){
+        return c == 'a' || c == 'e' || c == 'i'
+                || c == 'o' || c == 'u';
+    }
 }
 
 //https://leetcode-cn.com/problems/shuffle-an-array/ 打乱数组

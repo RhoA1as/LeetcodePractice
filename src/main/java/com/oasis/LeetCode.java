@@ -2010,6 +2010,30 @@ public class LeetCode {
         return c == 'a' || c == 'e' || c == 'i'
                 || c == 'o' || c == 'u';
     }
+
+    //https://leetcode-cn.com/problems/zigzag-conversion/ Z 字形变换
+    public String convert(String s, int numRows) {
+        if(s == null || s.length() == 0 || numRows == 1){
+            return s;
+        }
+        List<StringBuilder> rows = new ArrayList<>();
+        for (int i = 0; i < numRows; i++) {
+            rows.add(new StringBuilder());
+        }
+        int currRow = 0, changeRow = 1;
+        for (char c : s.toCharArray()) {
+            rows.get(currRow).append(c);
+            if(currRow == 0 || currRow == numRows - 1){
+                changeRow = currRow == 0? 1: -1;
+            }
+            currRow += changeRow;
+        }
+        StringBuilder ans = new StringBuilder();
+        for (StringBuilder row : rows) {
+            ans.append(row);
+        }
+        return ans.toString();
+    }
 }
 
 //https://leetcode-cn.com/problems/shuffle-an-array/ 打乱数组

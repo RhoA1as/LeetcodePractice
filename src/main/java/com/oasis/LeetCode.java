@@ -16,7 +16,9 @@ public class LeetCode {
 
     @Test
     public void test(){
-        System.out.println(lengthOfLongestSubstring("aba"));
+        int[] num = {3,5,2,1,6,4};
+        wiggleSort(num);
+        System.out.println(Arrays.toString(num));
     
     }
 
@@ -2033,6 +2035,20 @@ public class LeetCode {
             ans.append(row);
         }
         return ans.toString();
+    }
+
+    //https://leetcode-cn.com/problems/peaks-and-valleys-lcci/ 峰与谷
+    public void wiggleSort(int[] nums) {
+        if(nums == null || nums.length == 0){
+            return;
+        }
+        int n = nums.length;
+        int[] copy = Arrays.copyOfRange(nums, 0, n);
+        Arrays.sort(copy);
+        int l = 0, r = n-1, idx = 0;
+        while (idx < n){
+            nums[idx++] = idx % 2 == 0? copy[r--]: copy[l++];
+        }
     }
 }
 

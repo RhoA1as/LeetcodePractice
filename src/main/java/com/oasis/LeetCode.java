@@ -2050,6 +2050,26 @@ public class LeetCode {
             nums[idx++] = idx % 2 == 0? copy[r--]: copy[l++];
         }
     }
+
+    //https://leetcode-cn.com/problems/add-digits/ 各位相加
+    public int addDigits_1(int num) {
+        if(num < 10){
+            return num;
+        }
+        while(num >= 10){
+            int temp = 0;
+            while(num > 0){
+                temp += num % 10;
+                num /= 10;
+            }
+            num = temp;
+        }
+        return num;
+    }
+
+    public int addDigits(int num) {
+        return (num - 1) % 9 + 1;
+    }
 }
 
 //https://leetcode-cn.com/problems/shuffle-an-array/ 打乱数组

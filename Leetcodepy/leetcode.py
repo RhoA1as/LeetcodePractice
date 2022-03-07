@@ -15,3 +15,18 @@ class Solution:
             if security[n-i-1] <= security[n-i]:
                 right[n-i-1] = right[n-i] + 1
         return [i for i in range(time, n-time) if left[i] >= time and right[i] >= time]
+
+    # https://leetcode-cn.com/problems/base-7/ 七进制数
+    def convertToBase7(self, num: int) -> str:
+        if num == 0:
+            return '0'
+        negative = num < 0
+        num = abs(num)
+        ans = []
+        while num:
+            ans.append(str(num % 7))
+            num //= 7
+        if negative:
+            ans.append("-")
+        return "".join(reversed(ans))
+

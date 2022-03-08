@@ -30,3 +30,24 @@ class Solution:
             ans.append("-")
         return "".join(reversed(ans))
 
+    # https://leetcode-cn.com/problems/plates-between-candles/ 蜡烛之间的盘子
+    def platesBetweenCandles(self, s: str, queries: List[List[int]]) -> List[int]:
+        if not s:
+            return []
+        n = len(s)
+        pre_sum, left, right, ans = [], [0] * n, [0] * n, []
+        val, l, r = 0, -1, -1
+        for i in range(n):
+            if s[i] == '*':
+                val += 1
+            pre_sum.append(val)
+            if s[i] == '|':
+                l = i
+            left[i] = l
+            if s[n-i-1] == '|':
+                r = n-i-1
+            right[n-i-1] = r
+        for i, j in queries:
+            x, y = right[i], left[j]
+            ans.append(0 if x == -1 or y == -1 or x >= y else pre_sum[y] - pre_sum[x])
+        return ans

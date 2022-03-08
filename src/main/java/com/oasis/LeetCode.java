@@ -2111,6 +2111,36 @@ public class LeetCode {
         if(negative) ans.append("-");
         return ans.reverse().toString();
     }
+
+    //https://leetcode-cn.com/problems/plates-between-candles/ 蜡烛之间的盘子
+    public int[] platesBetweenCandles(String s, int[][] queries) {
+        if(s == null || s.length() == 0){
+            return new int[0];
+        }
+        int n = s.length(), sum = 0, l = -1, r = -1;
+        int[] preSum = new int[n];
+        int[] left = new int[n];
+        int[] right = new int[n];
+        for (int i = 0; i < n; i++) {
+            if(s.charAt(i) == '*'){
+                sum++;
+            }
+            preSum[i] = sum;
+        }
+        for (int i = 0; i < n; i++) {
+            if(s.charAt(i) == '|') l = i;
+            left[i] = l;
+            if(s.charAt(n-i-1) == '|') r = n-i-1;
+            right[n-i-1] = r;
+        }
+        int[] ans = new int[queries.length];
+        int idx = 0;
+        for (int[] query : queries) {
+            int x = right[query[0]], y = left[query[1]];
+            ans[idx++] = x == -1 || y == -1 || x >= y? 0: preSum[y] - preSum[x];
+        }
+        return ans;
+    }
 }
 
 //https://leetcode-cn.com/problems/shuffle-an-array/ 打乱数组

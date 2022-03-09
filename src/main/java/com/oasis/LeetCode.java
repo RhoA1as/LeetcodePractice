@@ -2141,6 +2141,43 @@ public class LeetCode {
         }
         return ans;
     }
+
+    //https://leetcode-cn.com/problems/number-of-subsequences-that-satisfy-the-given-sum-condition/ 满足条件的子序列数目
+    int mod = 1000000007;
+    public int numSubseq(int[] nums, int target) {
+        if(nums == null || nums.length == 0){
+            return 0;
+        }
+        int ans = 0, n = nums.length;
+        int[] pow = new int[n];
+        pow[0] = 1;
+        for (int i = 1; i < n; i++) {
+            pow[i] = (pow[i-1] << 1) % mod;
+        }
+        Arrays.sort(nums);
+        int l = 0, r = n-1;
+        long res = 0;
+        while(l <= r){
+            int sum = nums[l] + nums[r];
+            if(sum > target){
+                r--;
+            }else{
+                res = (res + pow[r-l]) % mod;
+                l++;
+            }
+        }
+        return (int)res;
+    }
+
+    public long fastPow(long a, int n){
+        long res = 1;
+        while(n > 0){
+            if((n & 1) != 0) res = (res * a) % mod;
+            a = (a * a) % mod;
+            n >>= 1;
+        }
+        return res;
+    }
 }
 
 //https://leetcode-cn.com/problems/shuffle-an-array/ 打乱数组

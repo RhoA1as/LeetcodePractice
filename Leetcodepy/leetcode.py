@@ -51,3 +51,26 @@ class Solution:
             x, y = right[i], left[j]
             ans.append(0 if x == -1 or y == -1 or x >= y else pre_sum[y] - pre_sum[x])
         return ans
+
+    # https://leetcode-cn.com/problems/number-of-subsequences-that-satisfy-the-given-sum-condition/ 满足条件的子序列数目
+    def numSubseq(self, nums: List[int], target: int) -> int:
+        mod = int(1e9 + 7)
+        temp_nums = sorted(nums)
+        n = len(temp_nums)
+        res, l, r = 0, 0, n-1
+        while l <= r:
+            if temp_nums[l] + temp_nums[r] > target:
+                r -= 1
+            else:
+                res = (res + self.quick_pow(2, r-l, mod)) % mod
+                l += 1
+        return int(res % mod)
+
+    def quick_pow(self, a: int, n: int, mod=1e9):
+        res = 1
+        while n:
+            if n & 1:
+                res = (res * a) % mod
+            a = (a % mod)**2 % mod
+            n >>= 1
+        return res

@@ -2178,6 +2178,25 @@ public class LeetCode {
         }
         return res;
     }
+
+    //https://leetcode-cn.com/problems/n-ary-tree-preorder-traversal/ N 叉树的前序遍历
+    public List<Integer> preorder(Node root) {
+        if(root == null){
+            return new ArrayList<>();
+        }
+        List<Integer> ans = new ArrayList<>();
+        Stack<Node> stack = new Stack<>();
+        stack.push(root);
+        while(!stack.isEmpty()){
+            Node temp = stack.pop();
+            ans.add(temp.val);
+            List<Node> children = temp.children;
+            for (int i = children.size() - 1; i >= 0; i--) {
+                stack.push(children.get(i));
+            }
+        }
+        return ans;
+    }
 }
 
 //https://leetcode-cn.com/problems/shuffle-an-array/ 打乱数组

@@ -74,3 +74,22 @@ class Solution:
             a = (a % mod)**2 % mod
             n >>= 1
         return res
+
+    # https://leetcode-cn.com/problems/n-ary-tree-preorder-traversal/ N 叉树的前序遍历
+    def preorder(self, root: 'Node') -> List[int]:
+        if not root:
+            return []
+        ans = []
+        stack = [root]
+        while stack:
+            temp = stack.pop()
+            ans.append(temp.val)
+            stack.extend(reversed(temp.children))
+        return ans
+
+
+
+class Node:
+    def __init__(self, val=None, children=None):
+        self.val = val
+        self.children = children

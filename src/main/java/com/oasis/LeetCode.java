@@ -2197,6 +2197,48 @@ public class LeetCode {
         }
         return ans;
     }
+
+    //https://leetcode-cn.com/problems/count-nodes-with-the-highest-score/ 统计最高分的节点数目
+    long maxHeight;
+    int cnts;
+    int size;
+    List<List<Integer>> children;
+
+    public int countHighestScoreNodes(int[] parents) {
+        if(parents == null || parents.length == 0){
+            return 0;
+        }
+        int n = parents.length;
+        size = n;
+        children = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            children.add(new ArrayList<>());
+        }
+        for (int i = 1; i < n; i++) {
+            children.get(parents[i]).add(i);
+        }
+        dfsCountHeights(0);
+        return cnts;
+    }
+
+    public int dfsCountHeights(int node){
+        long currAns = 1;
+        int total = 1;
+        List<Integer> list = children.get(node);
+        for (Integer integer : list) {
+            int totalChild = dfsCountHeights(integer);
+            total += totalChild;
+            currAns *= totalChild;
+        }
+        if(node != 0) currAns *= (size - total);
+        if(currAns == maxHeight){
+            cnts++;
+        }else if(currAns > maxHeight){
+            maxHeight = currAns;
+            cnts = 1;
+        }
+        return total;
+    }
 }
 
 //https://leetcode-cn.com/problems/shuffle-an-array/ 打乱数组

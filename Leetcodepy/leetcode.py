@@ -87,6 +87,36 @@ class Solution:
             stack.extend(reversed(temp.children))
         return ans
 
+    # https://leetcode-cn.com/problems/count-nodes-with-the-highest-score/ 统计最高分的节点数目
+    def countHighestScoreNodes(self, parents: List[int]) -> int:
+        if not parents:
+            return []
+        n = len(parents)
+        cnt, max_val = 0, 0
+        children = [[] for _ in range(n)]
+        for node, parent in enumerate(parents):
+            if node:
+                children[parent].append(node)
+
+        def dfs(nod: int) -> int:
+            curr_val, total = 1, 1
+            nonlocal max_val, cnt
+            for child in children[nod]:
+                val = dfs(child)
+                curr_val *= val
+                total += val
+            if nod:
+                curr_val *= (n - total)
+            if curr_val == max_val:
+                cnt += 1
+            elif curr_val > max_val:
+                max_val, cnt = curr_val, 1
+            return total
+        dfs(0)
+        return cnt
+
+
+
 
 
 class Node:

@@ -115,7 +115,17 @@ class Solution:
         dfs(0)
         return cnt
 
-
+    # https://leetcode-cn.com/problems/n-ary-tree-postorder-traversal/ N 叉树的后序遍历
+    def postorder(self, root: 'Node') -> List[int]:
+        ans = []
+        if not root:
+            return []
+        stack = [root]
+        while stack:
+            temp = stack.pop()
+            ans.append(temp.val)
+            stack.extend(temp.children)
+        return reversed(ans)
 
 
 

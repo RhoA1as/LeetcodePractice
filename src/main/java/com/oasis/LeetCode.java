@@ -2239,6 +2239,23 @@ public class LeetCode {
         }
         return total;
     }
+
+    //https://leetcode-cn.com/problems/n-ary-tree-postorder-traversal/ N 叉树的后序遍历
+    public List<Integer> postorder(Node root) {
+        List<Integer> ans = new ArrayList<>();
+        if(root == null) return ans;
+        Stack<Node> stack = new Stack<>();
+        stack.push(root);
+        while(!stack.isEmpty()){
+            Node temp = stack.pop();
+            ans.add(temp.val);
+            for (Node child : temp.children) {
+                stack.push(child);
+            }
+        }
+        Collections.reverse(ans);
+        return ans;
+    }
 }
 
 //https://leetcode-cn.com/problems/shuffle-an-array/ 打乱数组

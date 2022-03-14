@@ -1,5 +1,6 @@
 # --*-- coding:utf-8 --*--
 # leetcode daily card
+from math import inf
 from typing import List
 
 
@@ -127,6 +128,23 @@ class Solution:
             stack.extend(temp.children)
         return reversed(ans)
 
+    # https://leetcode-cn.com/problems/minimum-index-sum-of-two-lists/ 两个列表的最小索引总和
+    def findRestaurant(self, list1: List[str], list2: List[str]) -> List[str]:
+        if not (list1 and list2):
+            return []
+        maps = {s: i for i, s in enumerate(list1)}
+        idx_sum = inf
+        ans = []
+        for i, s in enumerate(list2):
+            if s not in maps:
+                continue
+            curr_sum = i + maps[s]
+            if curr_sum < idx_sum:
+                idx_sum = curr_sum
+                ans = [s]
+            elif curr_sum == idx_sum:
+                ans.append(s)
+        return ans
 
 
 class Node:

@@ -2256,6 +2256,35 @@ public class LeetCode {
         Collections.reverse(ans);
         return ans;
     }
+
+    //https://leetcode-cn.com/problems/minimum-index-sum-of-two-lists/ 两个列表的最小索引总和
+    public String[] findRestaurant(String[] list1, String[] list2) {
+        if(list1 == null || list2 == null || list1.length == 0 || list2.length == 0){
+            return new String[0];
+        }
+        Map<String,Integer> map = new HashMap<>();
+        int n1 = list1.length, n2 = list2.length;
+        for (int i = 0; i < n1; i++) {
+            map.put(list1[i], i);
+        }
+        int idxSum = Integer.MAX_VALUE;
+        List<String> ans = new ArrayList<>();
+        for (int i = 0; i < n2; i++) {
+            String name = list2[i];
+            if(!map.containsKey(name)){
+                continue;
+            }
+            int currIdxSum = i + map.get(name);
+            if(currIdxSum == idxSum){
+                ans.add(name);
+            }else if(currIdxSum < idxSum){
+                ans.clear();
+                ans.add(name);
+                idxSum = currIdxSum;
+            }
+        }
+        return ans.toArray(new String[ans.size()]);
+    }
 }
 
 //https://leetcode-cn.com/problems/shuffle-an-array/ 打乱数组

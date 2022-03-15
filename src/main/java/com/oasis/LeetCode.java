@@ -2285,6 +2285,29 @@ public class LeetCode {
         }
         return ans.toArray(new String[ans.size()]);
     }
+
+    //https://leetcode-cn.com/problems/count-number-of-maximum-bitwise-or-subsets/ 统计按位或能得到最大值的子集数目
+    public int countMaxOrSubsets(int[] nums) {
+        if(nums == null || nums.length == 0){
+            return 0;
+        }
+        int maxVal = 0, cnt = 0, n = nums.length;
+        for (int i = 1; i < (1 << n); i++) {
+            int currVal = 0;
+            for (int j = 0; j < n; j++) {
+                if(((i >> j) & 1) != 0){
+                    currVal |= nums[j];
+                }
+            }
+            if(currVal > maxVal){
+                maxVal = currVal;
+                cnt = 1;
+            }else if(currVal == maxVal){
+                cnt++;
+            }
+        }
+        return cnt;
+    }
 }
 
 //https://leetcode-cn.com/problems/shuffle-an-array/ 打乱数组

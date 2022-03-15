@@ -1,6 +1,8 @@
 # --*-- coding:utf-8 --*--
 # leetcode daily card
+from functools import reduce
 from math import inf
+from operator import or_
 from typing import List
 
 
@@ -145,6 +147,20 @@ class Solution:
             elif curr_sum == idx_sum:
                 ans.append(s)
         return ans
+
+    # https://leetcode-cn.com/problems/count-number-of-maximum-bitwise-or-subsets/ 统计按位或能得到最大值的子集数目
+    def countMaxOrSubsets(self, nums: List[int]) -> int:
+        if not nums:
+            return 0
+        n = len(nums)
+        max_val, cnt = 0, 0
+        for i in range(1, 1 << n):
+            curr_val = reduce(or_, (num for j, num in enumerate(nums) if (i >> j) & 1), 0)
+            if max_val < curr_val:
+                max_val, cnt = curr_val, 1
+            elif max_val == curr_val:
+                cnt += 1
+        return cnt
 
 
 class Node:

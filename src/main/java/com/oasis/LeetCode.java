@@ -2308,6 +2308,25 @@ public class LeetCode {
         }
         return cnt;
     }
+
+    //https://leetcode-cn.com/problems/longest-word-in-dictionary/ 词典中最长的单词
+    public String longestWord(String[] words) {
+        if(words == null || words.length == 0){
+            return "";
+        }
+        Set<String> set = new HashSet<>();
+        set.add("");
+        String ans = "";
+        Arrays.sort(words, (x,y) ->
+                x.length() == y.length()? y.compareTo(x): x.length() - y.length());
+        for (String word : words) {
+            if(set.contains(word.substring(0, word.length() - 1))){
+                ans = word;
+                set.add(word);
+            }
+        }
+        return ans;
+    }
 }
 //https://leetcode-cn.com/problems/all-oone-data-structure/ 全 O(1) 的数据结构
 class AllOne {

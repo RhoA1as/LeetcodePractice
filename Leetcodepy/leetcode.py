@@ -162,6 +162,46 @@ class Solution:
                 cnt += 1
         return cnt
 
+    # https://leetcode-cn.com/problems/longest-word-in-dictionary/ 词典中最长的单词
+    def longestWord(self, words: List[str]) -> str:
+        if not words:
+            return ''
+        root = Trie()
+        for word in words:
+            root.insert(word)
+        ans = ''
+        for word in words:
+            s, t = len(word), len(ans)
+            if root.search(word) and (s > t or (s == t and word < ans)):
+                ans = word
+        return ans
+
+
+# 字典树
+class Trie:
+    def __init__(self):
+        self.children = [None] * 26
+        self.is_end = False
+
+    def insert(self, s: str):
+        node = self
+        for ch in s:
+            idx = ord(ch) - ord('a')
+            if not node.children[idx]:
+                node.children[idx] = Trie()
+            node = node.children[idx]
+        node.is_end = True
+
+    def search(self, s: str) -> bool:
+        node = self
+        for ch in s:
+            idx = ord(ch) - ord('a')
+            # node.children[idx].is_end 单词逐步添加一个字母组成
+            if not (node.children[idx] and node.children[idx].is_end):
+                return False
+            node = node.children[idx]
+        return True
+
 
 # https://leetcode-cn.com/problems/all-oone-data-structure/ 全 O(1) 的数据结构
 class LfuNode:

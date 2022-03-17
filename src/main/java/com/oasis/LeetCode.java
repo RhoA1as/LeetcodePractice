@@ -2309,6 +2309,109 @@ public class LeetCode {
         return cnt;
     }
 }
+//https://leetcode-cn.com/problems/all-oone-data-structure/ 全 O(1) 的数据结构
+class AllOne {
+    Map<String,LfuNode> map;
+    LfuNode root;
+
+    public AllOne() {
+        map = new HashMap<>();
+        root = new LfuNode();
+        root.pre = root;
+        root.nxt = root;
+    }
+
+    public void inc(String key) {
+        if(!map.containsKey(key)){
+            if(root.nxt != root && root.nxt.cnt == 1){
+                root.nxt.list.add(key);
+                map.put(key, root.nxt);
+            }else {
+                LfuNode currNode = new LfuNode(key, 1);
+                root.insert(currNode);
+                map.put(key,currNode);
+            }
+        }else {
+            LfuNode lfuNode = map.get(key);
+            int cnt = lfuNode.cnt;
+            Set<String> list = lfuNode.list;
+            list.remove(key);
+            if(lfuNode.nxt != root && lfuNode.nxt.cnt == cnt + 1){
+                lfuNode.nxt.list.add(key);
+                map.put(key, lfuNode.nxt);
+            }else {
+                LfuNode currNode = new LfuNode(key, cnt + 1);
+                lfuNode.insert(currNode);
+                map.put(key,currNode);
+            }
+            if(list.isEmpty()){
+                lfuNode.remove();
+            }
+        }
+    }
+
+    public void dec(String key) {
+        if(!map.containsKey(key)){
+            return;
+        }
+        LfuNode lfuNode = map.get(key);
+        Set<String> list = lfuNode.list;
+        list.remove(key);
+        int cnt = lfuNode.cnt;
+        if(cnt - 1 != 0){
+            if(lfuNode.pre != root && lfuNode.pre.cnt == cnt - 1){
+                lfuNode.pre.list.add(key);
+                map.put(key,lfuNode.pre);
+            }else {
+                LfuNode currNode = new LfuNode(key, cnt - 1);
+                lfuNode.pre.insert(currNode);
+                map.put(key,currNode);
+            }
+        }else {
+            map.remove(key);
+        }
+        if(list.isEmpty()){
+            lfuNode.remove();
+        }
+    }
+
+    public String getMaxKey() {
+        return root.pre == root? "": root.pre.list.iterator().next();
+    }
+
+    public String getMinKey() {
+        return root.nxt == root? "": root.nxt.list.iterator().next();
+    }
+
+    class LfuNode{
+        Set<String> list;
+        int cnt;
+        LfuNode pre;
+        LfuNode nxt;
+
+        public LfuNode() {
+        }
+
+        public LfuNode(String s, int cnt){
+            list = new HashSet<>();
+            list.add(s);
+            this.cnt = cnt;
+        }
+
+        public void remove(){
+            pre.nxt = nxt;
+            nxt.pre = pre;
+        }
+
+        //在当前节点后插入
+        public void insert(LfuNode node){
+            node.nxt = nxt;
+            nxt.pre = node;
+            nxt = node;
+            node.pre = this;
+        }
+    }
+}
 
 //https://leetcode-cn.com/problems/shuffle-an-array/ 打乱数组
 class Solution {

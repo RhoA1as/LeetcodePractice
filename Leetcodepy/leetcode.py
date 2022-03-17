@@ -163,6 +163,80 @@ class Solution:
         return cnt
 
 
+# https://leetcode-cn.com/problems/all-oone-data-structure/ 全 O(1) 的数据结构
+class LfuNode:
+    def __init__(self, key='', cnt=1):
+        self.keys = {key}
+        self.cnt = cnt
+        self.pre = None
+        self.nxt = None
+
+    def remove(self):
+        self.pre.nxt = self.nxt
+        self.nxt.pre = self.pre
+
+    def insert(self, node: 'LfuNode') -> 'LfuNode':
+        node.nxt = self.nxt
+        self.nxt.pre = node
+        self.nxt = node
+        node.pre = self
+        return node
+
+    
+class AllOne:
+
+    def __init__(self):
+        self.root = LfuNode()
+        self.nodes = {}
+        self.root.pre = self.root
+        self.root.nxt = self.root
+
+    def inc(self, key: str) -> None:
+        if key in self.nodes:
+            lfu_node = self.nodes[key]
+            nxt = lfu_node.nxt
+            cnt = lfu_node.cnt
+            lfu_node.keys.discard(key)
+            if nxt is not self.root and nxt.cnt == cnt + 1:
+                nxt.keys.add(key)
+                self.nodes[key] = nxt
+            else:
+                self.nodes[key] = lfu_node.insert(LfuNode(key, cnt + 1))
+            if not lfu_node.keys:
+                lfu_node.remove()
+        else:
+            nxt = self.root.nxt
+            if nxt is not self.root and nxt.cnt == 1:
+                nxt.keys.add(key)
+                self.nodes[key] = nxt
+            else:
+                self.nodes[key] = self.root.insert(LfuNode(key))
+
+    def dec(self, key: str) -> None:
+        if key not in self.nodes:
+            return
+        lfu_node = self.nodes[key]
+        pre = lfu_node.pre
+        cnt = lfu_node.cnt
+        keys = lfu_node.keys
+        keys.discard(key)
+        if cnt == 1:
+            del self.nodes[key]
+        elif pre is not self.root and pre.cnt == cnt - 1:
+            pre.keys.add(key)
+            self.nodes[key] = pre
+        else:
+            self.nodes[key] = pre.insert(LfuNode(key, cnt - 1))
+        if not keys:
+            lfu_node.remove()
+
+    def getMaxKey(self) -> str:
+        return "" if self.root.pre is self.root else next(iter(self.root.pre.keys))
+
+    def getMinKey(self) -> str:
+        return "" if self.root.nxt is self.root else next(iter(self.root.nxt.keys))
+
+
 class Node:
     def __init__(self, val=None, children=None):
         self.val = val

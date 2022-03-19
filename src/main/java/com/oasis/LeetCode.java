@@ -2708,4 +2708,42 @@ class FizzBuzz {
             lock.unlock();
         }
     }
+
+    //https://leetcode-cn.com/problems/simple-bank-system/ 简易银行系统
+    class Bank {
+
+        private long[] mBalance;
+        private int cnt;
+
+        public Bank(long[] balance) {
+            mBalance = balance;
+            cnt = balance.length;
+        }
+
+        public boolean transfer(int account1, int account2, long money) {
+            if(isIllegalAccount(account1) || isIllegalAccount(account2)
+                    || mBalance[account1 - 1] < money){
+                return false;
+            }
+            mBalance[account1 - 1] -= money;
+            mBalance[account2 - 1] += money;
+            return true;
+        }
+
+        public boolean deposit(int account, long money) {
+            if(isIllegalAccount(account)) return false;
+            mBalance[account - 1] += money;
+            return true;
+        }
+
+        public boolean withdraw(int account, long money) {
+            if(isIllegalAccount(account) || mBalance[account - 1] < money) return false;
+            mBalance[account - 1] -= money;
+            return true;
+        }
+
+        public boolean isIllegalAccount(int account){
+            return account <= 0 || account > cnt;
+        }
+    }
 }

@@ -281,3 +281,34 @@ class Node:
     def __init__(self, val=None, children=None):
         self.val = val
         self.children = children
+
+
+# https://leetcode-cn.com/problems/simple-bank-system/ 简易银行系统
+class Bank:
+
+    def __init__(self, balance: List[int]):
+        self.balance = balance
+        self.cnt = len(balance)
+
+    def transfer(self, account1: int, account2: int, money: int) -> bool:
+        if self.is_illegal_account(account1) or self.is_illegal_account(account2) or \
+                self.balance[account1 - 1] < money:
+            return False
+        self.balance[account1 - 1] -= money
+        self.balance[account2 - 1] += money
+        return True
+
+    def deposit(self, account: int, money: int) -> bool:
+        if self.is_illegal_account(account):
+            return False
+        self.balance[account - 1] += money
+        return True
+
+    def withdraw(self, account: int, money: int) -> bool:
+        if self.is_illegal_account(account) or self.balance[account - 1] < money:
+            return False
+        self.balance[account - 1] -= money
+        return True
+
+    def is_illegal_account(self, account: int) -> bool:
+        return account > self.cnt or account <= 0

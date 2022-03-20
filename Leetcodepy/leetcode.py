@@ -3,7 +3,14 @@
 from functools import reduce
 from math import inf
 from operator import or_
-from typing import List
+from typing import List, Optional
+
+
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
 
 
 class Solution:
@@ -175,6 +182,16 @@ class Solution:
             if root.search(word) and (s > t or (s == t and word < ans)):
                 ans = word
         return ans
+
+    # https://leetcode-cn.com/problems/construct-string-from-binary-tree/ 根据二叉树创建字符串
+    def tree2str(self, root: Optional[TreeNode]) -> str:
+        if not root:
+            return ""
+        if not root.left and not root.right:
+            return str(root.val)
+        if not root.right:
+            return f"{root.val}({self.tree2str(root.left)})"
+        return f"{root.val}({self.tree2str(root.left)})({self.tree2str(root.right)})"
 
 
 # 字典树

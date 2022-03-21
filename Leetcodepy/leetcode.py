@@ -193,6 +193,38 @@ class Solution:
             return f"{root.val}({self.tree2str(root.left)})"
         return f"{root.val}({self.tree2str(root.left)})({self.tree2str(root.right)})"
 
+    # https://leetcode-cn.com/problems/two-sum-iv-input-is-a-bst/ 两数之和 IV - 输入 BST
+    def findTarget(self, root: Optional[TreeNode], k: int) -> bool:
+        if not root:
+            return False
+        left, right = [root], [root]
+        l, r = root, root
+        while l.left:
+            l = l.left
+            left.append(l)
+        while r.right:
+            r = r.right
+            right.append(r)
+        while l != r:
+            sum_val = l.val + r.val
+            if sum_val == k:
+                return True
+            elif sum_val < k:
+                left.pop()
+                node = l.right
+                while node:
+                    left.append(node)
+                    node = node.left
+                l = left[-1]
+            else:
+                right.pop()
+                node = r.left
+                while node:
+                    right.append(node)
+                    node = node.right
+                r = right[-1]
+        return False
+
 
 # 字典树
 class Trie:

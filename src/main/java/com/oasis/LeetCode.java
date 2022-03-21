@@ -2342,6 +2342,15 @@ public class LeetCode {
         return new StringBuilder().append(root.val).append("(").append(tree2str(root.left)).append(")(").
                 append(tree2str(root.right)).append(")").toString();
     }
+
+    //https://leetcode-cn.com/problems/two-sum-iv-input-is-a-bst/ 两数之和 IV - 输入 BST
+    Set<Integer> mValues = new HashSet<>();
+    public boolean findTarget(TreeNode root, int k) {
+        if(root == null) return false;
+        if(mValues.contains(k - root.val)) return true;
+        mValues.add(root.val);
+        return findTarget(root.left, k) || findTarget(root.right, k);
+    }
 }
 //https://leetcode-cn.com/problems/all-oone-data-structure/ 全 O(1) 的数据结构
 class AllOne {

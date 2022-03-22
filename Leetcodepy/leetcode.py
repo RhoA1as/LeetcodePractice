@@ -225,6 +225,21 @@ class Solution:
                 r = right[-1]
         return False
 
+    # https://leetcode-cn.com/problems/remove-colored-pieces-if-both-neighbors-are-the-same-color/ 如果相邻两个颜色均相同则删除当前颜色
+    def winnerOfGame(self, colors: str) -> bool:
+        if not colors:
+            return False
+        # 统计碎片
+        ans = [0] * 2
+        c, cnt = '', 1
+        for s in colors:
+            if s != c:
+                c, cnt = s, 1
+            else:
+                cnt += 1
+                if cnt >= 3:
+                    ans[ord(s) - ord('A')] += 1
+        return ans[0] > ans[1]
 
 # 字典树
 class Trie:

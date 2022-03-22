@@ -2351,6 +2351,36 @@ public class LeetCode {
         mValues.add(root.val);
         return findTarget(root.left, k) || findTarget(root.right, k);
     }
+
+    @Test
+    public void testWinnerOfGame(){
+        System.out.println(winnerOfGame("ABBBBBBBAAA"));
+    }
+
+    //https://leetcode-cn.com/problems/remove-colored-pieces-if-both-neighbors-are-the-same-color/ 如果相邻两个颜色均相同则删除当前颜色
+    public boolean winnerOfGame(String colors) {
+        if(colors == null || colors.length() == 0){
+            return false;
+        }
+        char c = colors.charAt(0);
+        int cnt = 1, n = colors.length(), a = 0, b = 0;
+        for (int i = 1; i < n; i++) {
+            char curr = colors.charAt(i);
+            if(curr != c){
+                c = curr;
+                cnt = 1;
+            } else {
+                if(++cnt >= 3){
+                    if(curr == 'A'){
+                        a++;
+                    }else {
+                        b++;
+                    }
+                }
+            }
+        }
+        return a > b;
+    }
 }
 //https://leetcode-cn.com/problems/all-oone-data-structure/ 全 O(1) 的数据结构
 class AllOne {

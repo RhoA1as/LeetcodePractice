@@ -2381,6 +2381,37 @@ public class LeetCode {
         }
         return a > b;
     }
+
+    //https://leetcode-cn.com/problems/k-th-smallest-in-lexicographical-order/ 字典序的第K小数字
+    public int findKthNumber(int n, int k) {
+        if (k > n){
+            return -1;
+        }
+        long prefix = 1, idx = 1;
+        while (idx < k){
+            long cnt = getCount(prefix, n);
+            long curr = idx + cnt;
+            if(curr <= k){
+                idx = curr;
+                prefix++;
+            }else if(curr > k){
+                idx++;
+                prefix *= 10;
+            }
+        }
+        return (int)prefix;
+    }
+
+    public long getCount(long prefix, long n){
+         long cnt = 0, l = prefix, r = prefix + 1;
+         while (l <= n){
+             long realR = Math.min(n + 1, r);
+             cnt += realR - l;
+             l *= 10;
+             r *= 10;
+         }
+         return cnt;
+    }
 }
 //https://leetcode-cn.com/problems/all-oone-data-structure/ 全 O(1) 的数据结构
 class AllOne {

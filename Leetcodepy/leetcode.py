@@ -241,6 +241,30 @@ class Solution:
                     ans[ord(s) - ord('A')] += 1
         return ans[0] > ans[1]
 
+    # https://leetcode-cn.com/problems/k-th-smallest-in-lexicographical-order/ 字典序的第K小数字
+    def findKthNumber(self, n: int, k: int) -> int:
+        idx, prefix = 1, 1
+        while idx < k:
+            cnt = self.get_cnt(prefix, n)
+            curr_idx = idx + cnt
+            if curr_idx <= k:
+                prefix += 1
+                idx = curr_idx
+            else:
+                prefix *= 10
+                idx += 1
+        return prefix
+
+    def get_cnt(self, prefix: int, n: int) -> int:
+        cnt, l, r = 0, prefix, prefix + 1
+        while l <= n:
+            real_right = min(r, n + 1)
+            cnt += real_right - l
+            l *= 10
+            r *= 10
+        return cnt
+
+
 # 字典树
 class Trie:
     def __init__(self):

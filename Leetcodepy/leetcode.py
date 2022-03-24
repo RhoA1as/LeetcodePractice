@@ -1,6 +1,7 @@
 # --*-- coding:utf-8 --*--
 # leetcode daily card
 from functools import reduce
+from itertools import product
 from math import inf
 from operator import or_
 from typing import List, Optional
@@ -263,6 +264,21 @@ class Solution:
             l *= 10
             r *= 10
         return cnt
+
+    # https://leetcode-cn.com/problems/image-smoother/ 图片平滑器
+    def imageSmoother(self, img: List[List[int]]) -> List[List[int]]:
+        m, n = len(img), len(img[0])
+        ans, prefix_sum = [[0] * n for _ in range(m)], [[0] * (n + 1) for _ in range(m + 1)]
+        for i, j in product(range(1, m + 1), range(1, n + 1)):
+            prefix_sum[i][j] = prefix_sum[i][j-1] + prefix_sum[i-1][j] - prefix_sum[i-1][j-1] + img[i-1][j-1]
+        for i, j in product(range(m), range(n)):
+            a, b = max(0, i - 1), max(0, j - 1)
+            c, d = min(i + 1, m - 1), min(j + 1, n - 1)
+            cnt = (c - a + 1) * (d - b + 1)
+            total = prefix_sum[c+1][d+1] - prefix_sum[a][d+1] - prefix_sum[c+1][b] + prefix_sum[a][b]
+            ans[i][j] = total // cnt
+        return ans
+
 
 
 # 字典树

@@ -2412,6 +2412,31 @@ public class LeetCode {
          }
          return cnt;
     }
+
+    //https://leetcode-cn.com/problems/image-smoother/ 图片平滑器
+    public int[][] imageSmoother(int[][] img) {
+        if(img == null || img.length == 0 || img[0].length == 0){
+            return new int[0][0];
+        }
+        int[][] dirs = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}, {-1, -1}, {-1, 1}, {1, -1}, {1, 1}};
+        int m = img.length, n = img[0].length;
+        int[][] ans = new int[m][n];
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                int sum = img[i][j], cnt = 1;
+                for (int[] dir : dirs) {
+                    int row = i + dir[0], col = j + dir[1];
+                    if(row < 0 || row >= m || col < 0 || col >= n){
+                        continue;
+                    }
+                    sum += img[row][col];
+                    cnt++;
+                }
+                ans[i][j] = sum / cnt;
+            }
+        }
+        return ans;
+    }
 }
 //https://leetcode-cn.com/problems/all-oone-data-structure/ 全 O(1) 的数据结构
 class AllOne {

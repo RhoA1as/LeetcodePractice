@@ -2437,6 +2437,16 @@ public class LeetCode {
         }
         return ans;
     }
+
+    //https://leetcode-cn.com/problems/factorial-trailing-zeroes/ 阶乘后的零
+    public int trailingZeroes(int n) {
+        int ans = 0;
+        while(n >= 5){
+            ans += n / 5;
+            n /= 5;
+        }
+        return ans;
+    }
 }
 //https://leetcode-cn.com/problems/all-oone-data-structure/ 全 O(1) 的数据结构
 class AllOne {

@@ -279,6 +279,13 @@ class Solution:
             ans[i][j] = total // cnt
         return ans
 
+    # https://leetcode-cn.com/problems/factorial-trailing-zeroes/ 阶乘后的零
+    def trailingZeroes(self, n: int) -> int:
+        ans = 0
+        while n >= 5:
+            ans += n // 5
+            n //= 5
+        return ans
 
 
 # 字典树

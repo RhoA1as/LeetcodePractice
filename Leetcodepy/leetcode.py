@@ -287,6 +287,28 @@ class Solution:
             n //= 5
         return ans
 
+    # https://leetcode-cn.com/problems/baseball-game/  棒球比赛
+    def calPoints(self, ops: List[str]) -> int:
+        if not ops:
+            return 0
+        cache, ans = [], 0
+        for op in ops:
+            if op == 'C':
+                ans -= cache.pop(-1)
+            elif op == 'D':
+                d = cache[-1] * 2
+                cache.append(d)
+                ans += d
+            elif op == '+':
+                p = cache[-1] + cache[-2]
+                cache.append(p)
+                ans += p
+            else:
+                val = int(op)
+                cache.append(val)
+                ans += val
+        return ans
+
 
 # 字典树
 class Trie:

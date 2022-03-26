@@ -2447,6 +2447,39 @@ public class LeetCode {
         }
         return ans;
     }
+
+    //https://leetcode-cn.com/problems/baseball-game/  棒球比赛
+    public int calPoints(String[] ops) {
+        if(ops == null || ops.length == 0){
+            return 0;
+        }
+        List<Integer> list = new ArrayList<>();
+        int ans = 0;
+        for (String op : ops) {
+            int n = list.size();
+            switch (op){
+                case "C":
+                    ans -= list.get(n-1);
+                    list.remove(n-1);
+                    break;
+                case "D":
+                    int d = list.get(n-1) * 2;
+                    list.add(d);
+                    ans += d;
+                    break;
+                case "+":
+                    int p = list.get(n-1) + list.get(n-2);
+                    list.add(p);
+                    ans += p;
+                    break;
+                default:
+                    int val = Integer.parseInt(op);
+                    list.add(val);
+                    ans += val;
+            }
+        }
+        return ans;
+    }
 }
 //https://leetcode-cn.com/problems/all-oone-data-structure/ 全 O(1) 的数据结构
 class AllOne {

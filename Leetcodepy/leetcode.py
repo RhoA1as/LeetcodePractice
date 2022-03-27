@@ -309,6 +309,17 @@ class Solution:
                 ans += val
         return ans
 
+    # https://leetcode-cn.com/problems/find-missing-observations/ 找出缺失的观测数据
+    def missingRolls(self, rolls: List[int], mean: int, n: int) -> List[int]:
+        if not rolls:
+            return []
+        curr_sum, m = sum(rolls), len(rolls)
+        miss_sum = (m + n) * mean - curr_sum
+        if not (n <= miss_sum <= 6 * n):
+            return []
+        val, rest = divmod(miss_sum, n)
+        return [val + 1] * rest + [val] * (n - rest)
+
 
 # 字典树
 class Trie:

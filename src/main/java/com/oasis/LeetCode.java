@@ -331,32 +331,19 @@ public class LeetCode {
     //https://leetcode-cn.com/problems/find-missing-observations/ 找出缺失的观测数据
     public int[] missingRolls(int[] rolls, int mean, int n) {
         if(rolls == null || rolls.length == 0 || n < 0){
-            return null;
+            return new int[0];
         }
-        int m = rolls.length, sum = 0;
-        int target = (m+n)*mean;
-        for (int i : rolls) {
-            sum += i;
-        }
-        if(sum + n*6 < target){
+        int m = rolls.length;
+        int currSum = Arrays.stream(rolls).sum();
+        int missSum = (m + n) * mean - currSum;
+        if(missSum < n || missSum > 6 * n){
             return new int[0];
         }
         int[] ans = new int[n];
-        int idx = 0, val = target - sum;
-        for (int j = 6; j >= 1; j--) {
-            if(idx == n){
-                break;
-            }
-            if(j > val || val - j < n-idx-1){
-                j = val - n + idx + 2;
-                continue;
-            }
-            ans[idx++] = j;
-            val -= j;
-            j++;
-        }
-        if(idx != n){
-            return new int[0];
+        int val = missSum / n;
+        int rest = missSum % n;
+        for (int i = 0; i < n; i++) {
+            ans[i] = val + (i < rest ? 1 : 0);
         }
         return ans;
     }

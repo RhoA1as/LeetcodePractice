@@ -2467,6 +2467,12 @@ public class LeetCode {
         }
         return ans;
     }
+
+    //https://leetcode-cn.com/problems/binary-number-with-alternating-bits/ 交替位二进制数
+    public boolean hasAlternatingBits(int n) {
+        int a = n ^ (n >> 1);
+        return (a & (a + 1)) == 0;
+    }
 }
 //https://leetcode-cn.com/problems/all-oone-data-structure/ 全 O(1) 的数据结构
 class AllOne {

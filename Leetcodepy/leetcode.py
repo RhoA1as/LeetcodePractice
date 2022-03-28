@@ -320,6 +320,11 @@ class Solution:
         val, rest = divmod(miss_sum, n)
         return [val + 1] * rest + [val] * (n - rest)
 
+    # https://leetcode-cn.com/problems/binary-number-with-alternating-bits/ 交替位二进制数
+    def hasAlternatingBits(self, n: int) -> bool:
+        a = n ^ (n >> 1)
+        return (a & (a + 1)) == 0
+
 
 # 字典树
 class Trie:

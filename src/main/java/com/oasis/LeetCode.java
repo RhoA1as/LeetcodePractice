@@ -2473,6 +2473,24 @@ public class LeetCode {
         int a = n ^ (n >> 1);
         return (a & (a + 1)) == 0;
     }
+
+    //https://leetcode-cn.com/problems/maximize-the-confusion-of-an-exam/ 考试的最大困扰度
+    public int maxConsecutiveAnswers(String answerKey, int k) {
+        if(answerKey == null || answerKey.length() == 0){
+            return 0;
+        }
+        return Math.max(findLen(answerKey, k, 'T'), findLen(answerKey, k, 'F'));
+    }
+
+    public int findLen(String answerKey, int k, char c){
+        int n = answerKey.length();
+        int i, j, v = 0;
+        for (i = 0, j = 0; i < n; i++) {
+            if(answerKey.charAt(i) == c) v++;
+            if(v > k && answerKey.charAt(j++) == c) v--;
+        }
+        return i - j + 1;
+    }
 }
 //https://leetcode-cn.com/problems/all-oone-data-structure/ 全 O(1) 的数据结构
 class AllOne {

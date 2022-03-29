@@ -325,6 +325,24 @@ class Solution:
         a = n ^ (n >> 1)
         return (a & (a + 1)) == 0
 
+    # https://leetcode-cn.com/problems/maximize-the-confusion-of-an-exam/ 考试的最大困扰度
+    def maxConsecutiveAnswers(self, answerKey: str, k: int) -> int:
+        if not answerKey:
+            return 0
+
+        def find_len(s: str) -> int:
+            i, j, v, n = 0, 0, 0, len(answerKey)
+            while i < n:
+                if answerKey[i] == s:
+                    v += 1
+                if v > k:
+                    if answerKey[j] == s:
+                        v -= 1
+                    j += 1
+                i += 1
+            return i - j
+        return max(find_len('T'), find_len('F'))
+
 
 # 字典树
 class Trie:

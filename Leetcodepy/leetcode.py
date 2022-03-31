@@ -1,10 +1,12 @@
 # --*-- coding:utf-8 --*--
 # leetcode daily card
 from functools import reduce
+from heapq import heappop, heappush
 from itertools import product
 from math import inf
 from operator import or_
 from typing import List, Optional
+from sortedcontainers import SortedList
 
 
 class TreeNode:
@@ -343,6 +345,26 @@ class Solution:
             return i - j
         return max(find_len('T'), find_len('F'))
 
+    # https://leetcode-cn.com/problems/find-servers-that-handled-most-number-of-requests/ 找到处理最多请求的服务器
+    def busiestServers(self, k: int, arrival: List[int], load: List[int]) -> List[int]:
+        cnts = [0] * k
+        busy = []
+        free = SortedList(range(k))
+        max_cnt = 0
+        for i in range(len(arrival)):
+            start = arrival[i]
+            end = start + load[i]
+            while busy and busy[0][0] <= start:
+                free.add(busy[0][1])
+                heappop(busy)
+            if (idx := free.bisect_left(i % k)) == len(free) == (idx := free.bisect_left(0)):
+                continue
+            work = free.pop(idx)
+            heappush(busy, (end, work))
+            cnts[work] += 1
+            max_cnt = max(max_cnt, cnts[work])
+        return [j for j in range(k) if cnts[j] == max_cnt]
+
 
 # 字典树
 class Trie:
@@ -479,3 +501,8 @@ class Bank:
 
     def is_illegal_account(self, account: int) -> bool:
         return account > self.cnt or account <= 0
+
+
+if __name__ == '__main__':
+    s = Solution()
+    print(s.busiestServers(3, [1, 2, 3, 4, 8, 9, 10], [5, 2, 10, 3, 1, 2, 2]))

@@ -2491,6 +2491,35 @@ public class LeetCode {
         }
         return i - j + 1;
     }
+
+    //https://leetcode-cn.com/problems/find-servers-that-handled-most-number-of-requests/ 找到处理最多请求的服务器
+    public List<Integer> busiestServers(int k, int[] arrival, int[] load) {
+        int[] cnts = new int[k];
+        PriorityQueue<int[]> busy = new PriorityQueue<>((a, b) -> a[1] - b[1]);
+        TreeSet<Integer> free = new TreeSet<>();
+        for (int i = 0; i < k; i++) {
+            free.add(i);
+        }
+        int n = arrival.length, max = 0;
+        for (int i = 0; i < n; i++) {
+            int start = arrival[i];
+            int end = start + load[i];
+            while (!busy.isEmpty() && busy.peek()[1] <= start){
+                free.add(busy.poll()[0]);
+            }
+            Integer idx = free.ceiling(i % k);
+            if(idx == null) idx = free.ceiling(0);
+            if(idx == null) continue;
+            free.remove(idx);
+            busy.add(new int[]{idx, end});
+            max = Math.max(max, ++cnts[idx]);
+        }
+        List<Integer> ans = new ArrayList<>();
+        for (int i = 0; i < k; i++) {
+            if(max == cnts[i]) ans.add(i);
+        }
+        return ans;
+    }
 }
 //https://leetcode-cn.com/problems/all-oone-data-structure/ 全 O(1) 的数据结构
 class AllOne {

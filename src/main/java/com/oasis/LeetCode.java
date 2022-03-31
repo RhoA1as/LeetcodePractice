@@ -2520,6 +2520,28 @@ public class LeetCode {
         }
         return ans;
     }
+
+    //https://leetcode-cn.com/problems/self-dividing-numbers/ 自除数
+    public List<Integer> selfDividingNumbers(int left, int right) {
+        List<Integer> ans = new ArrayList<>();
+        if(left > right){
+            return ans;
+        }
+        for (int i = left; i <= right; i++) {
+            boolean check = true;
+            int temp = i;
+            while (temp > 0){
+                int n = temp % 10;
+                if(n == 0 || i % n != 0){
+                    check = false;
+                    break;
+                }
+                temp /= 10;
+            }
+            if(check) ans.add(i);
+        }
+        return ans;
+    }
 }
 //https://leetcode-cn.com/problems/all-oone-data-structure/ 全 O(1) 的数据结构
 class AllOne {

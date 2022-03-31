@@ -365,6 +365,22 @@ class Solution:
             max_cnt = max(max_cnt, cnts[work])
         return [j for j in range(k) if cnts[j] == max_cnt]
 
+    # https://leetcode-cn.com/problems/self-dividing-numbers/ 自除数
+    def selfDividingNumbers(self, left: int, right: int) -> List[int]:
+        ans = []
+        if left > right:
+            return ans
+        for i in range(left, right + 1):
+            temp, flag = i, True
+            while temp:
+                temp, n = divmod(temp, 10)
+                if not (n and i % n == 0):
+                    flag = False
+                    break
+            if flag:
+                ans.append(i)
+        return ans
+
 
 # 字典树
 class Trie:

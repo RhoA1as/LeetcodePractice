@@ -381,6 +381,21 @@ class Solution:
                 ans.append(i)
         return ans
 
+    # https://leetcode-cn.com/problems/find-smallest-letter-greater-than-target/ 寻找比目标字母大的最小字母
+    def nextGreatestLetter(self, letters: List[str], target: str) -> str:
+        if not letters:
+            return ""
+        if ord(letters[-1]) <= ord(target):
+            return letters[0]
+        l, r = 0, len(letters) - 1
+        while l < r:
+            mid = (l + r) >> 1
+            if ord(letters[mid]) <= ord(target):
+                l = mid + 1
+            else:
+                r = mid
+        return letters[r]
+
 
 # 字典树
 class Trie:

@@ -2542,6 +2542,27 @@ public class LeetCode {
         }
         return ans;
     }
+
+    //https://leetcode-cn.com/problems/find-smallest-letter-greater-than-target/ 寻找比目标字母大的最小字母
+    public char nextGreatestLetter(char[] letters, char target) {
+        if(letters == null || letters.length == 0){
+            return ' ';
+        }
+        int n = letters.length;
+        if(letters[n-1] <= target){
+            return letters[0];
+        }
+        int l = 0, r = n - 1;
+        while(l < r){
+            int mid = l + (r - l) / 2;
+            if(letters[mid] <= target){
+                l = mid + 1;
+            }else {
+                r = mid;
+            }
+        }
+        return letters[r];
+    }
 }
 //https://leetcode-cn.com/problems/all-oone-data-structure/ 全 O(1) 的数据结构
 class AllOne {

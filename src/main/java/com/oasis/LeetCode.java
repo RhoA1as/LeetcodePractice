@@ -2563,6 +2563,31 @@ public class LeetCode {
         }
         return letters[r];
     }
+
+    @Test
+    public void testCanReorderDoubled(){
+        System.out.println(canReorderDoubled(new int[]{4, -2, 2, -4}));
+    }
+
+    //https://leetcode-cn.com/problems/array-of-doubled-pairs/ 二倍数对数组
+    public boolean canReorderDoubled(int[] arr) {
+        if(arr == null || arr.length == 0){
+            return false;
+        }
+        Map<Integer,Integer> cnt = new HashMap<>();
+        for (int i : arr) {
+            cnt.put(i, cnt.getOrDefault(i, 0) + 1);
+        }
+        List<Integer> nums = new ArrayList<>(cnt.keySet());
+        Collections.sort(nums, (a, b) -> Math.abs(a) - Math.abs(b));
+        System.out.println(nums);
+        for (Integer num : nums) {
+            int a = cnt.get(num), b = cnt.getOrDefault(2 * num, 0);
+            if(a > b) return false;
+            cnt.put(2 * num, b - a);
+        }
+        return true;
+    }
 }
 //https://leetcode-cn.com/problems/all-oone-data-structure/ 全 O(1) 的数据结构
 class AllOne {

@@ -1,5 +1,6 @@
 # --*-- coding:utf-8 --*--
 # leetcode daily card
+import collections
 from functools import reduce
 from heapq import heappop, heappush
 from itertools import product
@@ -396,6 +397,17 @@ class Solution:
                 r = mid
         return letters[r]
 
+    # https://leetcode-cn.com/problems/array-of-doubled-pairs/ 二倍数对数组
+    def canReorderDoubled(self, arr: List[int]) -> bool:
+        if not arr:
+            return False
+        num_map = collections.Counter(arr)
+        for num in sorted(num_map, key=abs):
+            if num_map[num] > num_map[2 * num]:
+                return False
+            num_map[2 * num] -= num_map[num]
+        return True
+
 
 # 字典树
 class Trie:
@@ -536,4 +548,7 @@ class Bank:
 
 if __name__ == '__main__':
     s = Solution()
-    print(s.busiestServers(3, [1, 2, 3, 4, 8, 9, 10], [5, 2, 10, 3, 1, 2, 2]))
+    c = collections.Counter("aaaaabbbcc")
+    print(c)
+    print(type(c))
+    print(sorted(c))

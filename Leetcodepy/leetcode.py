@@ -409,6 +409,39 @@ class Solution:
         return True
 
 
+# https://leetcode-cn.com/problems/range-sum-query-mutable/ 区域和检索 - 数组可修改
+class NumArray:
+
+    def __lowbit(self, x: int) -> int:
+        return x & -x
+
+    def __add(self, x: int, v: int):
+        while x <= self.n:
+            self.tree[x] += v
+            x += self.__lowbit(x)
+
+    def __query(self, x: int) -> int:
+        ans = 0
+        while x:
+            ans += self.tree[x]
+            x -= self.__lowbit(x)
+        return ans
+
+    def __init__(self, nums: List[int]):
+        self.nums = nums
+        self.n = len(nums)
+        self.tree = [0] * (self.n + 1)
+        for i, num in enumerate(nums, 1):
+            self.__add(i, num)
+
+    def update(self, index: int, val: int) -> None:
+        self.__add(index + 1, val - self.nums[index])
+        self.nums[index] = val
+
+    def sumRange(self, left: int, right: int) -> int:
+        return self.__query(right + 1) - self.__query(left)
+
+
 # 字典树
 class Trie:
     def __init__(self):

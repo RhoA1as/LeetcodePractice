@@ -2589,6 +2589,52 @@ public class LeetCode {
         return true;
     }
 }
+
+//https://leetcode-cn.com/problems/range-sum-query-mutable/ 区域和检索 - 数组可修改
+class NumArray {
+    int[] tree;
+    int n;
+    int[] mNums;
+
+    //树状数组
+    private int lowbit(int x){
+        return x & -x;
+    }
+
+    private void add(int x, int v){
+        for (int i = x; i <= n; i += lowbit(i)) {
+            tree[i] += v;
+        }
+    }
+
+    private int query(int x){
+        int ans = 0;
+        for (int i = x; i > 0; i -= lowbit(i)) {
+            ans += tree[i];
+        }
+        return ans;
+    }
+    //end
+
+    public NumArray(int[] nums) {
+        n = nums.length;
+        tree = new int[n+1];
+        mNums = nums;
+        for (int i = 0; i < n; i++) {
+            add(i + 1, mNums[i]);
+        }
+    }
+
+    public void update(int index, int val) {
+        add(index + 1, val - mNums[index]);
+        mNums[index] = val;
+    }
+
+    public int sumRange(int left, int right) {
+        return query(right + 1) - query(left);
+    }
+}
+
 //https://leetcode-cn.com/problems/all-oone-data-structure/ 全 O(1) 的数据结构
 class AllOne {
     Map<String,LfuNode> map;

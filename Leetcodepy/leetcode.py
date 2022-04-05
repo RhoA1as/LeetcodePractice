@@ -408,6 +408,20 @@ class Solution:
             num_map[2 * num] -= num_map[num]
         return True
 
+    # https://leetcode-cn.com/problems/prime-number-of-set-bits-in-binary-representation/ 二进制表示中质数个计算置位
+    def countPrimeSetBits(self, left: int, right: int) -> int:
+        return sum(self.isprime(i.bit_count()) for i in range(left, right + 1))
+
+    def isprime(self, x: int) -> bool:
+        if x < 2:
+            return False
+        i = 2
+        while i * i <= x:
+            if x % i == 0:
+                return False
+            i += 1
+        return True
+
 
 # https://leetcode-cn.com/problems/range-sum-query-mutable/ 区域和检索 - 数组可修改
 class NumArray:

@@ -2588,6 +2588,27 @@ public class LeetCode {
         }
         return true;
     }
+
+    //https://leetcode-cn.com/problems/prime-number-of-set-bits-in-binary-representation/ 二进制表示中质数个计算置位
+    static boolean[] hash = new boolean[32];
+    static {
+        int[] nums = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31};
+        for (int num : nums) {
+            hash[num] = true;
+        }
+    }
+    public int countPrimeSetBits(int left, int right) {
+        int ans = 0;
+        for (int i = left; i <= right; i++) {
+            int num = i, cnt = 0;
+            while (num > 0){
+                cnt++;
+                num -= num & -num;
+            }
+            if(hash[cnt]) ans++;
+        }
+        return ans;
+    }
 }
 
 //https://leetcode-cn.com/problems/range-sum-query-mutable/ 区域和检索 - 数组可修改

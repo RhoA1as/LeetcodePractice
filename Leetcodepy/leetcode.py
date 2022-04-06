@@ -445,6 +445,9 @@ class Solution:
                         dq.append(j)
         return ans
 
+    # https://leetcode-cn.com/problems/rotate-string/ 旋转字符串
+    def rotateString(self, s: str, goal: str) -> bool:
+        return len(s) == len(goal) and goal in (s + s)
 
 # https://leetcode-cn.com/problems/range-sum-query-mutable/ 区域和检索 - 数组可修改
 class NumArray:

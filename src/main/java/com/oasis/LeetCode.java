@@ -2645,6 +2645,11 @@ public class LeetCode {
         }
         return ans;
     }
+
+    //https://leetcode-cn.com/problems/rotate-string/ 旋转字符串
+    public boolean rotateString(String s, String goal) {
+        return s.length() == goal.length() && (s + s).contains(goal);
+    }
 }
 
 //https://leetcode-cn.com/problems/range-sum-query-mutable/ 区域和检索 - 数组可修改

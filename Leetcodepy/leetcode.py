@@ -422,6 +422,29 @@ class Solution:
             i += 1
         return True
 
+    # https://leetcode-cn.com/problems/minimum-height-trees/ 最小高度树
+    def findMinHeightTrees(self, n: int, edges: List[List[int]]) -> List[int]:
+        if n == 1:
+            return [0]
+        outs, ans = [0] * n, []
+        links = [[] for _ in range(n)]
+        for i, j in edges:
+            outs[i] += 1
+            outs[j] += 1
+            links[i].append(j)
+            links[j].append(i)
+        dq = [i for i in range(n) if outs[i] == 1]
+        while dq:
+            ans.clear()
+            size = len(dq)
+            for i in range(size):
+                t = dq.pop(0)
+                ans.append(t)
+                for j in links[t]:
+                    if --outs[j] == 1:
+                        dq.append(j)
+        return ans
+
 
 # https://leetcode-cn.com/problems/range-sum-query-mutable/ 区域和检索 - 数组可修改
 class NumArray:

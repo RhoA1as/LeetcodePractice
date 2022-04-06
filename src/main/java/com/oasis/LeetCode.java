@@ -2609,6 +2609,42 @@ public class LeetCode {
         }
         return ans;
     }
+
+    //https://leetcode-cn.com/problems/minimum-height-trees/ 最小高度树
+    public List<Integer> findMinHeightTrees(int n, int[][] edges) {
+        List<Integer> ans = new ArrayList<>();
+        if(n == 1){
+            ans.add(0);
+            return ans;
+        }
+        int[] outs = new int[n];
+        List<List<Integer>> links = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            links.add(new ArrayList<>());
+        }
+        for (int[] edge : edges) {
+            outs[edge[0]]++;
+            outs[edge[1]]++;
+            links.get(edge[0]).add(edge[1]);
+            links.get(edge[1]).add(edge[0]);
+        }
+        Deque<Integer> deque = new LinkedList<>();
+        for (int i = 0; i < n; i++) {
+            if(outs[i] == 1) deque.offer(i);
+        }
+        while (!deque.isEmpty()){
+            int size = deque.size();
+            ans.clear();
+            for (int i = 0; i < size; i++) {
+                int temp = deque.poll();
+                ans.add(temp);
+                for (Integer integer : links.get(temp)) {
+                    if(--outs[integer] == 1) deque.add(integer);
+                }
+            }
+        }
+        return ans;
+    }
 }
 
 //https://leetcode-cn.com/problems/range-sum-query-mutable/ 区域和检索 - 数组可修改

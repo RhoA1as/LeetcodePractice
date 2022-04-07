@@ -449,6 +449,25 @@ class Solution:
     def rotateString(self, s: str, goal: str) -> bool:
         return len(s) == len(goal) and goal in (s + s)
 
+    # https://leetcode-cn.com/problems/n-ary-tree-level-order-traversal/ N 叉树的层序遍历
+    def levelOrder(self, root: 'Node') -> List[List[int]]:
+        if not root:
+            return []
+        q = collections.deque([root])
+        ans = []
+        while q:
+            level = []
+            size = len(q)
+            for _ in range(size):
+                temp = q.popleft()
+                level.append(temp.val)
+                for child in temp.children:
+                    q.append(child)
+            ans.append(level)
+        return ans
+
+
+
 # https://leetcode-cn.com/problems/range-sum-query-mutable/ 区域和检索 - 数组可修改
 class NumArray:
 

@@ -2650,6 +2650,27 @@ public class LeetCode {
     public boolean rotateString(String s, String goal) {
         return s.length() == goal.length() && (s + s).contains(goal);
     }
+
+    //https://leetcode-cn.com/problems/n-ary-tree-level-order-traversal/ N 叉树的层序遍历
+    public List<List<Integer>> levelOrder(Node root) {
+        List<List<Integer>> ans = new ArrayList<>();
+        if(root == null) return ans;
+        Deque<Node> deque = new LinkedList<>();
+        deque.offer(root);
+        while (!deque.isEmpty()){
+            List<Integer> curr_level = new ArrayList<>();
+            int size = deque.size();
+            for (int i = 0; i < size; i++) {
+                Node temp = deque.poll();
+                curr_level.add(temp.val);
+                for (Node child : temp.children) {
+                    deque.offer(child);
+                }
+            }
+            ans.add(curr_level);
+        }
+        return ans;
+    }
 }
 
 //https://leetcode-cn.com/problems/range-sum-query-mutable/ 区域和检索 - 数组可修改

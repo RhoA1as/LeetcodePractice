@@ -2671,6 +2671,23 @@ public class LeetCode {
         }
         return ans;
     }
+
+    //https://leetcode-cn.com/problems/unique-morse-code-words/ 唯一摩尔斯密码词
+    public int uniqueMorseRepresentations(String[] words) {
+        String[] mapping = new String[]{".-","-...","-.-.","-..",".","..-.","--.","....","..",".---","-.-",".-..","--","-.","---",".--.","--.-",".-.","...","-","..-","...-",".--","-..-","-.--","--.."};
+        if(words == null || words.length == 0){
+            return 0;
+        }
+        Set<String> set = new HashSet<>();
+        for (String word : words) {
+            StringBuilder sb = new StringBuilder();
+            for (char c : word.toCharArray()) {
+                sb.append(mapping[c-'a']);
+            }
+            set.add(sb.toString());
+        }
+        return set.size();
+    }
 }
 
 //https://leetcode-cn.com/problems/range-sum-query-mutable/ 区域和检索 - 数组可修改

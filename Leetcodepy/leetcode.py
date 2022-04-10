@@ -24,11 +24,11 @@ class Solution:
         left = [0] * n
         right = [0] * n
         for i in range(1, n):
-            if security[i] <= security[i-1]:
-                left[i] = left[i-1] + 1
-            if security[n-i-1] <= security[n-i]:
-                right[n-i-1] = right[n-i] + 1
-        return [i for i in range(time, n-time) if left[i] >= time and right[i] >= time]
+            if security[i] <= security[i - 1]:
+                left[i] = left[i - 1] + 1
+            if security[n - i - 1] <= security[n - i]:
+                right[n - i - 1] = right[n - i] + 1
+        return [i for i in range(time, n - time) if left[i] >= time and right[i] >= time]
 
     # https://leetcode-cn.com/problems/base-7/ 七进制数
     def convertToBase7(self, num: int) -> str:
@@ -58,9 +58,9 @@ class Solution:
             if s[i] == '|':
                 l = i
             left[i] = l
-            if s[n-i-1] == '|':
-                r = n-i-1
-            right[n-i-1] = r
+            if s[n - i - 1] == '|':
+                r = n - i - 1
+            right[n - i - 1] = r
         for i, j in queries:
             x, y = right[i], left[j]
             ans.append(0 if x == -1 or y == -1 or x >= y else pre_sum[y] - pre_sum[x])
@@ -71,12 +71,12 @@ class Solution:
         mod = int(1e9 + 7)
         temp_nums = sorted(nums)
         n = len(temp_nums)
-        res, l, r = 0, 0, n-1
+        res, l, r = 0, 0, n - 1
         while l <= r:
             if temp_nums[l] + temp_nums[r] > target:
                 r -= 1
             else:
-                res = (res + self.quick_pow(2, r-l, mod)) % mod
+                res = (res + self.quick_pow(2, r - l, mod)) % mod
                 l += 1
         return int(res % mod)
 
@@ -85,7 +85,7 @@ class Solution:
         while n:
             if n & 1:
                 res = (res * a) % mod
-            a = (a % mod)**2 % mod
+            a = (a % mod) ** 2 % mod
             n >>= 1
         return res
 
@@ -126,6 +126,7 @@ class Solution:
             elif curr_val > max_val:
                 max_val, cnt = curr_val, 1
             return total
+
         dfs(0)
         return cnt
 
@@ -273,12 +274,13 @@ class Solution:
         m, n = len(img), len(img[0])
         ans, prefix_sum = [[0] * n for _ in range(m)], [[0] * (n + 1) for _ in range(m + 1)]
         for i, j in product(range(1, m + 1), range(1, n + 1)):
-            prefix_sum[i][j] = prefix_sum[i][j-1] + prefix_sum[i-1][j] - prefix_sum[i-1][j-1] + img[i-1][j-1]
+            prefix_sum[i][j] = prefix_sum[i][j - 1] + prefix_sum[i - 1][j] - prefix_sum[i - 1][j - 1] + img[i - 1][
+                j - 1]
         for i, j in product(range(m), range(n)):
             a, b = max(0, i - 1), max(0, j - 1)
             c, d = min(i + 1, m - 1), min(j + 1, n - 1)
             cnt = (c - a + 1) * (d - b + 1)
-            total = prefix_sum[c+1][d+1] - prefix_sum[a][d+1] - prefix_sum[c+1][b] + prefix_sum[a][b]
+            total = prefix_sum[c + 1][d + 1] - prefix_sum[a][d + 1] - prefix_sum[c + 1][b] + prefix_sum[a][b]
             ans[i][j] = total // cnt
         return ans
 
@@ -344,6 +346,7 @@ class Solution:
                     j += 1
                 i += 1
             return i - j
+
         return max(find_len('T'), find_len('F'))
 
     # https://leetcode-cn.com/problems/find-servers-that-handled-most-number-of-requests/ 找到处理最多请求的服务器
@@ -466,6 +469,13 @@ class Solution:
             ans.append(level)
         return ans
 
+    # https://leetcode-cn.com/problems/unique-morse-code-words/ 唯一摩尔斯密码词
+    def uniqueMorseRepresentations(self, words: List[str]) -> int:
+        if not words:
+            return 0
+        mapping = [".-", "-...", "-.-.", "-..", ".", "..-.", "--.", "....", "..", ".---", "-.-", ".-..", "--", "-.",
+                   "---", ".--.", "--.-", ".-.", "...", "-", "..-", "...-", ".--", "-..-", "-.--", "--.."]
+        return len(set("".join(mapping[ord(ch) - ord('a')] for ch in word) for word in words))
 
 
 # https://leetcode-cn.com/problems/range-sum-query-mutable/ 区域和检索 - 数组可修改
@@ -546,7 +556,7 @@ class LfuNode:
         node.pre = self
         return node
 
-    
+
 class AllOne:
 
     def __init__(self):

@@ -2688,6 +2688,20 @@ public class LeetCode {
         }
         return set.size();
     }
+
+    //https://leetcode-cn.com/problems/count-numbers-with-unique-digits/ 统计各位数字都不同的数字个数
+    public int countNumbersWithUniqueDigits(int n) {
+        if(n == 0){
+            return 1;
+        }
+        int ans = 10;
+        for (int i = 1, prev = 9; i < n; i++) {
+            int curr = prev * (10 - i);
+            ans += curr;
+            prev = curr;
+        }
+        return ans;
+    }
 }
 
 //https://leetcode-cn.com/problems/range-sum-query-mutable/ 区域和检索 - 数组可修改

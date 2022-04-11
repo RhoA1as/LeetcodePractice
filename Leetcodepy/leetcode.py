@@ -477,6 +477,16 @@ class Solution:
                    "---", ".--.", "--.-", ".-.", "...", "-", "..-", "...-", ".--", "-..-", "-.--", "--.."]
         return len(set("".join(mapping[ord(ch) - ord('a')] for ch in word) for word in words))
 
+    # https://leetcode-cn.com/problems/count-numbers-with-unique-digits/ 统计各位数字都不同的数字个数
+    def countNumbersWithUniqueDigits(self, n: int) -> int:
+        if n == 0:
+            return 1
+        ans, curr = 10, 9
+        for i in range(n-1):
+            curr *= (10 - i - 1)
+            ans += curr
+        return ans
+
 
 # https://leetcode-cn.com/problems/range-sum-query-mutable/ 区域和检索 - 数组可修改
 class NumArray:

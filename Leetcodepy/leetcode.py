@@ -487,6 +487,19 @@ class Solution:
             ans += curr
         return ans
 
+    # https://leetcode-cn.com/problems/number-of-lines-to-write-string/ 写字符串需要的行数
+    def numberOfLines(self, widths: List[int], s: str) -> List[int]:
+        if not s:
+            return [0, 0]
+        cursor, lines = 0, 1
+        for ch in s:
+            t = widths[ord(ch) - ord('a')]
+            cursor += t
+            if cursor > 100:
+                cursor = t
+                lines += 1
+        return [lines, cursor]
+
 
 # https://leetcode-cn.com/problems/range-sum-query-mutable/ 区域和检索 - 数组可修改
 class NumArray:

@@ -2702,6 +2702,19 @@ public class LeetCode {
         }
         return ans;
     }
+
+    //https://leetcode-cn.com/problems/number-of-lines-to-write-string/ 写字符串需要的行数
+    public int[] numberOfLines(int[] widths, String s) {
+        if(s == null || s.length() == 0){
+            return new int[]{0, 0};
+        }
+        int cursor = 0, lines = 1;
+        for (char c : s.toCharArray()) {
+            cursor += widths[c - 'a'];
+            if(cursor > 100 && ++lines > 0) cursor = widths[c - 'a'];
+        }
+        return new int[]{lines, cursor};
+    }
 }
 
 //https://leetcode-cn.com/problems/range-sum-query-mutable/ 区域和检索 - 数组可修改

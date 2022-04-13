@@ -2717,6 +2717,47 @@ public class LeetCode {
     }
 }
 
+//https://leetcode-cn.com/problems/insert-delete-getrandom-o1/ O(1) 时间插入、删除和获取随机元素
+class RandomizedSet {
+    Map<Integer,Integer> mIndices;
+    List<Integer> mNums;
+    Random mRandom;
+
+    public RandomizedSet() {
+        mIndices = new HashMap<>();
+        mNums = new ArrayList<>();
+        mRandom = new Random();
+    }
+
+    public boolean insert(int val) {
+        if(mIndices.containsKey(val)){
+            return false;
+        }
+        mIndices.put(val, mNums.size());
+        mNums.add(val);
+        return true;
+    }
+
+    public boolean remove(int val) {
+        if(!mIndices.containsKey(val)){
+            return false;
+        }
+        int idx = mIndices.remove(val);
+        int size = mNums.size();
+        if(idx != size - 1) {
+            int last = mNums.get(size - 1);
+            mIndices.put(last, idx);
+            mNums.set(idx, last);
+        }
+        mNums.remove(size - 1);
+        return true;
+    }
+
+    public int getRandom() {
+        return mNums.get(mRandom.nextInt(mNums.size()));
+    }
+}
+
 //https://leetcode-cn.com/problems/range-sum-query-mutable/ 区域和检索 - 数组可修改
 class NumArray {
     int[] tree;

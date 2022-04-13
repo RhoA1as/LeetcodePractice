@@ -6,6 +6,7 @@ from heapq import heappop, heappush
 from itertools import product
 from math import inf
 from operator import or_
+from random import choice
 from typing import List, Optional
 from sortedcontainers import SortedList
 
@@ -499,6 +500,34 @@ class Solution:
                 cursor = t
                 lines += 1
         return [lines, cursor]
+
+
+# https://leetcode-cn.com/problems/insert-delete-getrandom-o1/ O(1) 时间插入、删除和获取随机元素
+class RandomizedSet:
+
+    def __init__(self):
+        self.nums = []
+        self.indices = {}
+
+    def insert(self, val: int) -> bool:
+        if val in self.indices:
+            return False
+        self.indices[val] = len(self.nums)
+        self.nums.append(val)
+        return True
+
+    def remove(self, val: int) -> bool:
+        if val not in self.indices:
+            return False
+        idx, last = self.indices[val], self.nums[-1]
+        self.nums[idx] = last
+        self.nums.pop()
+        self.indices[last] = idx
+        del self.indices[val]
+        return True
+
+    def getRandom(self) -> int:
+        return choice(self.nums)
 
 
 # https://leetcode-cn.com/problems/range-sum-query-mutable/ 区域和检索 - 数组可修改

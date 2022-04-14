@@ -2715,6 +2715,18 @@ public class LeetCode {
         }
         return new int[]{lines, cursor};
     }
+
+    //https://leetcode-cn.com/problems/richest-customer-wealth/ 最富有客户的资产总量
+    public int maximumWealth(int[][] accounts) {
+        if(accounts == null || accounts.length == 0 || accounts[0].length == 0){
+            return 0;
+        }
+        int ans = 0;
+        for (int[] account : accounts) {
+            ans = Math.max(ans, Arrays.stream(account).sum());
+        }
+        return ans;
+    }
 }
 
 //https://leetcode-cn.com/problems/insert-delete-getrandom-o1/ O(1) 时间插入、删除和获取随机元素

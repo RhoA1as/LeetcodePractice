@@ -501,6 +501,12 @@ class Solution:
                 lines += 1
         return [lines, cursor]
 
+    # https://leetcode-cn.com/problems/richest-customer-wealth/ 最富有客户的资产总量
+    def maximumWealth(self, accounts: List[List[int]]) -> int:
+        if not accounts:
+            return 0
+        return max(map(sum, accounts))
+
 
 # https://leetcode-cn.com/problems/insert-delete-getrandom-o1/ O(1) 时间插入、删除和获取随机元素
 class RandomizedSet:
@@ -706,3 +712,5 @@ if __name__ == '__main__':
     print(c)
     print(type(c))
     print(sorted(c))
+    m = map(str, range(10))
+    print(list(m))

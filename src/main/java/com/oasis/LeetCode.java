@@ -2764,6 +2764,45 @@ public class LeetCode {
         }
         return stack.pop();
     }
+
+    @Test
+    public void testMostCommonWord(){
+        System.out.println(mostCommonWord("Bob. hIt, baLl", new String[]{"bob", "hit"}));
+    }
+
+    //https://leetcode-cn.com/problems/most-common-word/ 最常见的单词
+    public String mostCommonWord(String paragraph, String[] banned) {
+        if(paragraph == null || paragraph.length() == 0){
+            return "";
+        }
+        String ans = "";
+        int max = 0;
+        paragraph = paragraph + " ";
+        Set<String> set = new HashSet<>();
+        Map<String,Integer> cnts = new HashMap<>();
+        for (String s : banned) {
+            set.add(s);
+        }
+        int n = paragraph.length(), idx = -1;
+        for (int i = 0; i < n; i++) {
+            char c = paragraph.charAt(i);
+            if(Character.isLetter(c)) continue;
+            if(i == 0 || !Character.isLetter(paragraph.charAt(i - 1))) {
+                idx = i;
+                continue;
+            }
+            String str = paragraph.substring(++idx, i).toLowerCase();
+            idx = i;
+            if(set.contains(str)) continue;
+            int val = cnts.getOrDefault(str, 0);
+            if(++val > max){
+                max = val;
+                ans = str;
+            }
+            cnts.put(str, val);
+        }
+        return ans;
+    }
 }
 
 class ThreadUtils{

@@ -507,6 +507,23 @@ class Solution:
             return 0
         return max(map(sum, accounts))
 
+    # https://leetcode-cn.com/problems/most-common-word/ 最常见的单词
+    def mostCommonWord(self, paragraph: str, banned: List[str]) -> str:
+        if not paragraph:
+            return ''
+        ban = set(banned)
+        st, n = '', len(paragraph)
+        cnt = collections.Counter()
+        for i in range(n + 1):
+            if i < n and paragraph[i].isalpha():
+                st += paragraph[i].lower()
+            elif st:
+                if st not in ban:
+                    cnt[st] += 1
+                st = ''
+        maxFreq = max(cnt.values())
+        return next(st for st, val in cnt.items() if val == maxFreq)
+
 
 # https://leetcode-cn.com/problems/insert-delete-getrandom-o1/ O(1) 时间插入、删除和获取随机元素
 class RandomizedSet:

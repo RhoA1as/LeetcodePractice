@@ -2,6 +2,10 @@ package com.oasis;
 
 import java.time.LocalDate;
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.FutureTask;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.IntConsumer;
@@ -2727,6 +2731,69 @@ public class LeetCode {
         }
         return ans;
     }
+
+    //https://leetcode-cn.com/problems/mini-parser/ 迷你语法分析器
+    public NestedInteger deserialize(String s) {
+        if(s.charAt(0) != '['){
+            return new NestedInteger(Integer.parseInt(s));
+        }
+        Stack<NestedInteger> stack = new Stack<>();
+        int n = s.length();
+        int num = 0;
+        boolean negative = false;
+        for (int i = 0; i < n; i++) {
+            char c = s.charAt(i);
+            if(c == '['){
+                stack.push(new NestedInteger());
+            }else if(c == '-'){
+                negative = true;
+            }else if(Character.isDigit(c)){
+                num = num * 10 + c - '0';
+            }else if(c == ',' || c == ']'){
+                if(Character.isDigit(s.charAt(i-1))){
+                    if(negative) num *= -1;
+                    stack.peek().add(new NestedInteger(num));
+                }
+                num = 0;
+                negative = false;
+                if(stack.size() > 1 && c == ']'){
+                    NestedInteger e = stack.pop();
+                    stack.peek().add(e);
+                }
+            }
+        }
+        return stack.pop();
+    }
+}
+
+class ThreadUtils{
+    private static volatile ThreadUtils instance;
+    private static ExecutorService pool = Executors.newFixedThreadPool(10);
+    private ThreadUtils(){}
+    public static ThreadUtils getInstance(){
+        if(instance == null){
+            synchronized (ThreadUtils.class){
+                if(instance == null){
+                    instance = new ThreadUtils();
+                }
+            }
+        }
+        return instance;
+    }
+    public static void doInBackground(Runnable runnable){
+        doInBackground(null, runnable);
+    }
+
+    public static void doInBackground(Callback callback, Runnable runnable){
+        pool.execute(() -> {
+            runnable.run();
+            if(callback != null) callback.onExecute();
+        });
+    }
+
+    public interface Callback{
+       void onExecute();
+    }
 }
 
 //https://leetcode-cn.com/problems/insert-delete-getrandom-o1/ O(1) 时间插入、删除和获取随机元素
@@ -3233,4 +3300,22 @@ class FizzBuzz {
             return account <= 0 || account > cnt;
         }
     }
+}
+
+class NestedInteger{
+    int val;
+    List<Integer> lst;
+
+    public NestedInteger(List<Integer> lst) {
+        this.lst = lst;
+    }
+
+    public NestedInteger(int val) {
+        this.val = val;
+    }
+
+    public NestedInteger() {
+    }
+
+    public void add(NestedInteger i){}
 }

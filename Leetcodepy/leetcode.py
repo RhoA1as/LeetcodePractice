@@ -524,6 +524,20 @@ class Solution:
         maxFreq = max(cnt.values())
         return next(st for st, val in cnt.items() if val == maxFreq)
 
+    # https://leetcode-cn.com/problems/lexicographical-numbers/ 字典序排数
+    def lexicalOrder(self, n: int) -> List[int]:
+        ans = []
+        num = 1
+        for _ in range(n):
+            ans.append(num)
+            if num * 10 <= n:
+                num *= 10
+            else:
+                while num % 10 == 9 or num + 1 > n:
+                    num //= 10
+                num += 1
+        return ans
+
 
 # https://leetcode-cn.com/problems/insert-delete-getrandom-o1/ O(1) 时间插入、删除和获取随机元素
 class RandomizedSet:

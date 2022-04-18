@@ -2803,6 +2803,24 @@ public class LeetCode {
         }
         return ans;
     }
+
+    //https://leetcode-cn.com/problems/lexicographical-numbers/ 字典序排数
+    public List<Integer> lexicalOrder(int n) {
+        List<Integer> ans = new ArrayList<>();
+        int curr = 1;
+        for (int i = 0; i < n; i++) {
+            ans.add(curr);
+            if(curr * 10 <= n){
+                curr *= 10;
+            }else{
+                while (curr % 10 == 9 || curr + 1 > n){
+                    curr /= 10;
+                }
+                curr++;
+            }
+        }
+        return ans;
+    }
 }
 
 class ThreadUtils{

@@ -2821,6 +2821,27 @@ public class LeetCode {
         }
         return ans;
     }
+
+    //https://leetcode-cn.com/problems/shortest-distance-to-a-character/ 字符的最短距离
+    public int[] shortestToChar(String s, char c) {
+        if(s == null || s.length() == 0 || s.indexOf(c) == -1){
+            return new int[0];
+        }
+        int n = s.length();
+        int[] ans = new int[n];
+        int idx = -n;
+        for (int i = 0; i < n; i++) {
+            if(s.charAt(i) == c) idx = i;
+            ans[i] = i - idx;
+        }
+        idx = 2 * n;
+        for (int i = n - 1; i >= 0; i--) {
+            if(s.charAt(i) == c) idx = i;
+            ans[i] = Math.min(ans[i], idx - i);
+
+        }
+        return ans;
+    }
 }
 
 class ThreadUtils{

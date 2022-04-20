@@ -554,6 +554,24 @@ class Solution:
             ans[i] = min(ans[i], idx - i)
         return ans
 
+    # https://leetcode-cn.com/problems/longest-absolute-file-path/ 文件的最长绝对路径
+    def lengthLongestPath(self, input: str) -> int:
+        if not str:
+            return 0
+        stack = []
+        ans = 0
+        dirs = input.split('\n')
+        for d in dirs:
+            level = d.count('\t')
+            while len(stack) > level:
+                stack.pop()
+            lens = len(d) - level + (0 if len(stack) == 0 else stack[-1])
+            if '.' in d:
+                ans = max(ans, lens + level)
+            stack.append(lens)
+        return ans
+
+
 # https://leetcode-cn.com/problems/insert-delete-getrandom-o1/ O(1) 时间插入、删除和获取随机元素
 class RandomizedSet:
 

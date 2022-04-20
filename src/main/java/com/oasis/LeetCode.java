@@ -2842,6 +2842,35 @@ public class LeetCode {
         }
         return ans;
     }
+
+    //https://leetcode-cn.com/problems/longest-absolute-file-path/ 文件的最长绝对路径
+    public int lengthLongestPath(String input) {
+        if(input == null || input.length() == 0){
+            return 0;
+        }
+        int ans = 0;
+        String[] strs = input.split("\n");
+        Stack<Integer> stack = new Stack<>();
+        for (String str : strs) {
+            int level = getLevel(str);
+            while(stack.size() > level) stack.pop();
+            int len = str.length() - level + (stack.isEmpty() ? 0 : stack.peek());
+            if(str.contains(".")){
+                ans = Math.max(ans, len + level);
+            }
+            stack.push(len);
+        }
+        return ans;
+    }
+
+    public int getLevel(String s){
+        int n = s.length(), level = 0;
+        for (int i = 0; i < n; i++) {
+            if(s.charAt(i) != '\t') break;
+            level++;
+        }
+        return level;
+    }
 }
 
 class ThreadUtils{

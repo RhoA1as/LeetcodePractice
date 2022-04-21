@@ -571,6 +571,20 @@ class Solution:
             stack.append(lens)
         return ans
 
+    # https://leetcode-cn.com/problems/goat-latin/ 山羊拉丁文
+    def toGoatLatin(self, sentence: str) -> str:
+        if not sentence:
+            return sentence
+        ans = []
+        la = {'a', 'e', 'i', 'o', 'u'}
+        words = sentence.split(" ")
+        for i, word in enumerate(words):
+            if word[0].lower() not in la:
+                word = word[1:] + word[0]
+            word += ('ma' + 'a' * (i + 1))
+            ans.append(word)
+        return " ".join(ans)
+
 
 # https://leetcode-cn.com/problems/insert-delete-getrandom-o1/ O(1) 时间插入、删除和获取随机元素
 class RandomizedSet:
@@ -772,9 +786,4 @@ class Bank:
 
 if __name__ == '__main__':
     s = Solution()
-    c = collections.Counter("aaaaabbbcc")
-    print(c)
-    print(type(c))
-    print(sorted(c))
-    m = map(str, range(10))
-    print(list(m))
+    print(s.toGoatLatin("I speak Goat Latin"))

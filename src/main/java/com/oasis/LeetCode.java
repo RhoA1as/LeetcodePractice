@@ -2871,6 +2871,30 @@ public class LeetCode {
         }
         return level;
     }
+
+    //https://leetcode-cn.com/problems/goat-latin/ 山羊拉丁文
+    public String toGoatLatin(String sentence) {
+        if(sentence == null || sentence.length() == 0){
+            return sentence;
+        }
+        StringBuilder ans = new StringBuilder();
+        String[] strs = sentence.split("\\s");
+        int n = strs.length;
+        for (int i = 0; i < n; i++) {
+            StringBuilder builder = new StringBuilder(strs[i]);
+            if("aeiouAEIOU".indexOf(builder.charAt(0)) == -1){
+                builder.append(builder.charAt(0));
+                builder = builder.deleteCharAt(0);
+            }
+            builder.append("ma");
+            for (int j = 0; j <= i; j++) {
+                builder.append("a");
+            }
+            ans.append(builder.toString());
+            if(i != n-1) ans.append(" ");
+        }
+        return ans.toString();
+    }
 }
 
 class ThreadUtils{

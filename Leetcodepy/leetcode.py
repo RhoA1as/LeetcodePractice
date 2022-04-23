@@ -585,6 +585,18 @@ class Solution:
             ans.append(word)
         return " ".join(ans)
 
+    # https://leetcode-cn.com/problems/goat-latin/ 旋转函数
+    def maxRotateFunction(self, nums: List[int]) -> int:
+        if not nums:
+            return 0;
+        s, n = sum(nums), len(nums)
+        f = sum(i * nums[i] for i in range(n))
+        ans = f
+        for i in range(1, n):
+            f += s - n * nums[n-i]
+            ans = max(ans, f)
+        return ans
+
 
 # https://leetcode-cn.com/problems/insert-delete-getrandom-o1/ O(1) 时间插入、删除和获取随机元素
 class RandomizedSet:

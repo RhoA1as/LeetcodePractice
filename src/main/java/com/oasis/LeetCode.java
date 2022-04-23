@@ -2895,6 +2895,23 @@ public class LeetCode {
         }
         return ans.toString();
     }
+
+    //https://leetcode-cn.com/problems/goat-latin/ 旋转函数
+    public int maxRotateFunction(int[] nums) {
+        if(nums == null || nums.length == 0){
+            return 0;
+        }
+        int n = nums.length, f = 0, sum = Arrays.stream(nums).sum();
+        for (int i = 0; i < n; i++) {
+            f += i * nums[i];
+        }
+        int ans = f;
+        for (int i = 1; i < n; i++) {
+            f += sum - n * nums[n-i];
+            ans = Math.max(f, ans);
+        }
+        return ans;
+    }
 }
 
 class ThreadUtils{

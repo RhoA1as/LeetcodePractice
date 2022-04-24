@@ -597,6 +597,18 @@ class Solution:
             ans = max(ans, f)
         return ans
 
+    # https://leetcode-cn.com/problems/binary-gap/ 二进制间距
+    def binaryGap(self, n: int) -> int:
+        ans, idx, last = 0, 0, -1
+        while n:
+            if n & 1:
+                if last != -1:
+                    ans = max(ans, idx - last)
+                last = idx
+            idx += 1
+            n >>= 1
+        return ans
+
 
 # https://leetcode-cn.com/problems/insert-delete-getrandom-o1/ O(1) 时间插入、删除和获取随机元素
 class RandomizedSet:

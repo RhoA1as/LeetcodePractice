@@ -3201,6 +3201,30 @@ class Solution2{
     }
 }
 
+//https://leetcode-cn.com/problems/random-pick-index/ 随机数索引
+class Solution3{
+
+    private int[] mNums;
+    private Random random;
+    public Solution3(int[] nums) {
+        mNums = nums;
+        random = new Random();
+    }
+
+    public int pick(int target) {
+        int cnt = 0, ans = 0, n = mNums.length;
+        for (int i = 0; i < n; i++) {
+            if(mNums[i] == target){
+                cnt++;
+                if(random.nextInt(cnt) == 0){
+                    ans = i;
+                }
+            }
+        }
+        return ans;
+    }
+}
+
 class Node {
     public int val;
     public List<Node> children;

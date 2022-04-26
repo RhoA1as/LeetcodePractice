@@ -609,6 +609,15 @@ class Solution:
             n >>= 1
         return ans
 
+    # https://leetcode-cn.com/problems/projection-area-of-3d-shapes/ 三维形体投影面积
+    def projectionArea(self, grid: List[List[int]]) -> int:
+        if not grid:
+            return 0
+        ans = 0
+        ans += sum(j > 0 for i in grid for j in i)
+        ans += sum(map(max, grid))
+        ans += sum(map(max, zip(*grid)))
+        return ans
 
 # https://leetcode-cn.com/problems/insert-delete-getrandom-o1/ O(1) 时间插入、删除和获取随机元素
 class RandomizedSet:

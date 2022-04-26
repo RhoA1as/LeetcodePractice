@@ -2928,6 +2928,24 @@ public class LeetCode {
         }
         return ans;
     }
+    //https://leetcode-cn.com/problems/projection-area-of-3d-shapes/ 三维形体投影面积
+    public int projectionArea(int[][] grid) {
+        if(grid == null || grid.length == 0 || grid[0].length == 0){
+            return 0;
+        }
+        int m = grid.length, area = 0;
+        for (int i = 0; i < m; i++) {
+            int a = 0, b = 0;
+            for (int j = 0; j < m; j++) {
+                if(grid[i][j] != 0) area++;
+                a = Math.max(grid[i][j], a);
+                b = Math.max(grid[j][i], b);
+            }
+            area += a;
+            area += b;
+        }
+        return area;
+    }
 }
 
 class ThreadUtils{

@@ -23,7 +23,6 @@ public class LeetCode {
         int[] num = {3,5,2,1,6,4};
         wiggleSort(num);
         System.out.println(Arrays.toString(num));
-    
     }
 
     //https://leetcode-cn.com/problems/construct-the-rectangle/ 构造矩阵
@@ -2995,6 +2994,20 @@ public class LeetCode {
                 dfsArea(newX, newY, canReach);
             }
         }
+    }
+
+    //https://leetcode-cn.com/problems/sort-array-by-parity/ 按奇偶排序数组
+    public int[] sortArrayByParity(int[] nums) {
+        if(nums == null || nums.length == 0) return nums;
+        int n = nums.length;
+        for (int i = 0, j = n - 1; i < j; i++) {
+            if(nums[i] % 2 == 1){
+                int t = nums[i];
+                nums[i--] = nums[j];
+                nums[j--] = t;
+            }
+        }
+        return nums;
     }
 }
 

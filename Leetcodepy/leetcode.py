@@ -644,6 +644,20 @@ class Solution:
         atl = [(m-1, i) for i in range(n)] + [(i, n-1) for i in range(m-1)]
         return list(map(list, reach(pac) & reach(atl)))
 
+    # https://leetcode-cn.com/problems/sort-array-by-parity/ 按奇偶排序数组
+    def sortArrayByParity(self, nums: List[int]) -> List[int]:
+        if not nums:
+            return nums
+        n = len(nums)
+        i, j = 0, n - 1
+        while i < j:
+            if nums[i] % 2:
+                nums[i], nums[j] = nums[j], nums[i]
+                j -= 1
+            else:
+                i += 1
+        return nums
+
 
 # https://leetcode-cn.com/problems/insert-delete-getrandom-o1/ O(1) 时间插入、删除和获取随机元素
 class RandomizedSet:

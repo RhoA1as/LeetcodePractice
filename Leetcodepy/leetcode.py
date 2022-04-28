@@ -7,7 +7,7 @@ from itertools import product
 from math import inf
 from operator import or_
 from random import choice
-from typing import List, Optional
+from typing import List, Optional, Tuple, Set
 from sortedcontainers import SortedList
 
 
@@ -618,6 +618,32 @@ class Solution:
         ans += sum(map(max, grid))
         ans += sum(map(max, zip(*grid)))
         return ans
+
+    # https://leetcode-cn.com/problems/pacific-atlantic-water-flow/ 太平洋大西洋水流问题
+    def pacificAtlantic(self, heights: List[List[int]]) -> List[List[int]]:
+        m, n = len(heights), len(heights[0])
+
+        def reach(start: List[Tuple[int, int]]) -> Set[Tuple[int, int]]:
+            ans = set()
+
+            def dfs(x: int, y: int):
+                if (x, y) in ans:
+                    return
+                ans.add((x, y))
+                dires = [[1, 0], [-1, 0], [0, 1], [0, -1]]
+                for d in dires:
+                    childx = x + d[0]
+                    childy = y + d[1]
+                    if childx < 0 or childx >= m or childy < 0 or childy >= n or heights[childx][childy] < heights[x][y]:
+                        continue
+                    dfs(childx, childy)
+            for x, y in start:
+                dfs(x, y)
+            return ans
+        pac = [(0, i) for i in range(n)] + [(i, 0) for i in range(1, m)]
+        atl = [(m-1, i) for i in range(n)] + [(i, n-1) for i in range(m-1)]
+        return list(map(list, reach(pac) & reach(atl)))
+
 
 # https://leetcode-cn.com/problems/insert-delete-getrandom-o1/ O(1) 时间插入、删除和获取随机元素
 class RandomizedSet:

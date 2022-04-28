@@ -2946,6 +2946,56 @@ public class LeetCode {
         }
         return area;
     }
+
+    //https://leetcode-cn.com/problems/pacific-atlantic-water-flow/ 太平洋大西洋水流问题
+    int areaX;
+    int areaY;
+    int[][] mHeights;
+    int[][] d = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+    public List<List<Integer>> pacificAtlantic(int[][] heights) {
+        if(heights == null || heights.length == 0 || heights[0].length == 0){
+            return new ArrayList<>();
+        }
+        areaX = heights.length;
+        areaY = heights[0].length;
+        mHeights = heights;
+        boolean[][] canReach1 = new boolean[areaX][areaY];
+        boolean[][] canReach2 = new boolean[areaX][areaY];
+        for (int i = 0; i < areaY; i++) {
+            dfsArea(0, i, canReach1);
+            dfsArea(areaX - 1, i, canReach2);
+        }
+        for (int i = 0; i < areaX; i++) {
+            dfsArea(i, 0, canReach1);
+            dfsArea(i, areaY - 1, canReach2);
+        }
+        List<List<Integer>> ans = new ArrayList<>();
+        for (int i = 0; i < areaX; i++) {
+            for (int j = 0; j < areaY; j++) {
+                if(canReach1[i][j] && canReach2[i][j]){
+                    List<Integer> child = new ArrayList<>();
+                    child.add(i);
+                    child.add(j);
+                    ans.add(child);
+                }
+            }
+        }
+        return ans;
+    }
+
+    public void dfsArea(int x, int y, boolean[][] canReach){
+        canReach[x][y] = true;
+        for (int[] dir : d) {
+            int newX = x + dir[0];
+            int newY = y + dir[1];
+            if(newX < 0 || newX >= areaX || newY < 0 || newY >= areaY || canReach[newX][newY]){
+                continue;
+            }
+            if(mHeights[newX][newY] >= mHeights[x][y]) {
+                dfsArea(newX, newY, canReach);
+            }
+        }
+    }
 }
 
 class ThreadUtils{

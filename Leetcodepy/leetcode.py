@@ -658,6 +658,13 @@ class Solution:
                 i += 1
         return nums
 
+    # https://leetcode-cn.com/problems/smallest-range-i/ 最小差值 I
+    def smallestRangeI(self, nums: List[int], k: int) -> int:
+        if not nums:
+            return 0
+        c = max(nums) - min(nums) - 2 * k
+        return 0 if c <= 0 else c
+
 
 # https://leetcode-cn.com/problems/insert-delete-getrandom-o1/ O(1) 时间插入、删除和获取随机元素
 class RandomizedSet:

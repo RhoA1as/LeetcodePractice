@@ -1,5 +1,6 @@
 package com.oasis;
 
+import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
@@ -3008,6 +3009,17 @@ public class LeetCode {
             }
         }
         return nums;
+    }
+
+    //https://leetcode-cn.com/problems/smallest-range-i/ 最小差值 I
+    public int smallestRangeI(int[] nums, int k) {
+        if(nums == null || nums.length == 0){
+            return 0;
+        }
+        int max = Arrays.stream(nums).max().getAsInt();
+        int min = Arrays.stream(nums).min().getAsInt();
+        int t = max - min - 2 * k;
+        return t <= 0 ? 0: t;
     }
 }
 

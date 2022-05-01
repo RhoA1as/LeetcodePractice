@@ -3021,6 +3021,38 @@ public class LeetCode {
         int t = max - min - 2 * k;
         return t <= 0 ? 0: t;
     }
+
+    //https://leetcode-cn.com/problems/all-elements-in-two-binary-search-trees/ 两棵二叉搜索树中的所有元素
+    public List<Integer> getAllElements(TreeNode root1, TreeNode root2) {
+        List<Integer> res = new ArrayList<>();
+        List<Integer> tree1 = new ArrayList<>();
+        List<Integer> tree2 = new ArrayList<>();
+        inorder(root1, tree1);
+        inorder(root2, tree2);
+        int size1 = tree1.size(), size2 = tree2.size();
+        int f1 = 0, f2 = 0;
+        while (true){
+            if(f1 == size1){
+                res.addAll(tree2.subList(f2, size2));
+                break;
+            }
+            if(f2 == size2){
+                res.addAll(tree1.subList(f1, size1));
+                break;
+            }
+            res.add(tree1.get(f1) < tree2.get(f2) ? tree1.get(f1++) : tree2.get(f2++));
+        }
+        return res;
+    }
+
+    public void inorder(TreeNode root, List<Integer> tree){
+        if(root == null){
+            return;
+        }
+        inorder(root.left, tree);
+        tree.add(root.val);
+        inorder(root.right, tree);
+    }
 }
 
 class ThreadUtils{

@@ -665,6 +665,36 @@ class Solution:
         c = max(nums) - min(nums) - 2 * k
         return 0 if c <= 0 else c
 
+    # https://leetcode-cn.com/problems/all-elements-in-two-binary-search-trees/ 两棵二叉搜索树中的所有元素
+    def getAllElements(self, root1: TreeNode, root2: TreeNode) -> List[int]:
+        res = []
+        tree1, tree2 = [], []
+
+        def inorder(root: TreeNode, tree: List[int]):
+            if not root:
+                return
+            inorder(root.left, tree)
+            tree.append(root.val)
+            inorder(root.right, tree)
+
+        inorder(root1, tree1)
+        inorder(root2, tree2)
+        f1, f2 = 0, 0
+        while 1:
+            if f1 == len(tree1):
+                res.extend(tree2[f2:])
+                break
+            if f2 == len(tree2):
+                res.extend(tree1[f1:])
+                break
+            if tree1[f1] < tree2[f2]:
+                res.append(tree1[f1])
+                f1 += 1
+            else:
+                res.append(tree2[f2])
+                f2 += 1
+        return res
+
 
 # https://leetcode-cn.com/problems/insert-delete-getrandom-o1/ O(1) 时间插入、删除和获取随机元素
 class RandomizedSet:

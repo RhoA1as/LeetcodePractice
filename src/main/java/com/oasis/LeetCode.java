@@ -3053,6 +3053,43 @@ public class LeetCode {
         tree.add(root.val);
         inorder(root.right, tree);
     }
+
+    //https://leetcode-cn.com/problems/reorder-data-in-log-files/ 重新排列日志文件
+    public String[] reorderLogFiles(String[] logs) {
+        if(logs == null || logs.length == 0){
+            return logs;
+        }
+        int n = logs.length;
+        List<Log> tmp = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            tmp.add(new Log(logs[i], i));
+        }
+        Collections.sort(tmp, (x, y) -> {
+            if(x.type != y.type) return x.type - y.type;
+            if(x.type == 1) return x.index - y.index;
+            return !x.content.equals(y.content) ? x.content.compareTo(y.content) : x.tag.compareTo(y.tag);
+        });
+        for (int i = 0; i < n; i++) {
+            logs[i] = tmp.get(i).origin;
+        }
+        return logs;
+    }
+
+    class Log{
+        String origin;
+        String tag;
+        String content;
+        int index;
+        int type;
+        public Log(String log, int idx){
+            index = idx;
+            origin = log;
+            int sp = log.indexOf(" ");
+            tag = log.substring(0, sp);
+            content = log.substring(sp+1);
+            type = Character.isDigit(content.charAt(0)) ? 1: 0;
+        }
+    }
 }
 
 class ThreadUtils{

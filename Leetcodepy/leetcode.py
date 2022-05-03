@@ -695,6 +695,18 @@ class Solution:
                 f2 += 1
         return res
 
+    # https://leetcode-cn.com/problems/reorder-data-in-log-files/ 重新排列日志文件
+    def reorderLogFiles(self, logs: List[str]) -> List[str]:
+        if not logs:
+            return logs
+
+        def trans(log: str) -> tuple:
+            tag, content = log.split(" ", 1)
+            return (0, content, tag) if content[0].isalpha() else (1,)
+
+        logs.sort(key=trans)
+        return logs
+
 
 # https://leetcode-cn.com/problems/insert-delete-getrandom-o1/ O(1) 时间插入、删除和获取随机元素
 class RandomizedSet:

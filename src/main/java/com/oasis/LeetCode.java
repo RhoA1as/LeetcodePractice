@@ -3090,6 +3090,15 @@ public class LeetCode {
             type = Character.isDigit(content.charAt(0)) ? 1: 0;
         }
     }
+
+    //https://leetcode-cn.com/problems/find-the-winner-of-the-circular-game/ 找出游戏的获胜者
+    public int findTheWinner(int n, int k) {
+        int ans = 0;
+        for (int i = 2; i <= n; i++) {
+            ans = (ans + k) % i;
+        }
+        return ans + 1;
+    }
 }
 
 class ThreadUtils{

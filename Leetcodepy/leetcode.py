@@ -707,6 +707,13 @@ class Solution:
         logs.sort(key=trans)
         return logs
 
+    # https://leetcode-cn.com/problems/find-the-winner-of-the-circular-game/ 找出游戏的获胜者
+    def findTheWinner(self, n: int, k: int) -> int:
+        ans = 0
+        for i in range(2, n + 1):
+            ans = (ans + k) % i
+        return ans + 1
+
 
 # https://leetcode-cn.com/problems/insert-delete-getrandom-o1/ O(1) 时间插入、删除和获取随机元素
 class RandomizedSet:

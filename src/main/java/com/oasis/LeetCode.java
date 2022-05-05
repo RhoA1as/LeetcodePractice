@@ -3099,6 +3099,22 @@ public class LeetCode {
         }
         return ans + 1;
     }
+
+    //https://leetcode-cn.com/problems/subarray-product-less-than-k/ 乘积小于 K 的子数组
+    public int numSubarrayProductLessThanK(int[] nums, int k) {
+        if(nums == null || nums.length == 0){
+            return 0;
+        }
+        int ans = 0, n = nums.length;
+        for (int i = 0, j = 0, curr = 1; i < n; i++) {
+            curr *= nums[i];
+            while(curr >= k && j <= i){
+                curr /= nums[j++];
+            }
+            ans += i - j + 1;
+        }
+        return ans;
+    }
 }
 
 class ThreadUtils{

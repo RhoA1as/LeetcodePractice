@@ -714,6 +714,21 @@ class Solution:
             ans = (ans + k) % i
         return ans + 1
 
+    # https://leetcode-cn.com/problems/subarray-product-less-than-k/ 乘积小于 K 的子数组
+    def numSubarrayProductLessThanK(self, nums: List[int], k: int) -> int:
+        if not nums:
+            return 0
+        n, ans, curr = len(nums), 0, 1
+        i = j = 0
+        while i < n:
+            curr *= nums[i]
+            while curr >= k and j <= i:
+                curr /= nums[j]
+                j += 1
+            ans += i - j + 1
+            i += 1
+        return ans
+
 
 # https://leetcode-cn.com/problems/insert-delete-getrandom-o1/ O(1) 时间插入、删除和获取随机元素
 class RandomizedSet:

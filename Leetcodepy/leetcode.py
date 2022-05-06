@@ -7,7 +7,7 @@ from itertools import product
 from math import inf
 from operator import or_
 from random import choice
-from typing import List, Optional, Tuple, Set
+from typing import List, Optional, Tuple, Set, Deque
 from sortedcontainers import SortedList
 
 
@@ -728,6 +728,19 @@ class Solution:
             ans += i - j + 1
             i += 1
         return ans
+
+
+# https://leetcode-cn.com/problems/number-of-recent-calls/ 最近的请求次数
+class RecentCounter:
+
+    def __init__(self):
+        self.queue = collections.deque()
+
+    def ping(self, t: int) -> int:
+        self.queue.append(t)
+        while self.queue[0] < t - 3000:
+            self.queue.popleft()
+        return len(self.queue)
 
 
 # https://leetcode-cn.com/problems/insert-delete-getrandom-o1/ O(1) 时间插入、删除和获取随机元素

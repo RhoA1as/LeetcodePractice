@@ -3117,6 +3117,20 @@ public class LeetCode {
     }
 }
 
+//https://leetcode-cn.com/problems/number-of-recent-calls/ 最近的请求次数
+class RecentCounter {
+    Queue<Integer> queue;
+    public RecentCounter() {
+        queue = new ArrayDeque<>();
+    }
+
+    public int ping(int t) {
+        queue.offer(t);
+        while(queue.peek() < t - 3000) queue.poll();
+        return queue.size();
+    }
+}
+
 class ThreadUtils{
     private static volatile ThreadUtils instance;
     private static ExecutorService pool = Executors.newFixedThreadPool(10);

@@ -3115,6 +3115,28 @@ public class LeetCode {
         }
         return ans;
     }
+
+    //https://leetcode-cn.com/problems/find-all-duplicates-in-an-array/ 数组中重复的数据
+    @Test
+    public void testFindDuplicates(){
+        System.out.println(findDuplicates(new int[]{4, 3, 2, 7, 8, 2, 3, 1}));
+    }
+    public List<Integer> findDuplicates(int[] nums) {
+        List<Integer> res = new ArrayList<>();
+        if(nums == null || nums.length == 0){
+            return res;
+        }
+        int n = nums.length;
+        for (int i = 0; i < n; i++) {
+            int t = Math.abs(nums[i]);
+            if(nums[t-1] > 0){
+                nums[t-1] *= -1;
+            } else {
+                res.add(t);
+            }
+        }
+        return res;
+    }
 }
 
 //https://leetcode-cn.com/problems/number-of-recent-calls/ 最近的请求次数

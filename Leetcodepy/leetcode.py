@@ -729,6 +729,16 @@ class Solution:
             i += 1
         return ans
 
+    # https://leetcode-cn.com/problems/find-all-duplicates-in-an-array/ 数组中重复的数据
+    def findDuplicates(self, nums: List[int]) -> List[int]:
+        if not nums:
+            return []
+        n = len(nums)
+        for i in range(n):
+            while nums[i] != nums[nums[i] - 1]:
+                nums[nums[i] - 1], nums[i] = nums[i], nums[nums[i] - 1]
+        return [v for i, v in enumerate(nums) if v - 1 - i]
+
 
 # https://leetcode-cn.com/problems/number-of-recent-calls/ 最近的请求次数
 class RecentCounter:

@@ -739,6 +739,23 @@ class Solution:
                 nums[nums[i] - 1], nums[i] = nums[i], nums[nums[i] - 1]
         return [v for i, v in enumerate(nums) if v - 1 - i]
 
+    # https://leetcode.cn/problems/di-string-match/ 增减字符串匹配
+    def diStringMatch(self, s: str) -> List[int]:
+        if not s:
+            return []
+        res = []
+        n = len(s)
+        i, j = 0, n
+        for c in s:
+            if c == 'I':
+                res.append(i)
+                i += 1
+            else:
+                res.append(j)
+                j -= 1
+        res.append(i)
+        return res
+
 
 # https://leetcode-cn.com/problems/number-of-recent-calls/ 最近的请求次数
 class RecentCounter:

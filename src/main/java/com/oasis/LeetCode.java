@@ -3137,6 +3137,21 @@ public class LeetCode {
         }
         return res;
     }
+
+    //https://leetcode.cn/problems/di-string-match/ 增减字符串匹配
+    public int[] diStringMatch(String s) {
+        if(s == null || s.length() == 0){
+            return new int[0];
+        }
+        int n = s.length();
+        int l = 0, r = n, i = 0;
+        int[] res = new int[n+1];
+        for (; i < n; i++) {
+            res[i] = s.charAt(i) == 'I' ? l++ : r--;
+        }
+        res[i] = l;
+        return res;
+    }
 }
 
 //https://leetcode-cn.com/problems/number-of-recent-calls/ 最近的请求次数

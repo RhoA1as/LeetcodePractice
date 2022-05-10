@@ -3152,6 +3152,55 @@ public class LeetCode {
         res[i] = l;
         return res;
     }
+
+    //https://leetcode.cn/problems/minimum-genetic-mutation/ 最小基因变化
+    Set<String> keys = new HashSet<>();
+    char[] comp = {'A', 'C', 'G', 'T'};
+    public int minMutation(String start, String end, String[] bank) {
+        for (String s : bank) {
+            keys.add(s);
+        }
+        if(!keys.contains(end)){
+            return -1;
+        }
+        Map<String,Integer> m1 = new HashMap<>();
+        Map<String,Integer> m2 = new HashMap<>();
+        Deque<String> q1 = new ArrayDeque<>();
+        Deque<String> q2 = new ArrayDeque<>();
+        q1.offer(start);
+        m1.put(start, 0);
+        q2.offer(end);
+        m2.put(end, 0);
+        int res = -1;
+        while (!q1.isEmpty() && !q2.isEmpty()){
+            res = q1.size() <= q2.size() ? bfsMutation(q1, m1, m2) : bfsMutation(q2, m2, m1);
+            if(res != -1){
+                break;
+            }
+        }
+        return res;
+    }
+
+    public int bfsMutation(Deque<String> q, Map<String,Integer> curr, Map<String,Integer> other){
+        int m = q.size();
+        while (m-- > 0){
+            String s = q.poll();
+            int n = s.length();
+            int step = curr.get(s);
+            for (int i = 0; i < n; i++) {
+                for (char c : comp) {
+                    StringBuilder builder = new StringBuilder(s);
+                    builder.setCharAt(i, c);
+                    String next = builder.toString();
+                    if(!keys.contains(next) || curr.containsKey(next)) continue;
+                    if(other.containsKey(next)) return step + 1 + other.get(next);
+                    curr.put(next, step + 1);
+                    q.offer(next);
+                }
+            }
+        }
+        return -1;
+    }
 }
 
 //https://leetcode-cn.com/problems/number-of-recent-calls/ 最近的请求次数

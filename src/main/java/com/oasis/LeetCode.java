@@ -3203,6 +3203,83 @@ public class LeetCode {
     }
 }
 
+//https://leetcode.cn/problems/serialize-and-deserialize-bst/ 序列化和反序列化二叉搜索树
+class Codec {
+
+    List<Integer> pre;
+
+    // Encodes a tree to a single string.
+    public String serialize(TreeNode root) {
+        List<Integer> trees = new ArrayList<>();
+        preorder(root, trees);
+        if(trees.size() == 0){
+            return null;
+        }
+        String s = trees.toString();
+        return s.substring(1, s.length() - 1);
+    }
+
+    // Decodes your encoded data to tree.
+    public TreeNode deserialize(String data) {
+        if(data == null){
+            return null;
+        }
+        String[] split = data.split(", ");
+        pre = new ArrayList<>();
+        for (String s : split) {
+            pre.add(Integer.parseInt(s));
+        }
+        return construct(0, pre.size() - 1);
+    }
+
+    public void preorder(TreeNode root, List<Integer> trees){
+        if(root == null) return;
+        trees.add(root.val);
+        preorder(root.left, trees);
+        preorder(root.right, trees);
+    }
+
+    public TreeNode construct(int start, int end){
+        if(start > end){
+            return null;
+        }
+        int val = pre.get(start);
+        if(start == end){
+            return new TreeNode(val);
+        }
+        TreeNode root = new TreeNode(val);
+        int i = search(val, start + 1, end);
+        if(pre.get(i) < val){
+            root.left = construct(start + 1, end);
+        } else {
+            root.left = construct(start + 1, i - 1);
+            root.right = construct(i, end);
+        }
+        return root;
+    }
+
+    public int search(int target, int start, int end){
+        int l = start, r = end;
+        while (l < r){
+            int m = l + (r - l) / 2;
+            int val = pre.get(m);
+            if(val < target){
+                l = m + 1;
+            }else {
+                r = m;
+            }
+        }
+        return l;
+    }
+    @Test
+    public void test(){
+        TreeNode root = new TreeNode(2);
+        root.left = new TreeNode(1);
+
+        deserialize(serialize(root));
+    }
+}
+
 //https://leetcode-cn.com/problems/number-of-recent-calls/ 最近的请求次数
 class RecentCounter {
     Queue<Integer> queue;

@@ -757,6 +757,60 @@ class Solution:
         return res
 
 
+# https://leetcode.cn/problems/serialize-and-deserialize-bst/ 序列化和反序列化二叉搜索树
+class Codec:
+
+    def serialize(self, root: TreeNode) -> str:
+        """Encodes a tree to a single string.
+        """
+        pre = []
+        if not root:
+            return ""
+
+        def preorder(tree: TreeNode):
+            if not tree:
+                return
+            pre.append(tree.val)
+            preorder(tree.left)
+            preorder(tree.right)
+        preorder(root)
+        return " ".join(map(str, pre))
+
+    def deserialize(self, data: str) -> TreeNode:
+        """Decodes your encoded data to tree.
+        """
+        if not data:
+            return None
+        pre = [int(i) for i in data.split(" ")]
+
+        def search(start: int, end: int, target: int) -> int:
+            l, r = start, end
+            while l < r:
+                m = l + (r - l) // 2
+                val = pre[m]
+                if val < target:
+                    l = m + 1
+                else:
+                    r = m
+            return l
+
+        def construct(start: int, end: int) -> TreeNode:
+            if start > end:
+                return None
+            val = pre[start]
+            if start == end:
+                return TreeNode(val)
+            root = TreeNode(val)
+            i = search(start + 1, end, val)
+            if pre[i] < val:
+                root.left = construct(start + 1, end)
+            else:
+                root.left = construct(start + 1, i - 1)
+                root.right = construct(i, end)
+            return root
+        return construct(0, len(pre) - 1)
+
+
 # https://leetcode-cn.com/problems/number-of-recent-calls/ 最近的请求次数
 class RecentCounter:
 

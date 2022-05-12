@@ -756,6 +756,10 @@ class Solution:
         res.append(i)
         return res
 
+    # https://leetcode.cn/problems/delete-columns-to-make-sorted/ 删列造序
+    def minDeletionSize(self, strs: List[str]) -> int:
+        return sum(list(col) != sorted(col) for col in zip(*strs))
+
 
 # https://leetcode.cn/problems/serialize-and-deserialize-bst/ 序列化和反序列化二叉搜索树
 class Codec:

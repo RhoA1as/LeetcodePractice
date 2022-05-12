@@ -3201,6 +3201,26 @@ public class LeetCode {
         }
         return -1;
     }
+
+    //https://leetcode.cn/problems/delete-columns-to-make-sorted/ 删列造序
+    public int minDeletionSize(String[] strs) {
+        if(strs == null || strs.length == 0){
+            return 0;
+        }
+        int ans = 0;
+        int n = strs.length;
+        int m = strs[0].length();
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if(j == 0) continue;
+                if(strs[j].charAt(i) < strs[j-1].charAt(i)){
+                    ans++;
+                    break;
+                }
+            }
+        }
+        return ans;
+    }
 }
 
 //https://leetcode.cn/problems/serialize-and-deserialize-bst/ 序列化和反序列化二叉搜索树

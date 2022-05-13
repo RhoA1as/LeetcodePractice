@@ -3221,6 +3221,31 @@ public class LeetCode {
         }
         return ans;
     }
+
+    //https://leetcode.cn/problems/one-away-lcci/ 一次编辑
+    public boolean oneEditAway(String first, String second) {
+        if(first == null || second == null) return false;
+        int m = first.length(), n = second.length();
+        if(Math.abs(m - n) > 1) return false;
+        if(m > n) return oneEditAway(second, first);
+        int i = 0, j = 0, cnt = 0;
+        while(i < m && j < n && cnt <= 1){
+            if(first.charAt(i) == second.charAt(j)){
+                i++;
+            }else if(m == n){
+                i++;
+                cnt++;
+            }else{
+                cnt++;
+            }
+            j++;
+        }
+        return cnt <= 1;
+    }
+    @Test
+    public void testOneEditAway(){
+        System.out.println(oneEditAway("spartan", "part"));
+    }
 }
 
 //https://leetcode.cn/problems/serialize-and-deserialize-bst/ 序列化和反序列化二叉搜索树

@@ -760,6 +760,25 @@ class Solution:
     def minDeletionSize(self, strs: List[str]) -> int:
         return sum(list(col) != sorted(col) for col in zip(*strs))
 
+    # https://leetcode.cn/problems/one-away-lcci/ 一次编辑
+    def oneEditAway(self, first: str, second: str) -> bool:
+        m, n = len(first), len(second)
+        if abs(m - n) > 1:
+            return False
+        if m > n:
+            return self.oneEditAway(second, first)
+        i = j = cnt = 0
+        while i < m and j < n and cnt <= 1:
+            if first[i] == second[j]:
+                i += 1
+            elif m == n:
+                i += 1
+                cnt += 1
+            else:
+                cnt += 1
+            j += 1
+        return cnt <= 1
+
 
 # https://leetcode.cn/problems/serialize-and-deserialize-bst/ 序列化和反序列化二叉搜索树
 class Codec:

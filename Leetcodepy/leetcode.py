@@ -3,7 +3,7 @@
 import collections
 from functools import reduce
 from heapq import heappop, heappush
-from itertools import product
+from itertools import product, combinations
 from math import inf
 from operator import or_
 from random import choice
@@ -778,6 +778,16 @@ class Solution:
                 cnt += 1
             j += 1
         return cnt <= 1
+
+    # https://leetcode.cn/problems/largest-triangle-area/ 最大三角形面积
+    def largestTriangleArea(self, points: List[List[int]]) -> float:
+        if not points:
+            return 0
+
+        def compute_area(x1: int, y1: int, x2: int, y2: int, x3: int, y3: int) -> float:
+            return 0.5 * abs(x1 * (y2 - y3) - y1 * (x2 - x3) + x2 * y3 - x3 * y2)
+
+        return max(compute_area(x1, y1, x2, y2, x3, y3) for (x1, y1), (x2, y2), (x3, y3) in combinations(points, 3))
 
 
 # https://leetcode.cn/problems/serialize-and-deserialize-bst/ 序列化和反序列化二叉搜索树

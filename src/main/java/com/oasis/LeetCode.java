@@ -3246,6 +3246,28 @@ public class LeetCode {
     public void testOneEditAway(){
         System.out.println(oneEditAway("spartan", "part"));
     }
+
+    //https://leetcode.cn/problems/largest-triangle-area/ 最大三角形面积
+    public double largestTriangleArea(int[][] points) {
+        if(points == null || points.length == 0){
+            return 0;
+        }
+        double ans = 0.0;
+        int n = points.length;
+        for (int i = 0; i < n; i++) {
+            for (int j = i+1; j < n; j++) {
+                for (int k = j+1; k < n; k++) {
+                    ans = Math.max(ans, computeTriangleArea(points[i][0], points[i][1], points[j][0],
+                            points[j][1], points[k][0], points[k][1]));
+                }
+            }
+        }
+        return ans;
+    }
+
+    public double computeTriangleArea(int x1, int y1, int x2, int y2, int x3, int y3){
+        return 0.5 * Math.abs(x1 * (y2 - y3) - y1 * (x2 - x3) + x2 * y3 - x3 * y2);
+    }
 }
 
 //https://leetcode.cn/problems/serialize-and-deserialize-bst/ 序列化和反序列化二叉搜索树

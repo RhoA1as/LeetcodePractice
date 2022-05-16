@@ -789,6 +789,25 @@ class Solution:
 
         return max(compute_area(x1, y1, x2, y2, x3, y3) for (x1, y1), (x2, y2), (x3, y3) in combinations(points, 3))
 
+    # https://leetcode.cn/problems/successor-lcci/ 后继者
+    def inorderSuccessor(self, root: TreeNode, p: TreeNode) -> TreeNode:
+        if not root:
+            return None
+        ans = None
+        if p.right:
+            ans = p.right
+            while ans.left:
+                ans = ans.left
+            return ans
+        node = root
+        while node:
+            if node.val > p.val:
+                ans = node
+                node = node.left
+            else:
+                node = node.right
+        return ans
+
 
 # https://leetcode.cn/problems/serialize-and-deserialize-bst/ 序列化和反序列化二叉搜索树
 class Codec:

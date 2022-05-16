@@ -3268,6 +3268,31 @@ public class LeetCode {
     public double computeTriangleArea(int x1, int y1, int x2, int y2, int x3, int y3){
         return 0.5 * Math.abs(x1 * (y2 - y3) - y1 * (x2 - x3) + x2 * y3 - x3 * y2);
     }
+
+    //https://leetcode.cn/problems/successor-lcci/ 后继者
+    public TreeNode inorderSuccessor(TreeNode root, TreeNode p) {
+        if(root == null){
+            return null;
+        }
+        TreeNode res = null;
+        if(p.right != null){
+            res = p.right;
+            while(res.left != null){
+                res = res.left;
+            }
+            return res;
+        }
+        TreeNode node = root;
+        while (node != null){
+            if(node.val > p.val){
+                res = node;
+                node = node.left;
+            }else {
+                node = node.right;
+            }
+        }
+        return res;
+    }
 }
 
 //https://leetcode.cn/problems/serialize-and-deserialize-bst/ 序列化和反序列化二叉搜索树

@@ -3293,6 +3293,35 @@ public class LeetCode {
         }
         return res;
     }
+
+    //https://leetcode.cn/problems/verifying-an-alien-dictionary/ 验证外星语词典
+    public boolean isAlienSorted(String[] words, String order) {
+        if(words == null || words.length == 0){
+            return true;
+        }
+        int[] idxs =  new int[26];
+        for (int i = 0; i < 26; i++) {
+            idxs[order.charAt(i) - 'a'] = i;
+        }
+        String[] clone = words.clone();
+        Arrays.sort(words, (x, y) -> {
+            int a = Math.min(x.length(), y.length());
+            for (int i = 0; i < a; i++) {
+                int m = idxs[x.charAt(i) - 'a'], n = idxs[y.charAt(i) - 'a'];
+                if(m != n){
+                    return m - n;
+                }
+            }
+            if(x.length() == y.length()) return 0;
+            return x.length() == a ? -1 : 1;
+        });
+        int n = words.length;
+        for (int i = 0; i < n; i++) {
+            if(words[i] != clone[i]) return false;
+        }
+        return true;
+    }
+
 }
 
 //https://leetcode.cn/problems/serialize-and-deserialize-bst/ 序列化和反序列化二叉搜索树

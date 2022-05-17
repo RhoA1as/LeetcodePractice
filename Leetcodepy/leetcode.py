@@ -3,7 +3,7 @@
 import collections
 from functools import reduce
 from heapq import heappop, heappush
-from itertools import product, combinations
+from itertools import product, combinations, pairwise
 from math import inf
 from operator import or_
 from random import choice
@@ -807,6 +807,13 @@ class Solution:
             else:
                 node = node.right
         return ans
+
+    # https://leetcode.cn/problems/verifying-an-alien-dictionary/ 验证外星语词典
+    def isAlienSorted(self, words: List[str], order: str) -> bool:
+        if not words:
+            return True
+        idx = {c: i for i, c in enumerate(order)}
+        return all(i <= j for i, j in pairwise([idx[c] for c in word] for word in words))
 
 
 # https://leetcode.cn/problems/serialize-and-deserialize-bst/ 序列化和反序列化二叉搜索树

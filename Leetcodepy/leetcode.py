@@ -815,6 +815,14 @@ class Solution:
         idx = {c: i for i, c in enumerate(order)}
         return all(i <= j for i, j in pairwise([idx[c] for c in word] for word in words))
 
+    # https://leetcode.cn/problems/minimum-moves-to-equal-array-elements-ii/ 最少移动次数使数组元素相等 II
+    def minMoves2(self, nums: List[int]) -> int:
+        if not nums:
+            return 0
+        nums.sort()
+        m = nums[len(nums) // 2]
+        return sum(abs(m - num) for num in nums)
+
 
 # https://leetcode.cn/problems/serialize-and-deserialize-bst/ 序列化和反序列化二叉搜索树
 class Codec:

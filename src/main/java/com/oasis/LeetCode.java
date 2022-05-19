@@ -3322,6 +3322,20 @@ public class LeetCode {
         return true;
     }
 
+    //https://leetcode.cn/problems/minimum-moves-to-equal-array-elements-ii/ 最少移动次数使数组元素相等 II
+    public int minMoves2(int[] nums) {
+        if(nums == null || nums.length == 0){
+            return 0;
+        }
+        Arrays.sort(nums);
+        int n = nums.length, ans = 0;
+        int m = nums[n / 2];
+        for (int i = 0; i < n; i++) {
+            ans += Math.abs(nums[i] - m);
+        }
+        return ans;
+    }
+
 }
 
 //https://leetcode.cn/problems/serialize-and-deserialize-bst/ 序列化和反序列化二叉搜索树

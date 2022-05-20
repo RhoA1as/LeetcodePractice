@@ -3336,6 +3336,36 @@ public class LeetCode {
         return ans;
     }
 
+    //https://leetcode.cn/problems/find-right-interval/ 寻找右区间
+    public int[] findRightInterval(int[][] intervals) {
+        if(intervals == null || intervals.length == 0){
+            return null;
+        }
+        int n = intervals.length;
+        int[][] idxs = new int[n][2];
+        for (int i = 0; i < n; i++) {
+            idxs[i][0] = intervals[i][0];
+            idxs[i][1] = i;
+        }
+        Arrays.sort(idxs, (x, y) -> x[0] - y[0]);
+        int[] ans = new int[n];
+        for (int i = 0; i < n; i++) {
+            int target = -1, val = intervals[i][1];
+            int left = 0, right = n - 1;
+            while (left <= right){
+                int mid = left + (right - left) / 2;
+                int current = idxs[mid][0];
+                if(current >= val){
+                    target = idxs[mid][1];
+                    right = mid - 1;
+                }else {
+                    left = mid + 1;
+                }
+            }
+            ans[i] = target;
+        }
+        return ans;
+    }
 }
 
 //https://leetcode.cn/problems/serialize-and-deserialize-bst/ 序列化和反序列化二叉搜索树

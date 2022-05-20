@@ -1,5 +1,6 @@
 # --*-- coding:utf-8 --*--
 # leetcode daily card
+import bisect
 import collections
 from functools import reduce
 from heapq import heappop, heappush
@@ -822,6 +823,21 @@ class Solution:
         nums.sort()
         m = nums[len(nums) // 2]
         return sum(abs(m - num) for num in nums)
+
+    # https://leetcode.cn/problems/find-right-interval/ 寻找右区间
+    def findRightInterval(self, intervals: List[List[int]]) -> List[int]:
+        if not intervals:
+            return None
+        for i, interval in enumerate(intervals):
+            interval.append(i)
+        intervals.sort()
+        n = len(intervals)
+        ans = [-1] * n
+        for _, val, i in intervals:
+            idx = bisect.bisect_left(intervals, [val])
+            if idx < n:
+                ans[i] = intervals[idx][2]
+        return ans
 
 
 # https://leetcode.cn/problems/serialize-and-deserialize-bst/ 序列化和反序列化二叉搜索树

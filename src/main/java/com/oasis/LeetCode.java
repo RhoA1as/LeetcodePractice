@@ -3366,6 +3366,21 @@ public class LeetCode {
         }
         return ans;
     }
+
+    //https://leetcode.cn/problems/n-repeated-element-in-size-2n-array/ 在长度 2N 的数组中找出重复 N 次的元素
+    public int repeatedNTimes(int[] nums) {
+        if(nums == null || nums.length == 0){
+            return -1;
+        }
+        Set<Integer> set = new HashSet<>();
+        for (int num : nums) {
+            if(set.contains(num)){
+                return num;
+            }
+            set.add(num);
+        }
+        return -1;
+    }
 }
 
 //https://leetcode.cn/problems/serialize-and-deserialize-bst/ 序列化和反序列化二叉搜索树

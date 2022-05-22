@@ -3381,6 +3381,33 @@ public class LeetCode {
         }
         return -1;
     }
+
+    //https://leetcode.cn/problems/can-i-win/ 我能赢吗
+    public boolean canIWin(int maxChoosableInteger, int desiredTotal) {
+        if((1 + maxChoosableInteger) * maxChoosableInteger / 2 < desiredTotal) return false;
+        return dfsCanIWin(maxChoosableInteger, desiredTotal, 0, 0);
+    }
+
+    Map<Integer, Boolean> memo = new HashMap<>();
+    public boolean dfsCanIWin(int maxChoosableInteger, int desiredTotal, int currTotal, int usedNum){
+        if(!memo.containsKey(usedNum)){
+            boolean res = false;
+            for (int i = 0; i < maxChoosableInteger; i++) {
+                if(((usedNum >> i) & 1) == 0){
+                    if(i + 1 + currTotal >= desiredTotal){
+                        res = true;
+                        break;
+                    }
+                    if(!dfsCanIWin(maxChoosableInteger, desiredTotal, currTotal+i+1, usedNum | 1 << i)){
+                        res = true;
+                        break;
+                    }
+                }
+            }
+            memo.put(usedNum, res);
+        }
+        return memo.get(usedNum);
+    }
 }
 
 //https://leetcode.cn/problems/serialize-and-deserialize-bst/ 序列化和反序列化二叉搜索树

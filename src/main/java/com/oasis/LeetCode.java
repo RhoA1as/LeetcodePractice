@@ -3408,6 +3408,25 @@ public class LeetCode {
         }
         return memo.get(usedNum);
     }
+
+    //https://leetcode.cn/problems/univalued-binary-tree/ 单值二叉树
+    public boolean isUnivalTree(TreeNode root) {
+        if(root == null){
+            return false;
+        }
+        int val = root.val;
+        Deque<TreeNode> queue = new ArrayDeque<>();
+        queue.offer(root);
+        while (!queue.isEmpty()){
+            TreeNode node = queue.poll();
+            if(node.val != val){
+                return false;
+            }
+            if(node.left != null) queue.offer(node.left);
+            if(node.right != null) queue.offer(node.right);
+        }
+        return true;
+    }
 }
 
 //https://leetcode.cn/problems/serialize-and-deserialize-bst/ 序列化和反序列化二叉搜索树

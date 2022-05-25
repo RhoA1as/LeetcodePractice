@@ -3409,6 +3409,25 @@ public class LeetCode {
         return memo.get(usedNum);
     }
 
+    //https://leetcode.cn/problems/unique-substrings-in-wraparound-string/ 环绕字符串中唯一的子字符串
+    public int findSubstringInWraproundString(String p) {
+        if(p == null || p.length() == 0){
+            return 0;
+        }
+        int[] dp = new int[26];
+        int n = p.length(), k = 1;
+        for (int i = 0; i < n; i++) {
+            int idx = p.charAt(i) - 'a';
+            if(i != 0 && (idx - p.charAt(i-1) + 'a' + 26) % 26 == 1){
+                k++;
+            }else {
+                k = 1;
+            }
+            dp[idx] = Math.max(dp[idx], k);
+        }
+        return Arrays.stream(dp).sum();
+    }
+
     //https://leetcode.cn/problems/univalued-binary-tree/ 单值二叉树
     public boolean isUnivalTree(TreeNode root) {
         if(root == null){

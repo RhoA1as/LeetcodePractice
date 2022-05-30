@@ -3446,6 +3446,18 @@ public class LeetCode {
         }
         return true;
     }
+
+    //https://leetcode.cn/problems/sum-of-root-to-leaf-binary-numbers/ 从根到叶的二进制数之和
+    public int sumRootToLeaf(TreeNode root) {
+        return dfsSumRootToLeaf(root, 0);
+    }
+
+    public int dfsSumRootToLeaf(TreeNode root, int val){
+        if(root == null) return 0;
+        val = val << 1 | root.val;
+        if(root.left == null && root.right == null) return val;
+        return dfsSumRootToLeaf(root.left, val) + dfsSumRootToLeaf(root.right, val);
+    }
 }
 
 //https://leetcode.cn/problems/serialize-and-deserialize-bst/ 序列化和反序列化二叉搜索树

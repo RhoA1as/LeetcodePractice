@@ -848,6 +848,19 @@ class Solution:
             cache.add(num)
         return -1
 
+    # https://leetcode.cn/problems/sum-of-root-to-leaf-binary-numbers/ 从根到叶的二进制数之和
+    def sumRootToLeaf(self, root: Optional[TreeNode]) -> int:
+
+        def dfs(node: TreeNode, val: int) -> int:
+            if not node:
+                return 0
+            val = val << 1 | node.val
+            if not (node.left or node.right):
+                return val
+            return dfs(node.left, val) + dfs(node.right, val)
+
+        return dfs(root, 0)
+
 
 # https://leetcode.cn/problems/serialize-and-deserialize-bst/ 序列化和反序列化二叉搜索树
 class Codec:

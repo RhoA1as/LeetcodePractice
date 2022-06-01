@@ -3458,6 +3458,40 @@ public class LeetCode {
         if(root.left == null && root.right == null) return val;
         return dfsSumRootToLeaf(root.left, val) + dfsSumRootToLeaf(root.right, val);
     }
+
+    //https://leetcode.cn/problems/matchsticks-to-square/ 火柴拼正方形
+    public boolean makesquare(int[] matchsticks) {
+        if(matchsticks == null || matchsticks.length == 0){
+            return false;
+        }
+        int sum = Arrays.stream(matchsticks).sum();
+        if(sum % 4 != 0){
+            return false;
+        }
+        int[] edges = new int[4];
+        Arrays.sort(matchsticks);
+        int l = 0, r = matchsticks.length - 1;
+        while (l < r){
+            int tmp = matchsticks[l];
+            matchsticks[l++] = matchsticks[r];
+            matchsticks[r--] = tmp;
+        }
+        return dfsMakeSquare(matchsticks, 0, edges, sum / 4);
+    }
+
+    public boolean dfsMakeSquare(int[] matchsticks, int idx, int[] edges, int target){
+        if(idx == matchsticks.length){
+            return true;
+        }
+        for (int i = 0; i < 4; i++) {
+            edges[i] += matchsticks[idx];
+            if(edges[i] <= target && dfsMakeSquare(matchsticks, idx+1, edges, target)){
+                return true;
+            }
+            edges[i] -= matchsticks[idx];
+        }
+        return false;
+    }
 }
 
 //https://leetcode.cn/problems/serialize-and-deserialize-bst/ 序列化和反序列化二叉搜索树

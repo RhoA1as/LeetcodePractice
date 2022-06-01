@@ -861,6 +861,29 @@ class Solution:
 
         return dfs(root, 0)
 
+    # https://leetcode.cn/problems/matchsticks-to-square/ 火柴拼正方形
+    def makesquare(self, matchsticks: List[int]) -> bool:
+        if not matchsticks:
+            return False
+        s = sum(matchsticks)
+        if s % 4 != 0:
+            return False
+        matchsticks.sort(reverse=True)
+        edges = [0] * 4
+        n = len(matchsticks)
+        target = s / 4
+
+        def dfs(idx: int) -> bool:
+            if idx == n:
+                return True
+            for i in range(4):
+                edges[i] += matchsticks[idx]
+                if edges[i] <= target and dfs(idx + 1):
+                    return True
+                edges[i] -= matchsticks[idx]
+            return False
+        return dfs(0)
+
 
 # https://leetcode.cn/problems/serialize-and-deserialize-bst/ 序列化和反序列化二叉搜索树
 class Codec:

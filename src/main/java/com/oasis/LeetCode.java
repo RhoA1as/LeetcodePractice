@@ -3533,6 +3533,17 @@ public class LeetCode {
         }
         return node.val;
     }
+
+    //https://leetcode.cn/problems/consecutive-numbers-sum/ 连续整数求和
+    public int consecutiveNumbersSum(int n) {
+        int ans = 0;
+        n *= 2;
+        for (int i = 1; i * i < n; i++) {
+            if(n % i != 0) continue;
+            if((n / i - i + 1) % 2 == 0) ans++;
+        }
+        return ans;
+    }
 }
 
 //https://leetcode.cn/problems/serialize-and-deserialize-bst/ 序列化和反序列化二叉搜索树

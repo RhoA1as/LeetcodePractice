@@ -884,6 +884,16 @@ class Solution:
             return False
         return dfs(0)
 
+    # https://leetcode.cn/problems/consecutive-numbers-sum/ 连续整数求和
+    def consecutiveNumbersSum(self, n: int) -> int:
+        n *= 2
+        ans, k = 0, 1
+        while k ** 2 < n:
+            if n % k == 0 and (n / k - k + 1) % 2 == 0:
+                ans += 1
+            k += 1
+        return ans
+
 
 # https://leetcode.cn/problems/serialize-and-deserialize-bst/ 序列化和反序列化二叉搜索树
 class Codec:

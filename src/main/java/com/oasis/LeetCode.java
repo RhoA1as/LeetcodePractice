@@ -3492,6 +3492,47 @@ public class LeetCode {
         }
         return false;
     }
+
+    //https://leetcode.cn/problems/delete-node-in-a-bst/ 删除二叉搜索树中的节点
+    public TreeNode deleteNode(TreeNode root, int key) {
+        if(root == null){
+            return null;
+        }
+        if(root.val < key){
+            root.right = deleteNode(root.right, key);
+        }else if(root.val > key){
+            root.left = deleteNode(root.left, key);
+        }else{
+            if(root.left == null && root.right == null){
+                root = null;
+            }else if(root.left != null){
+                int val = getPre(root);
+                root.val = val;
+                root.left = deleteNode(root.left, val);
+            } else {
+                int val = getNext(root);
+                root.val = val;
+                root.right = deleteNode(root.right, val);
+            }
+        }
+        return root;
+    }
+
+    private int getPre(TreeNode root){
+        TreeNode node = root.left;
+        while(node.right != null){
+            node = node.right;
+        }
+        return node.val;
+    }
+
+    private int getNext(TreeNode root){
+        TreeNode node = root.right;
+        while(node.left != null){
+            node = node.left;
+        }
+        return node.val;
+    }
 }
 
 //https://leetcode.cn/problems/serialize-and-deserialize-bst/ 序列化和反序列化二叉搜索树

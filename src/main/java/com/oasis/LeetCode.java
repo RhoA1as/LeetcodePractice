@@ -3544,6 +3544,31 @@ public class LeetCode {
         }
         return ans;
     }
+
+    //https://leetcode.cn/problems/koko-eating-bananas/ 爱吃香蕉的珂珂
+    public int minEatingSpeed1(int[] piles, int h) {
+        if(piles == null || piles.length == 0){
+            return 0;
+        }
+        int l = 0, r = Arrays.stream(piles).max().getAsInt();
+        while (l < r){
+            int mid = l + ((r - l) >> 1);;
+            if(canEat(piles, h, mid)){
+                r = mid;
+            }else {
+                l = mid + 1;
+            }
+        }
+        return r;
+    }
+
+    private boolean canEat(int[] piles, int h, int k){
+        int ans = 0;
+        for (int pile : piles) {
+            ans += Math.ceil(pile * 1.0 / k);
+        }
+        return ans <= h;
+    }
 }
 
 //https://leetcode.cn/problems/serialize-and-deserialize-bst/ 序列化和反序列化二叉搜索树

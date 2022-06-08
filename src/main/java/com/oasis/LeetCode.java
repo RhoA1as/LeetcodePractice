@@ -3569,6 +3569,15 @@ public class LeetCode {
         }
         return ans <= h;
     }
+
+    //https://leetcode.cn/problems/valid-boomerang/ 有效的回旋镖
+    public boolean isBoomerang(int[][] points) {
+        if(points == null || points.length == 0){
+            return false;
+        }
+        return (points[1][0] - points[0][0]) * (points[2][1] - points[0][1])
+                != (points[2][0] - points[0][0]) * (points[1][1] - points[0][1]);
+    }
 }
 
 //https://leetcode.cn/problems/serialize-and-deserialize-bst/ 序列化和反序列化二叉搜索树

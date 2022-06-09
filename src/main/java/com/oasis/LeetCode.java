@@ -3578,6 +3578,40 @@ public class LeetCode {
         return (points[1][0] - points[0][0]) * (points[2][1] - points[0][1])
                 != (points[2][0] - points[0][0]) * (points[1][1] - points[0][1]);
     }
+
+    //https://leetcode.cn/problems/random-point-in-non-overlapping-rectangles/ 非重叠矩形中的随机点
+    class Solution {
+
+        int[][] mRects;
+        int n;
+        int[] sum;
+
+        public Solution(int[][] rects) {
+            mRects = rects;
+            n = rects.length;
+            sum = new int[n+1];
+            for (int i = 1; i <= n; i++) {
+                sum[i] = sum[i-1] + (rects[i-1][2] - rects[i-1][0] + 1) * (rects[i-1][3] - rects[i-1][1] + 1);
+            }
+        }
+
+        public int[] pick() {
+            Random random = new Random();
+            int area = random.nextInt(sum[n]) + 1;
+            int l = 1, r = n;
+            while (l < r){
+                int mid = (l + r) >> 1;
+                if(sum[mid] >= area){
+                    r = mid;
+                }else {
+                    l = mid + 1;
+                }
+            }
+            int[] idx = mRects[r - 1];
+            return new int[]{random.nextInt(idx[2] - idx[0] + 1) + idx[0],
+                    random.nextInt(idx[3] - idx[1] + 1) + idx[1]};
+        }
+    }
 }
 
 //https://leetcode.cn/problems/serialize-and-deserialize-bst/ 序列化和反序列化二叉搜索树

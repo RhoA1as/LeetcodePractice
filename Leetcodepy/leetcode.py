@@ -2,6 +2,7 @@
 # leetcode daily card
 import bisect
 import collections
+import random
 from functools import reduce
 from heapq import heappop, heappush
 from itertools import product, combinations, pairwise
@@ -893,6 +894,23 @@ class Solution:
                 ans += 1
             k += 1
         return ans
+
+
+# https://leetcode.cn/problems/random-point-in-non-overlapping-rectangles/ 非重叠矩形中的随机点
+class Solution3:
+
+    def __init__(self, rects: List[List[int]]):
+        self.rec = rects
+        self.areas = [0]
+        for a, b, x, y in rects:
+            self.areas.append(self.areas[-1] + (x - a + 1) * (y - b + 1))
+
+    def pick(self) -> List[int]:
+        area = random.randrange(self.areas[-1])
+        idx = bisect.bisect_right(self.areas, area) - 1
+        a, b, x, y = self.rec[idx]
+        da, db = divmod(area - self.areas[idx], y - b + 1)
+        return [a + da, b + db]
 
 
 # https://leetcode.cn/problems/serialize-and-deserialize-bst/ 序列化和反序列化二叉搜索树

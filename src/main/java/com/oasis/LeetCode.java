@@ -3632,6 +3632,33 @@ public class LeetCode {
         }
         return Math.min(dp0, dp1);
     }
+
+    //https://leetcode.cn/problems/find-and-replace-pattern/ 查找和替换模式
+    public List<String> findAndReplacePattern(String[] words, String pattern) {
+        List<String> ans = new ArrayList<>();
+        for (String word : words) {
+            if(wordMatch(word, pattern) && wordMatch(pattern, word)){
+                ans.add(word);
+            }
+        }
+        return ans;
+    }
+
+    public boolean wordMatch(String s, String p){
+        Map<Character, Character> map = new HashMap<>();
+        if(s.length() != p.length()) return false;
+        int n = s.length();
+        for (int i = 0; i < n; i++) {
+            char cs = s.charAt(i);
+            char ps = p.charAt(i);
+            if(!map.containsKey(cs)){
+                map.put(cs, ps);
+            }else if(map.get(cs) != ps){
+                return false;
+            }
+        }
+        return true;
+    }
 }
 
 //https://leetcode.cn/problems/serialize-and-deserialize-bst/ 序列化和反序列化二叉搜索树

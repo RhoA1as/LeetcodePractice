@@ -910,6 +910,21 @@ class Solution:
             dp0, dp1 = dp0_new, dp1_new
         return min(dp0, dp1)
 
+    # https://leetcode.cn/problems/find-and-replace-pattern/ 查找和替换模式
+    def findAndReplacePattern(self, words: List[str], pattern: str) -> List[str]:
+        def match(word: str, pat: str) -> bool:
+            if len(word) != len(pat):
+                return False
+            m = {}
+            for a, b in zip(word, pat):
+                if a in m:
+                    if m[a] != b:
+                        return False
+                else:
+                    m[a] = b
+            return True
+        return [w for w in words if match(w, pattern) and match(pattern, w)]
+
 
 # https://leetcode.cn/problems/random-point-in-non-overlapping-rectangles/ 非重叠矩形中的随机点
 class Solution3:

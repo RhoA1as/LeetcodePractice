@@ -3612,6 +3612,26 @@ public class LeetCode {
                     random.nextInt(idx[3] - idx[1] + 1) + idx[1]};
         }
     }
+
+    //https://leetcode.cn/problems/flip-string-to-monotone-increasing/ 将字符串翻转到单调递增
+    public int minFlipsMonoIncr(String s) {
+        if(s == null || s.length() == 0){
+            return 0;
+        }
+        int dp0 = 0, dp1 = 0, n = s.length();
+        for (int i = 0; i < n; i++) {
+            char c = s.charAt(i);
+            int dp0_new = dp0, dp1_new = Math.min(dp0, dp1);
+            if(c == '1'){
+                dp0_new++;
+            }else {
+                dp1_new++;
+            }
+            dp0 = dp0_new;
+            dp1 = dp1_new;
+        }
+        return Math.min(dp0, dp1);
+    }
 }
 
 //https://leetcode.cn/problems/serialize-and-deserialize-bst/ 序列化和反序列化二叉搜索树

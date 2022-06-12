@@ -895,6 +895,21 @@ class Solution:
             k += 1
         return ans
 
+    # https://leetcode.cn/problems/flip-string-to-monotone-increasing/ 将字符串翻转到单调递增
+    def minFlipsMonoIncr(self, s: str) -> int:
+        if not s:
+            return 0
+        dp0 = dp1 = 0
+        for c in s:
+            dp0_new = dp0
+            dp1_new = min(dp0, dp1)
+            if c == '1':
+                dp0_new += 1
+            else:
+                dp1_new += 1
+            dp0, dp1 = dp0_new, dp1_new
+        return min(dp0, dp1)
+
 
 # https://leetcode.cn/problems/random-point-in-non-overlapping-rectangles/ 非重叠矩形中的随机点
 class Solution3:

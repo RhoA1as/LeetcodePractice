@@ -925,6 +925,22 @@ class Solution:
             return True
         return [w for w in words if match(w, pattern) and match(pattern, w)]
 
+    # https://leetcode.cn/problems/height-checker/ 高度检查器
+    def heightChecker(self, heights: List[int]) -> int:
+        if not heights:
+            return 0
+        cnts = [0] * 101
+        for h in heights:
+            cnts[h] += 1
+        ans = j = 0
+        for i in range(101):
+            while cnts[i]:
+                if i != heights[j]:
+                    ans += 1
+                cnts[i] -= 1
+                j += 1
+        return ans
+
 
 # https://leetcode.cn/problems/random-point-in-non-overlapping-rectangles/ 非重叠矩形中的随机点
 class Solution3:

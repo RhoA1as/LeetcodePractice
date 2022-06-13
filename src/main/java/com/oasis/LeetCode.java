@@ -3659,6 +3659,24 @@ public class LeetCode {
         }
         return true;
     }
+
+    //https://leetcode.cn/problems/height-checker/ 高度检查器
+    public int heightChecker(int[] heights) {
+        if(heights == null || heights.length == 0){
+            return 0;
+        }
+        int[] cnts = new int[101];
+        for (int height : heights) {
+            cnts[height]++;
+        }
+        int count = 0;
+        for (int i = 1, j = 0; i <= 100; i++) {
+            while (cnts[i]-- > 0){
+                if(heights[j++] != i) count++;
+            }
+        }
+        return count;
+    }
 }
 
 //https://leetcode.cn/problems/serialize-and-deserialize-bst/ 序列化和反序列化二叉搜索树

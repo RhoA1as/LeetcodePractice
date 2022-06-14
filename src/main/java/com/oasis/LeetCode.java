@@ -3677,6 +3677,56 @@ public class LeetCode {
         }
         return count;
     }
+
+    @Test
+    public void testFindDiagonalOrder(){
+        int[][] mat = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+        findDiagonalOrder(mat);
+    }
+
+    //https://leetcode.cn/problems/diagonal-traverse/ 对角线遍历
+    public int[] findDiagonalOrder(int[][] mat) {
+        if(mat == null || mat.length == 0){
+            return new int[0];
+        }
+        int m = mat.length, n = mat[0].length, i = 0;
+        int l = m * n, x = 0, y = 0;
+        int[] ans = new int[l];
+        boolean top = true;
+        while (i < l){
+            ans[i++] = mat[x][y];
+            int nx, ny;
+            if(top){
+                nx = x - 1;
+                ny = y + 1;
+            } else {
+                nx = x + 1;
+                ny = y - 1;
+            }
+            if(i < l && (nx < 0 || nx >= m || ny < 0 || ny >= n)){
+                if(top){
+                    if(y + 1 >= n){
+                        nx = x + 1;
+                        ny = y;
+                    } else {
+                        nx = x;
+                        ny = y + 1;
+                    }
+                } else {
+                    if(x + 1 >= m){
+                        nx = x;
+                        ny = y + 1;
+                    } else {
+                        nx = x + 1;
+                        ny = y;
+                    }
+                }
+                top = !top;
+            }
+            x = nx; y = ny;
+        }
+        return ans;
+    }
 }
 
 //https://leetcode.cn/problems/serialize-and-deserialize-bst/ 序列化和反序列化二叉搜索树

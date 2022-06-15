@@ -3727,6 +3727,27 @@ public class LeetCode {
         }
         return ans;
     }
+
+    //https://leetcode.cn/problems/find-k-th-smallest-pair-distance/ 找出第 K 小的数对距离
+    public int smallestDistancePair(int[] nums, int k) {
+        int n = nums.length;
+        Arrays.sort(nums);
+        int l = 0, r = nums[n-1] - nums[0];
+        while (l <= r){
+            int m = (l + r) >> 1;
+            int count = 0;
+            for (int i = 0, j = 0; i < n; i++) {
+                while (nums[i] - nums[j] > m) j++;
+                count += i - j;
+            }
+            if(count >= k){
+                r = m - 1;
+            } else {
+                l = m + 1;
+            }
+        }
+        return l;
+    }
 }
 
 //https://leetcode.cn/problems/serialize-and-deserialize-bst/ 序列化和反序列化二叉搜索树

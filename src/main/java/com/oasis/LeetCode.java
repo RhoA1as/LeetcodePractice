@@ -3748,6 +3748,23 @@ public class LeetCode {
         }
         return l;
     }
+
+    //https://leetcode.cn/problems/k-diff-pairs-in-an-array/ 数组中的 k-diff 数对
+    public int findPairs(int[] nums, int k) {
+        if(nums == null || nums.length == 0) return 0;
+        Set<Integer> cache = new HashSet<>();
+        Set<Integer> res = new HashSet<>();
+        for (int num : nums) {
+            if(cache.contains(num - k)){
+                res.add(num - k);
+            }
+            if(cache.contains(num + k)){
+                res.add(num);
+            }
+            cache.add(num);
+        }
+        return res.size();
+    }
 }
 
 //https://leetcode.cn/problems/serialize-and-deserialize-bst/ 序列化和反序列化二叉搜索树

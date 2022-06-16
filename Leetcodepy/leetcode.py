@@ -941,6 +941,17 @@ class Solution:
                 j += 1
         return ans
 
+    # https://leetcode.cn/problems/k-diff-pairs-in-an-array/ 数组中的 k-diff 数对
+    def findPairs(self, nums: List[int], k: int) -> int:
+        cache, res = set(), set()
+        for num in nums:
+            if num - k in cache:
+                res.add(num - k)
+            if num + k in cache:
+                res.add(num)
+            cache.add(num)
+        return len(res)
+
 
 # https://leetcode.cn/problems/random-point-in-non-overlapping-rectangles/ 非重叠矩形中的随机点
 class Solution3:

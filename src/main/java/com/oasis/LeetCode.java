@@ -3579,6 +3579,32 @@ public class LeetCode {
                 != (points[2][0] - points[0][0]) * (points[1][1] - points[0][1]);
     }
 
+    //https://leetcode.cn/problems/duplicate-zeros/ 复写零
+    public void duplicateZeros(int[] arr) {
+        if(arr == null || arr.length == 0){
+            return;
+        }
+        int i = -1, top = 0, n = arr.length;
+        while (top < n){
+            if(arr[++i] == 0){
+                top += 2;
+            }else {
+                top++;
+            }
+        }
+        int j = n - 1;
+        if(top == n + 1){
+            arr[j--] = 0;
+            i--;
+        }
+        for (; j >= 0; j--) {
+            arr[j] = arr[i];
+            if(arr[i--] == 0){
+                arr[--j] = 0;
+            }
+        }
+    }
+
     //https://leetcode.cn/problems/random-point-in-non-overlapping-rectangles/ 非重叠矩形中的随机点
     class Solution {
 

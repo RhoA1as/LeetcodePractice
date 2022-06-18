@@ -3605,6 +3605,36 @@ public class LeetCode {
         }
     }
 
+    //https://leetcode.cn/problems/4ueAj6/ 剑指 Offer II 029. 排序的循环链表
+    public Node1 insert(Node1 head, int insertVal) {
+        Node1 node = new Node1(insertVal);
+        if(head == null){
+            node.next = node;
+            return node;
+        }
+        if(head.next == head){
+            head.next = node;
+            node.next = head;
+            return head;
+        }
+        Node1 cur = head, nxt = head.next;
+        while (nxt != head){
+            if(insertVal <= nxt.val && insertVal >= cur.val){
+                break;
+            }
+            if(cur.val > nxt.val){
+                if(insertVal > cur.val || insertVal < nxt.val){
+                    break;
+                }
+            }
+            cur = nxt;
+            nxt = nxt.next;
+        }
+        cur.next = node;
+        node.next = nxt;
+        return head;
+    }
+
     //https://leetcode.cn/problems/random-point-in-non-overlapping-rectangles/ 非重叠矩形中的随机点
     class Solution {
 
@@ -4178,6 +4208,21 @@ class Solution3{
         return ans;
     }
 }
+class Node1 {
+    public int val;
+    public Node1 next;
+
+    public Node1() {}
+
+    public Node1(int _val) {
+        val = _val;
+    }
+
+    public Node1(int _val, Node1 _next) {
+        val = _val;
+        next = _next;
+    }
+};
 
 class Node {
     public int val;

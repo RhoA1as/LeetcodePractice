@@ -3635,6 +3635,36 @@ public class LeetCode {
         return head;
     }
 
+    //https://leetcode.cn/problems/most-frequent-subtree-sum/ 出现次数最多的子树元素和
+    Map<Integer, Integer> sum_cnt = new HashMap<>();
+    int frequentSum = 0;
+    public int[] findFrequentTreeSum(TreeNode root) {
+        if(root == null){
+            return new int[0];
+        }
+        dfsFrequentTree(root);
+        List<Integer> list = new ArrayList<>();
+        for (int key : sum_cnt.keySet()) {
+            if(sum_cnt.get(key) == frequentSum){
+                list.add(key);
+            }
+        }
+        int[] res = new int[list.size()];
+        int i = 0;
+        for (int val : list) {
+            res[i++] = val;
+        }
+        return res;
+    }
+
+    public int dfsFrequentTree(TreeNode root){
+        if(root == null) return 0;
+        int val = root.val + dfsFrequentTree(root.left) + dfsFrequentTree(root.right);
+        sum_cnt.put(val, sum_cnt.getOrDefault(val, 0) + 1);
+        frequentSum = Math.max(frequentSum, sum_cnt.get(val));
+        return val;
+    }
+
     //https://leetcode.cn/problems/random-point-in-non-overlapping-rectangles/ 非重叠矩形中的随机点
     class Solution {
 

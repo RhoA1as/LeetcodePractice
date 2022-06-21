@@ -3665,6 +3665,14 @@ public class LeetCode {
         return val;
     }
 
+    //https://leetcode.cn/problems/defanging-an-ip-address/ IP 地址无效化
+    public String defangIPaddr(String address) {
+        if(address == null || address.length() == 0){
+            return address;
+        }
+        return address.replace(".", "[.]");
+    }
+
     //https://leetcode.cn/problems/random-point-in-non-overlapping-rectangles/ 非重叠矩形中的随机点
     class Solution {
 

@@ -3673,6 +3673,27 @@ public class LeetCode {
         return address.replace(".", "[.]");
     }
 
+    //https://leetcode.cn/problems/find-bottom-left-tree-value/ 找树左下角的值
+    public int findBottomLeftValue(TreeNode root) {
+        Deque<TreeNode> queue = new ArrayDeque<>();
+        int ans = 0;
+        queue.offer(root);
+        while(!queue.isEmpty()){
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                TreeNode node = queue.poll();
+                if(i == 0) ans = node.val;
+                if(node.left != null){
+                    queue.offer(node.left);
+                }
+                if(node.right != null){
+                    queue.offer(node.right);
+                }
+            }
+        }
+        return ans;
+    }
+
     //https://leetcode.cn/problems/random-point-in-non-overlapping-rectangles/ 非重叠矩形中的随机点
     class Solution {
 

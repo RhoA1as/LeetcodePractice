@@ -952,6 +952,18 @@ class Solution:
             cache.add(num)
         return len(res)
 
+    # https://leetcode.cn/problems/find-bottom-left-tree-value/ 找树左下角的值
+    def findBottomLeftValue(self, root: Optional[TreeNode]) -> int:
+        queue = collections.deque([root])
+        while queue:
+            node = queue.popleft()
+            if node.right:
+                queue.append(node.right)
+            if node.left:
+                queue.append(node.left)
+            ans = node.val
+        return ans
+
 
 # https://leetcode.cn/problems/random-point-in-non-overlapping-rectangles/ 非重叠矩形中的随机点
 class Solution3:

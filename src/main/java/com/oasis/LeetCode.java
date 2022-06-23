@@ -3694,6 +3694,32 @@ public class LeetCode {
         return ans;
     }
 
+    //https://leetcode.cn/problems/find-largest-value-in-each-tree-row/ 在每个树行中找最大值
+    public List<Integer> largestValues(TreeNode root) {
+        List<Integer> ans = new ArrayList<>();
+        if(root == null){
+            return ans;
+        }
+        Deque<TreeNode> deque = new ArrayDeque<>();
+        deque.offer(root);
+        while (!deque.isEmpty()){
+            int size = deque.size();
+            int maxVal = Integer.MIN_VALUE;
+            for (int i = 0; i < size; i++) {
+                TreeNode node = deque.poll();
+                maxVal = Math.max(maxVal, node.val);
+                if(node.left != null){
+                    deque.offer(node.left);
+                }
+                if(node.right != null){
+                    deque.offer(node.right);
+                }
+            }
+            ans.add(maxVal);
+        }
+        return ans;
+    }
+
     //https://leetcode.cn/problems/random-point-in-non-overlapping-rectangles/ 非重叠矩形中的随机点
     class Solution {
 

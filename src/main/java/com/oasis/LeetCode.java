@@ -3720,6 +3720,22 @@ public class LeetCode {
         return ans;
     }
 
+    //https://leetcode.cn/problems/JEj789/ 剑指 Offer II 091. 粉刷房子
+    public int minCost(int[][] costs) {
+        if(costs == null || costs.length == 0){
+            return 0;
+        }
+        int n = costs.length;
+        int r = costs[0][0], g = costs[0][1], b = costs[0][2];
+        for (int i = 1; i < n; i++) {
+            int nr = Math.min(g, b) + costs[i][0];
+            int ng = Math.min(r, b) + costs[i][1];
+            int nb = Math.min(r, g) + costs[i][2];
+            r = nr; g = ng; b = nb;
+        }
+        return Math.min(Math.min(r, g), b);
+    }
+
     //https://leetcode.cn/problems/random-point-in-non-overlapping-rectangles/ 非重叠矩形中的随机点
     class Solution {
 

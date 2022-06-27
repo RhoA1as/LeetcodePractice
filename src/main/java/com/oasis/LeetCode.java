@@ -3736,6 +3736,40 @@ public class LeetCode {
         return Math.min(Math.min(r, g), b);
     }
 
+    //https://leetcode.cn/problems/longest-uncommon-subsequence-ii/ 最长特殊序列 II
+    public int findLUSlength(String[] strs) {
+        if(strs == null || strs.length == 0){
+            return 0;
+        }
+        int n = strs.length, ans = -1;
+        for (int i = 0; i < n; i++) {
+            if(strs[i].length() <= ans) continue;
+            boolean flag = true;
+            for (int j = 0; j < n; j++) {
+                if(i == j) continue;
+                if(isSubStr(strs[i], strs[j])){
+                    flag = false;
+                    break;
+                }
+            }
+            if(flag) ans = Math.max(ans, strs[i].length());
+        }
+        return ans;
+    }
+
+    private boolean isSubStr(String a, String b){
+        int la = a.length(), lb = b.length();
+        if(la > lb) return false;
+        int fa = 0, fb = 0;
+        while (fa < la && fb < lb){
+            if(a.charAt(fa) == b.charAt(fb)){
+                fa++;
+            }
+            fb++;
+        }
+        return fa == la;
+    }
+
     //https://leetcode.cn/problems/random-point-in-non-overlapping-rectangles/ 非重叠矩形中的随机点
     class Solution {
 

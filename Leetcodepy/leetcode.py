@@ -964,6 +964,35 @@ class Solution:
             ans = node.val
         return ans
 
+    # https://leetcode.cn/problems/longest-uncommon-subsequence-ii/ 最长特殊序列 II
+    def findLUSlength(self, strs: List[str]) -> int:
+        def is_sub_seq(a: str, b: str) -> bool:
+            la, lb = len(a), len(b)
+            if la > lb:
+                return False
+            fa = fb = 0
+            while fa < la and fb < lb:
+                if a[fa] == b[fb]:
+                    fa += 1
+                fb += 1
+            return fa == la
+        if not strs:
+            return 0
+        ans = -1
+        for i, si in enumerate(strs):
+            if len(si) <= ans:
+                continue
+            flag = True
+            for j, sj in enumerate(strs):
+                if i == j:
+                    continue
+                if is_sub_seq(si, sj):
+                    flag = False
+                    break
+            if flag:
+                ans = max(ans, len(si))
+        return ans
+
 
 # https://leetcode.cn/problems/random-point-in-non-overlapping-rectangles/ 非重叠矩形中的随机点
 class Solution3:
@@ -1250,3 +1279,4 @@ class Bank:
 if __name__ == '__main__':
     s = Solution()
     print(s.toGoatLatin("I speak Goat Latin"))
+    print(s.findLUSlength(['aaa', 'aaa', 'aa']))

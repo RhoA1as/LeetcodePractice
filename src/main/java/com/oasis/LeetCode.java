@@ -3770,6 +3770,32 @@ public class LeetCode {
         return fa == la;
     }
 
+    //https://leetcode.cn/problems/encode-and-decode-tinyurl/ TinyURL 的加密与解密
+    class Codec {
+
+        Map<String,String> shortToLong = new HashMap<>();
+        Map<String,String> longToShort = new HashMap<>();
+
+        private static final String prefix = "http://tinyurl.com/";
+
+        // Encodes a URL to a shortened URL.
+        public String encode(String longUrl) {
+            if(longToShort.containsKey(longUrl)){
+                return prefix.concat(longToShort.get(longUrl));
+            }
+            String shortUrl = new StringBuilder(prefix)
+                    .append(longUrl.hashCode()).append(System.currentTimeMillis()).toString();
+            shortToLong.put(shortUrl, longUrl);
+            longToShort.put(longUrl, shortUrl);
+            return shortUrl;
+        }
+
+        // Decodes a shortened URL to its original URL.
+        public String decode(String shortUrl) {
+            return shortToLong.get(shortUrl);
+        }
+    }
+
     //https://leetcode.cn/problems/random-point-in-non-overlapping-rectangles/ 非重叠矩形中的随机点
     class Solution {
 

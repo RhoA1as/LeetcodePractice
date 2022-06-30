@@ -3796,6 +3796,34 @@ public class LeetCode {
         }
     }
 
+    //https://leetcode.cn/problems/prime-arrangements/ 质数排列
+    public int numPrimeArrangements(int n) {
+        int a = 0;
+        for (int i = 1; i <= n; i++) {
+            if(isPrime(i)) a++;
+        }
+        return (int)(factorial(a) * factorial(n-a) % 1000000007);
+    }
+
+    public long factorial(int n){
+        long ans = 1;
+        for (int i = 2; i <= n; i++) {
+            ans *= i;
+            ans %= 1000000007;
+        }
+        return ans;
+    }
+
+    private boolean isPrime(int num){
+        if(num == 1) return false;
+        for (int i = 2; i * i <= num; i++) {
+            if(num % i == 0){
+                return false;
+            }
+        }
+        return true;
+    }
+
     //https://leetcode.cn/problems/random-point-in-non-overlapping-rectangles/ 非重叠矩形中的随机点
     class Solution {
 

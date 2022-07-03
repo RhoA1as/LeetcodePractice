@@ -1029,6 +1029,21 @@ class Solution:
         self.cache[expression] = ans
         return ans
 
+    # https://leetcode.cn/problems/minimum-absolute-difference/ 最小绝对差
+    def minimumAbsDifference(self, arr: List[int]) -> List[List[int]]:
+        if not arr:
+            return None
+        n = len(arr)
+        arr.sort()
+        best, ans = inf, []
+        for i in range(n-1):
+            if(val := arr[i+1] - arr[i]) < best:
+                ans = [[arr[i], arr[i+1]]]
+                best = val
+            elif val == best:
+                ans.append([arr[i], arr[i+1]])
+        return ans
+
 
 # https://leetcode.cn/problems/random-point-in-non-overlapping-rectangles/ 非重叠矩形中的随机点
 class Solution3:

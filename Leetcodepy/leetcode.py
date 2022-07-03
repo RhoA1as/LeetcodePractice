@@ -993,6 +993,23 @@ class Solution:
                 ans = max(ans, len(si))
         return ans
 
+    # https://leetcode.cn/problems/next-permutation/ 下一个排列
+    def nextPermutation(self, nums: List[int]) -> None:
+        if not nums:
+            return
+        n = len(nums)
+        left = n - 2
+        while left >= 0 and nums[left] >= nums[left + 1]:
+            left -= 1
+        a, b = left + 1, n - 1
+        while a < b:
+            nums[a], nums[b] = nums[b], nums[a]
+            a += 1
+            b -= 1
+        if left >= 0:
+            idx = bisect.bisect_right(nums[left + 1:], nums[left]) + left + 1
+            nums[idx], nums[left] = nums[left], nums[idx]
+
 
 # https://leetcode.cn/problems/random-point-in-non-overlapping-rectangles/ 非重叠矩形中的随机点
 class Solution3:
@@ -1278,5 +1295,4 @@ class Bank:
 
 if __name__ == '__main__':
     s = Solution()
-    print(s.toGoatLatin("I speak Goat Latin"))
-    print(s.findLUSlength(['aaa', 'aaa', 'aa']))
+    s.nextPermutation([1, 2, 3])

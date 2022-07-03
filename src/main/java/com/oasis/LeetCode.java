@@ -3824,6 +3824,47 @@ public class LeetCode {
         return true;
     }
 
+    //https://leetcode.cn/problems/next-permutation/ 下一个排列
+    @Test
+    public void testNxt(){
+        nextPermutation(new int[]{1, 5, 1});
+    }
+    public void nextPermutation(int[] nums) {
+        if(nums == null || nums.length <= 1){
+            return;
+        }
+        int n = nums.length;
+        mNums = nums;
+        int left = n - 2;
+        while (left >= 0 && nums[left] >= nums[left + 1]) left--;
+        if(left >= 0){
+            int idx = findIndex(left + 1, n - 1, nums[left]);
+            swap(left, idx);
+        }
+        int start = left + 1, end = n - 1;
+        while (start < end) swap(start++, end--);
+    }
+
+    int[] mNums;
+
+    private void swap(int a, int b){
+        int tmp = mNums[a];
+        mNums[a] = mNums[b];
+        mNums[b] = tmp;
+    }
+
+    private int findIndex(int start, int end, int target){
+        while (start < end){
+            int mid = (start + end + 1) >> 1;
+            if(mNums[mid] > target){
+                start = mid;
+            } else {
+                end = mid - 1;
+            }
+        }
+        return start;
+    }
+
     //https://leetcode.cn/problems/random-point-in-non-overlapping-rectangles/ 非重叠矩形中的随机点
     class Solution {
 

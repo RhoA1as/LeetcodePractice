@@ -3865,6 +3865,45 @@ public class LeetCode {
         return start;
     }
 
+    //https://leetcode.cn/problems/different-ways-to-add-parentheses/ 为运算表达式设计优先级
+
+    Map<String, List<Integer>> cache = new HashMap<>();
+    public List<Integer> diffWaysToCompute(String expression) {
+        List<Integer> ans = new ArrayList<>();
+        try {
+            ans.add(Integer.parseInt(expression));
+            return ans;
+        } catch (Exception e){
+            //do nothing
+        }
+        if(cache.containsKey(expression)) return cache.get(expression);
+        for (int i = 0; i < expression.length(); i++) {
+            char c = expression.charAt(i);
+            if(Character.isDigit(c)) continue;
+            List<Integer> left = diffWaysToCompute(expression.substring(0, i));
+            List<Integer> right = diffWaysToCompute(expression.substring(i+1));
+            for (int lv : left) {
+                for (int rv : right) {
+                    switch (c){
+                        case '+':
+                            ans.add(lv + rv);
+                            break;
+                        case '-':
+                            ans.add(lv - rv);
+                            break;
+                        case '*':
+                            ans.add(lv * rv);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+        }
+        cache.put(expression, ans);
+        return ans;
+    }
+
     //https://leetcode.cn/problems/random-point-in-non-overlapping-rectangles/ 非重叠矩形中的随机点
     class Solution {
 

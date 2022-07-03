@@ -1010,6 +1010,25 @@ class Solution:
             idx = bisect.bisect_right(nums[left + 1:], nums[left]) + left + 1
             nums[idx], nums[left] = nums[left], nums[idx]
 
+    # https://leetcode.cn/problems/different-ways-to-add-parentheses/ 为运算表达式设计优先级
+    cache = {}
+
+    def diffWaysToCompute(self, expression: str) -> List[int]:
+        if expression.isdigit():
+            return [int(expression)]
+        if expression in self.cache:
+            return self.cache[expression]
+        ans = []
+        for i, c in enumerate(expression):
+            if c in '+-*':
+                left = self.diffWaysToCompute(expression[:i])
+                right = self.diffWaysToCompute(expression[i+1:])
+                for lv in left:
+                    for rv in right:
+                        ans.append(eval(f"{lv}{c}{rv}"))
+        self.cache[expression] = ans
+        return ans
+
 
 # https://leetcode.cn/problems/random-point-in-non-overlapping-rectangles/ 非重叠矩形中的随机点
 class Solution3:

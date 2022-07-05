@@ -3904,6 +3904,30 @@ public class LeetCode {
         return ans;
     }
 
+    //https://leetcode.cn/problems/my-calendar-i/ 我的日程安排表 I
+    class MyCalendar {
+
+        TreeSet<int[]> set;
+        public MyCalendar() {
+            set = new TreeSet<>((a, b) -> a[0] - b[0]);
+        }
+
+        public boolean book(int start, int end) {
+            if(set.isEmpty()){
+                set.add(new int[]{start, end});
+                return true;
+            }
+            int[] tmp = {end, 0};
+            int[] nxt = set.ceiling(tmp);
+            int[] prev = nxt == null ? set.last() : set.lower(nxt);
+            if(prev == null || prev[1] <= start){
+                set.add(new int[]{start, end});
+                return true;
+            }
+            return false;
+        }
+    }
+
     //https://leetcode.cn/problems/random-point-in-non-overlapping-rectangles/ 非重叠矩形中的随机点
     class Solution {
 

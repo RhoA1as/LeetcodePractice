@@ -1044,6 +1044,13 @@ class Solution:
                 ans.append([arr[i], arr[i+1]])
         return ans
 
+    # https://leetcode.cn/problems/minimum-cost-to-move-chips-to-the-same-position/ 玩筹码
+    def minCostToMoveChips(self, position: List[int]) -> int:
+        if not position:
+            return 0
+        cnt = collections.Counter([i & 1 for i in position])
+        return min(cnt[0], cnt[1])
+
 
 # https://leetcode.cn/problems/random-point-in-non-overlapping-rectangles/ 非重叠矩形中的随机点
 class Solution3:

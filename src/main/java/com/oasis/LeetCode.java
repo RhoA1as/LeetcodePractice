@@ -3928,6 +3928,22 @@ public class LeetCode {
         }
     }
 
+    //https://leetcode.cn/problems/minimum-cost-to-move-chips-to-the-same-position/ 玩筹码
+    public int minCostToMoveChips(int[] position) {
+        if(position == null || position.length == 0){
+            return 0;
+        }
+        int even = 0, odd = 0;
+        for (int i : position) {
+            if((i & 1) == 0){
+                even++;
+            }else {
+                odd++;
+            }
+        }
+        return Math.min(even, odd);
+    }
+
     //https://leetcode.cn/problems/random-point-in-non-overlapping-rectangles/ 非重叠矩形中的随机点
     class Solution {
 

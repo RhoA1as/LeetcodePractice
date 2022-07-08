@@ -1,5 +1,7 @@
 package com.oasis.bean;
 
+import java.util.List;
+
 public class LeetcodeP2 {
 
     //https://leetcode-cn.com/problems/construct-quad-tree/ 建立四叉树
@@ -37,6 +39,48 @@ public class LeetcodeP2 {
 
     public int getSum(int r0, int c0, int r1, int c1){
         return mPreSum[r1][c1] - mPreSum[r0][c1] - mPreSum[r1][c0] + mPreSum[r0][c0];
+    }
+
+    //https://leetcode.cn/problems/replace-words/ 单词替换
+    class TriNode{
+        boolean isEnd;
+        TriNode[] children = new TriNode[26];
+    }
+
+    TriNode root = new TriNode();
+
+    private void add(String s){
+        TriNode tmp = root;
+        for (int i = 0; i < s.length(); i++) {
+            int c = s.charAt(i) - 'a';
+            if(tmp.children[c] == null) tmp.children[c] = new TriNode();
+            tmp = tmp.children[c];
+        }
+        tmp.isEnd = true;
+    }
+
+    private String query(String s){
+        TriNode tmp = root;
+        for (int i = 0; i < s.length(); i++) {
+            int c = s.charAt(i) - 'a';
+            if(tmp.children[c] == null) break;
+            if(tmp.children[c].isEnd) return s.substring(0, i + 1);
+            tmp = tmp.children[c];
+        }
+        return s;
+    }
+    public String replaceWords(List<String> dictionary, String sentence) {
+        for (String s : dictionary) {
+            add(s);
+        }
+        StringBuilder ans = new StringBuilder();
+        String[] s = sentence.split(" ");
+        int n = s.length;
+        for (int i = 0; i < n; i++) {
+            ans.append(query(s[i]));
+            if(i != n-1) ans.append(" ");
+        }
+        return ans.toString();
     }
 }
 class Node {

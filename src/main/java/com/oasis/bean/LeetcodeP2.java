@@ -1,6 +1,8 @@
 package com.oasis.bean;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class LeetcodeP2 {
 
@@ -81,6 +83,27 @@ public class LeetcodeP2 {
             if(i != n-1) ans.append(" ");
         }
         return ans.toString();
+    }
+
+    //https://leetcode.cn/problems/length-of-longest-fibonacci-subsequence/ 最长的斐波那契子序列的长度
+    public int lenLongestFibSubseq(int[] arr) {
+        int n = arr.length, ans = 0;
+        int[][] dp = new int[n][n];
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < n; i++) {
+            map.put(arr[i], i);
+        }
+        for (int i = 0; i < n; i++) {
+            for (int j = i - 1; j >= 0 && j + 2 > ans; j--) {
+                int div = arr[i] - arr[j];
+                if(div >= arr[j]) break;
+                int k = map.getOrDefault(div, -1);
+                if(k == -1) continue;
+                dp[i][j] = Math.max(3, dp[j][k] + 1);
+                ans = Math.max(dp[i][j], ans);
+            }
+        }
+        return ans;
     }
 }
 class Node {

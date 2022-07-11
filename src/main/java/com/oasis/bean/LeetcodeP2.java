@@ -1,5 +1,7 @@
 package com.oasis.bean;
 
+import org.junit.jupiter.api.Test;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -105,7 +107,78 @@ public class LeetcodeP2 {
         }
         return ans;
     }
+
+    @Test
+    public void test(){
+        MagicDictionary magicDictionary = new MagicDictionary();
+        magicDictionary.buildDict(new String[]{"hello", "hallo", "leetcode"});
+        System.out.println(magicDictionary.search("hello"));
+        System.out.println(magicDictionary.search("hhllo"));
+        System.out.println(magicDictionary.search("hell"));
+        System.out.println(magicDictionary.search("leetcoded"));
+    }
 }
+
+
+//https://leetcode.cn/problems/implement-magic-dictionary/ 实现一个魔法字典
+class MagicDictionary {
+
+    class TriNode{
+        boolean isEnd;
+        TriNode[] children = new TriNode[26];
+    }
+
+    TriNode root;
+
+    private void add(String s){
+        TriNode tmp = root;
+        for (int i = 0; i < s.length(); i++) {
+            int c = s.charAt(i) - 'a';
+            if(tmp.children[c] == null){
+                tmp.children[c] = new TriNode();
+            }
+            tmp = tmp.children[c];
+        }
+        tmp.isEnd = true;
+    }
+
+    public MagicDictionary() {
+        root = new TriNode();
+    }
+
+    public void buildDict(String[] dictionary) {
+        for (String s : dictionary) {
+            add(s);
+        }
+    }
+
+    public boolean search(String searchWord) {
+        return searchImpl(searchWord, 0, 1, root);
+    }
+
+    private boolean searchImpl(String s, int idx, int limit, TriNode cur){
+        TriNode tmp = cur;
+        for (int i = idx; i < s.length(); i++) {
+            int c = s.charAt(i) - 'a';
+            if(limit != 0) {
+                for (int j = 0; j < 26; j++) {
+                    if (tmp.children[j] == null) continue;
+                    int nxt_limit = c == j ? limit : limit - 1;
+                    if (searchImpl(s, i + 1, nxt_limit, tmp.children[j])) {
+                        return true;
+                    }
+                }
+                return false;
+            } else if(tmp.children[c] != null){
+                tmp = tmp.children[c];
+            } else {
+                return false;
+            }
+        }
+        return limit == 0 && tmp.isEnd;
+    }
+}
+
 class Node {
     public boolean val;
     public boolean isLeaf;

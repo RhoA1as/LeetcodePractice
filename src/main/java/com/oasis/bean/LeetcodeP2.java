@@ -108,6 +108,17 @@ public class LeetcodeP2 {
         return ans;
     }
 
+    //https://leetcode.cn/problems/cells-with-odd-values-in-a-matrix/ 奇数值单元格的数目
+    public int oddCells(int m, int n, int[][] indices) {
+        long row = 0, col = 0;
+        for (int[] index : indices) {
+            row ^= 1L << index[0];
+            col ^= 1L << index[1];
+        }
+        int row_cnt = Long.bitCount(row), col_cnt = Long.bitCount(col);
+        return row_cnt * (n - col_cnt) + (m - row_cnt) * col_cnt;
+    }
+
     @Test
     public void test(){
         MagicDictionary magicDictionary = new MagicDictionary();

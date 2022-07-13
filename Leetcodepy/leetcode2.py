@@ -16,3 +16,21 @@ def oddCells(self, m: int, n: int, indices: List[List[int]]) -> int:
         if (col >> i) & 1:
             b += 1
     return a * (n - b) + b * (m - a)
+
+
+# https://leetcode.cn/problems/asteroid-collision/ 行星碰撞
+def asteroidCollision(self, asteroids: List[int]) -> List[int]:
+    if not asteroids:
+        return asteroids
+    stack = []
+    for asteroid in asteroids:
+        is_live = True
+        while is_live and stack and stack[-1] > 0 and asteroid < 0:
+            if stack[-1] >= -asteroid:
+                is_live = False
+            if stack[-1] <= -asteroid:
+                stack.pop()
+        if is_live:
+            stack.append(asteroid)
+    return stack
+

@@ -2,9 +2,7 @@ package com.oasis.bean;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class LeetcodeP2 {
 
@@ -104,6 +102,29 @@ public class LeetcodeP2 {
                 dp[i][j] = Math.max(3, dp[j][k] + 1);
                 ans = Math.max(dp[i][j], ans);
             }
+        }
+        return ans;
+    }
+
+    //https://leetcode.cn/problems/asteroid-collision/ 行星碰撞
+    public int[] asteroidCollision(int[] asteroids) {
+        if(asteroids == null || asteroids.length == 0){
+            return asteroids;
+        }
+        Deque<Integer> stack = new ArrayDeque<>();
+        for (int asteroid : asteroids) {
+            boolean isLive = true;
+            while (isLive && !stack.isEmpty() && stack.peekLast() > 0 && asteroid < 0){
+                int top = stack.peekLast();
+                if(top >= -asteroid) isLive = false;
+                if(top <= -asteroid) stack.pollLast();
+            }
+            if(isLive) stack.offer(asteroid);
+        }
+        int size = stack.size(), i = 0;
+        int[] ans = new int[size];
+        for (int a : stack) {
+            ans[i++] = a;
         }
         return ans;
     }

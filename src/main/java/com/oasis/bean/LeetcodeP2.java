@@ -149,6 +149,30 @@ public class LeetcodeP2 {
         System.out.println(magicDictionary.search("hell"));
         System.out.println(magicDictionary.search("leetcoded"));
     }
+
+    //https://leetcode.cn/problems/logical-or-of-two-binary-grids-represented-as-quad-trees/ 四叉树交集
+    public Node intersect(Node quadTree1, Node quadTree2) {
+        if(quadTree1.isLeaf){
+            if(quadTree1.val){
+                return new Node(true, true);
+            }
+            return quadTree2;
+        }
+        if(quadTree2.isLeaf){
+            return intersect(quadTree2, quadTree1);
+        }
+        Node topLeft = intersect(quadTree1.topLeft, quadTree2.topLeft);
+        Node topRight = intersect(quadTree1.topRight, quadTree2.topRight);
+        Node bottomLeft = intersect(quadTree1.bottomLeft, quadTree2.bottomLeft);
+        Node bottomRight = intersect(quadTree1.bottomRight, quadTree2.bottomRight);
+        boolean a = topLeft.isLeaf && topRight.isLeaf && bottomLeft.isLeaf && bottomRight.isLeaf;
+        boolean b = topLeft.val && topRight.val && bottomLeft.val && bottomRight.val;
+        boolean c = topLeft.val || topRight.val || bottomLeft.val || bottomRight.val;
+        if(a && (b || !c)){
+            return new Node(topLeft.val, true);
+        }
+        return new Node(false, false, topLeft, topRight, bottomLeft, bottomRight);
+    }
 }
 
 

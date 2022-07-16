@@ -173,6 +173,29 @@ public class LeetcodeP2 {
         }
         return new Node(false, false, topLeft, topRight, bottomLeft, bottomRight);
     }
+
+    //https://leetcode.cn/problems/qIsx9U/ 滑动窗口的平均值
+    class MovingAverage {
+
+        private int mSize;
+
+        private double mSum;
+
+        private Deque<Integer> mqueue;
+
+        /** Initialize your data structure here. */
+        public MovingAverage(int size) {
+            mSize = size;
+            mqueue = new ArrayDeque<>();
+        }
+
+        public double next(int val) {
+            if(mqueue.size() == mSize) mSum -= mqueue.pollFirst();
+            mqueue.offer(val);
+            mSum += val;
+            return mSum / mqueue.size();
+        }
+    }
 }
 
 

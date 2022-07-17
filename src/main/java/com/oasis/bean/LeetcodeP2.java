@@ -256,6 +256,31 @@ class MagicDictionary {
         }
         return limit == 0 && tmp.isEnd;
     }
+
+    @Test
+    public void test3(){
+        arrayNesting(new int[]{5, 4, 0, 3, 1, 6, 2});
+    }
+
+    //https://leetcode.cn/problems/array-nesting/ 数组嵌套
+    public int arrayNesting(int[] nums) {
+        if(nums == null || nums.length == 0){
+            return 0;
+        }
+        int n = nums.length, ans = 0;
+        for (int i = 0; i < n; i++) {
+            if(nums[i] == -1) continue;
+            int cnt = 0;
+            while (nums[i] != -1){
+                cnt++;
+                int tmp = nums[i];
+                nums[i] = -1;
+                i = tmp;
+            }
+            ans = Math.max(cnt, ans);
+        }
+        return ans;
+    }
 }
 
 class Node {

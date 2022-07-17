@@ -60,3 +60,21 @@ def intersect(self, quadTree1: 'Node', quadTree2: 'Node') -> 'Node':
     return Node(False, False, tl, tr, bl, br)
 
 
+# https://leetcode.cn/problems/array-nesting/ 数组嵌套
+def arrayNesting(self, nums: List[int]) -> int:
+    if not nums:
+        return 0
+    n, ans = len(nums), 0
+    for i in range(n):
+        if nums[i] == -1:
+            continue
+        cnt = 0
+        while nums[i] != -1:
+            tmp = nums[i]
+            nums[i] = -1
+            i = tmp
+            cnt += 1
+        ans = max(ans, cnt)
+    return ans
+
+

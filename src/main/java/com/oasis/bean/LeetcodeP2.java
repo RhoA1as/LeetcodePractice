@@ -281,6 +281,30 @@ class MagicDictionary {
         }
         return ans;
     }
+
+    //https://leetcode.cn/problems/shift-2d-grid/ 二维网格迁移
+    public List<List<Integer>> shiftGrid(int[][] grid, int k) {
+        if(grid == null || grid.length == 0){
+            return null;
+        }
+        int m = grid.length, n = grid[0].length;
+        List<List<Integer>> ans = new ArrayList<>();
+        for (int i = 0; i < m; i++) {
+            List<Integer> row = new ArrayList<>();
+            for (int j = 0; j < n; j++) {
+                row.add(0);
+            }
+            ans.add(row);
+        }
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                int idx = (i * n + j + k) % (m * n);
+                int row = idx / n, col = idx % n;
+                ans.get(row).set(col, grid[i][j]);
+            }
+        }
+        return ans;
+    }
 }
 
 class Node {

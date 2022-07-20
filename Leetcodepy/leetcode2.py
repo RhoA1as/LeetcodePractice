@@ -78,3 +78,16 @@ def arrayNesting(self, nums: List[int]) -> int:
     return ans
 
 
+# https://leetcode.cn/problems/shift-2d-grid/ 二维网格迁移
+def shiftGrid(self, grid: List[List[int]], k: int) -> List[List[int]]:
+    if not grid:
+        return grid
+    m, n = len(grid), len(grid[0])
+    ans = [[0] * n for _ in range(m)]
+    for i in range(m):
+        for j in range(n):
+            idx = (i * n + j + k) % (m * n)
+            ans[idx // n][idx % n] = grid[i][j]
+    return ans
+
+

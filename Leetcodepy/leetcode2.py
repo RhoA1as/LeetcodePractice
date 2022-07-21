@@ -1,8 +1,11 @@
 
-from typing import List
+from typing import List, Optional
 
 
 # https://leetcode.cn/problems/cells-with-odd-values-in-a-matrix/ 奇数值单元格的数目
+from leetcode import TreeNode
+
+
 def oddCells(self, m: int, n: int, indices: List[List[int]]) -> int:
     row = col = 0
     for index in indices:
@@ -90,4 +93,16 @@ def shiftGrid(self, grid: List[List[int]], k: int) -> List[List[int]]:
             ans[idx // n][idx % n] = grid[i][j]
     return ans
 
+
+class Solution:
+
+    # https://leetcode.cn/problems/binary-tree-pruning/ 二叉树减枝
+    def pruneTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        if not root:
+            return None
+        root.left = self.pruneTree(root.left)
+        root.right = self.pruneTree(root.right)
+        if not (root.left or root.right or root.val):
+            return None
+        return root
 

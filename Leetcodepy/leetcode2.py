@@ -106,3 +106,30 @@ class Solution:
             return None
         return root
 
+    # https://leetcode.cn/problems/set-intersection-size-at-least-two/ 设置交集大小至少为2
+    def intersectionSizeTwo(self, intervals: List[List[int]]) -> int:
+        if not intervals:
+            return 0
+        intervals.sort(key=lambda a: a[1])
+        pl, pr, ans = intervals[0][1] - 1, intervals[0][1], 2
+        for idx, interval in enumerate(intervals):
+            if not idx:
+                continue
+            if pl >= interval[0] and pr <= interval[1]:
+                continue
+            if pr < interval[0]:
+                ans += 2
+                pl, pr = interval[1] - 1, interval[1]
+            elif pl < interval[0]:
+                ans += 1
+                if pr == interval[1]:
+                    pl = pr - 1
+                else:
+                    pl = pr
+                    pr = interval[1]
+        return ans
+
+
+if __name__ == '__main__':
+    s = Solution()
+    s.intersectionSizeTwo([[1,2],[2,3],[2,4],[4,5]])

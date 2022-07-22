@@ -314,6 +314,31 @@ class MagicDictionary {
         if(root.left == null && root.right == null && root.val == 0) return null;
         return root;
     }
+
+    //https://leetcode.cn/problems/set-intersection-size-at-least-two/ 设置交集大小至少为2
+    public int intersectionSizeTwo(int[][] intervals) {
+        if(intervals == null || intervals.length == 0) return 0;
+        int ans = 2, n = intervals.length;
+        Arrays.sort(intervals, (a, b) -> a[1] - b[1]);
+        int pl = intervals[0][1] - 1, pr = intervals[0][1];
+        for (int i = 1; i < n; i++) {
+            if(pl >= intervals[i][0] && pr <= intervals[i][1]) continue;
+            if(pr < intervals[i][0]){
+                ans += 2;
+                pl = intervals[i][1] -1;
+                pr = intervals[i][1];
+            } else if(pl < intervals[i][0]){
+                ans++;
+                if(pr == intervals[i][1]){
+                    pl = intervals[i][1] - 1;
+                } else {
+                    pl = pr;
+                    pr = intervals[i][1];
+                }
+            }
+        }
+        return ans;
+    }
 }
 
 class TreeNode {

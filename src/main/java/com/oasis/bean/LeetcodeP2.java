@@ -339,6 +339,39 @@ class MagicDictionary {
         }
         return ans;
     }
+
+    //https://leetcode.cn/problems/complete-binary-tree-inserter/ 完全二叉树插入器
+    class CBTInserter {
+        List<TreeNode> mList;
+        int mIdx;
+        public CBTInserter(TreeNode root) {
+            mList = new ArrayList<>();
+            mList.add(root);
+            int idx = 0;
+            while (idx < mList.size()){
+                TreeNode tmp = mList.get(idx++);
+                if(tmp.left != null) mList.add(tmp.left);
+                if(tmp.right != null) mList.add(tmp.right);
+            }
+        }
+
+        public int insert(int val) {
+            TreeNode curr = new TreeNode(val);
+            while (mList.get(mIdx).left != null && mList.get(mIdx).right != null) mIdx++;
+            TreeNode node = mList.get(mIdx);
+            if(node.left == null){
+                node.left = curr;
+            } else if (node.right == null) {
+                node.right = curr;
+            }
+            mList.add(curr);
+            return node.val;
+        }
+
+        public TreeNode get_root() {
+            return mList.get(0);
+        }
+    }
 }
 
 class TreeNode {

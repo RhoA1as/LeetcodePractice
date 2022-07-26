@@ -372,6 +372,48 @@ class MagicDictionary {
             return mList.get(0);
         }
     }
+
+    @Test
+    public void testFrac(){
+        System.out.println(fractionAddition("-1/2+1/2+1/3"));
+    }
+    //https://leetcode.cn/problems/fraction-addition-and-subtraction/ 分数加减运算
+    public String fractionAddition(String expression) {
+        if(expression == null || expression.length() == 0) return expression;
+        int idx = 0, n = expression.length();
+        long a = 0, b = 1;
+        while (idx < n){
+            long c = 0, d = 0, sign = 1;
+            char e = expression.charAt(idx);
+            if(e == '+' || e == '-'){
+                sign = e == '-' ? -1 : 1;
+                idx++;
+            }
+            while (idx < n && Character.isDigit(expression.charAt(idx))){
+                c = c * 10 + expression.charAt(idx++) - '0';
+            }
+            idx++;
+            c *= sign;
+            while (idx < n && Character.isDigit(expression.charAt(idx))){
+                d = d * 10 + expression.charAt(idx++) - '0';
+            }
+            a = a * d + c * b;
+            b *= d;
+        }
+        if(a == 0) return "0/1";
+        long g = gcd(Math.abs(a), b);
+        return new StringBuilder().append(a / g).append("/").append(b / g).toString();
+    }
+
+    private long gcd(long a, long b){
+        long c = a % b;
+        while (c != 0){
+            a = b;
+            b = c;
+            c = a % b;
+        }
+        return b;
+    }
 }
 
 class TreeNode {

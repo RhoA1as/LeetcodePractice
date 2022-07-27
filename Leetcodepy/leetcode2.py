@@ -129,6 +129,11 @@ class Solution:
                     pr = interval[1]
         return ans
 
+    # https://leetcode.cn/problems/rank-transform-of-an-array/ 数组序号转换
+    def arrayRankTransform(self, arr: List[int]) -> List[int]:
+        mapping = {v: i for i, v in enumerate(sorted(set(arr)), 1)}
+        return [mapping[a] for a in arr]
+
 
 if __name__ == '__main__':
     s = Solution()

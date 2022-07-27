@@ -414,6 +414,24 @@ class MagicDictionary {
         }
         return b;
     }
+
+    //https://leetcode.cn/problems/rank-transform-of-an-array/ 数组序号转换
+    public int[] arrayRankTransform(int[] arr) {
+        int n = arr.length;
+        int[] tmp = new int[n];
+        System.arraycopy(arr, 0, tmp, 0, n);
+        Arrays.sort(tmp);
+        Map<Integer,Integer> mapping = new HashMap<>();
+        for (int i = 0; i < n; i++) {
+            if(!mapping.containsKey(tmp[i])){
+                mapping.put(tmp[i], mapping.size() + 1);
+            }
+        }
+        for (int i = 0; i < n; i++) {
+            tmp[i] = mapping.get(arr[i]);
+        }
+        return tmp;
+    }
 }
 
 class TreeNode {

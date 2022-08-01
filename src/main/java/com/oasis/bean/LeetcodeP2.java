@@ -432,6 +432,14 @@ class MagicDictionary {
         }
         return tmp;
     }
+
+    //https://leetcode.cn/problems/generate-a-string-with-characters-that-have-odd-counts/ 生成每种字符都是奇数个的字符串
+    public String generateTheString(int n) {
+        if((n & 1) != 0){
+            return "a".repeat(n);
+        }
+        return new StringBuilder("a".repeat(n-1)).append("b").toString();
+    }
 }
 
 class TreeNode {

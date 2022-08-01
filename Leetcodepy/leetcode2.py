@@ -134,6 +134,12 @@ class Solution:
         mapping = {v: i for i, v in enumerate(sorted(set(arr)), 1)}
         return [mapping[a] for a in arr]
 
+    # https://leetcode.cn/problems/generate-a-string-with-characters-that-have-odd-counts/ 生成每种字符都是奇数个的字符串
+    def generateTheString(self, n: int) -> str:
+        if n & 1:
+            return 'a' * n
+        return "a" * (n-1) + "b"
+
 
 if __name__ == '__main__':
     s = Solution()

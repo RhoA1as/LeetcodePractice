@@ -440,6 +440,52 @@ class MagicDictionary {
         }
         return new StringBuilder("a".repeat(n-1)).append("b").toString();
     }
+
+    //https://leetcode.cn/problems/design-circular-queue/ 设计循环队列
+    class MyCircularQueue {
+
+        int mSize;
+        int[] mQueue;
+
+        int mHead;
+        int mTail;
+
+        public MyCircularQueue(int k) {
+            mSize = k + 1;
+            mQueue = new int[k+1];
+        }
+
+        public boolean enQueue(int value) {
+            if(isFull()) return false;
+            mQueue[mTail] = value;
+            mTail = (mTail + 1) % mSize;
+            return true;
+        }
+
+        public boolean deQueue() {
+            if(isEmpty()) return false;
+            mHead = (mHead + 1) % mSize;
+            return true;
+        }
+
+        public int Front() {
+            if(isEmpty()) return -1;
+            return mQueue[mHead];
+        }
+
+        public int Rear() {
+            if(isEmpty()) return -1;
+            return mQueue[(mTail - 1 + mSize) % mSize];
+        }
+
+        public boolean isEmpty() {
+            return mHead == mTail;
+        }
+
+        public boolean isFull() {
+            return (mTail + 1) % mSize == mHead;
+        }
+    }
 }
 
 class TreeNode {

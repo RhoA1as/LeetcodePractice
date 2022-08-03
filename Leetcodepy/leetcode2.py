@@ -140,6 +140,26 @@ class Solution:
             return 'a' * n
         return "a" * (n-1) + "b"
 
+    # https://leetcode.cn/problems/orderly-queue/ 有序队列
+    def orderlyQueue(self, s: str, k: int) -> str:
+        if k == 1:
+            i, j, _k, n = 0, 1, 0, len(s)
+            while i < n and j < n and _k < n:
+                a, b = s[(i + _k) % n], s[(j + _k) % n]
+                if a == b:
+                    _k += 1
+                else:
+                    if a > b:
+                        i += _k + 1
+                    else:
+                        j += _k + 1
+                    if i == j:
+                        i += 1
+                    _k = 0
+            i = min(i, j)
+            return s[i:] + s[:i]
+        return "".join(sorted(s))
+
 
 if __name__ == '__main__':
     s = Solution()

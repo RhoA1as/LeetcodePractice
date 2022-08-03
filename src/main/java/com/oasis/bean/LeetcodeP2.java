@@ -486,6 +486,33 @@ class MagicDictionary {
             return (mTail + 1) % mSize == mHead;
         }
     }
+
+    //https://leetcode.cn/problems/orderly-queue/ 有序队列
+    public String orderlyQueue(String s, int k) {
+        if(k == 1){
+            int i = 0, j = 1, k_ = 0, n = s.length();
+            while (i < n && j < n && k_ < n){
+                char a = s.charAt((i + k_) % n), b = s.charAt((j + k_) % n);
+                if(a == b){
+                    k_++;
+                } else {
+                    if(a > b){
+                        i += k_ + 1;
+                    } else {
+                        j += k_ + 1;
+                    }
+                    if(i == j) i++;
+                    k_ = 0;
+                }
+            }
+            i = Math.min(i, j);
+            return s.substring(i) + s.substring(0, i);
+        } else {
+            char[] chars = s.toCharArray();
+            Arrays.sort(chars);
+            return new String(chars);
+        }
+    }
 }
 
 class TreeNode {

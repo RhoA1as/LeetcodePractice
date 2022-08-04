@@ -160,6 +160,17 @@ class Solution:
             return s[i:] + s[:i]
         return "".join(sorted(s))
 
+    # https://leetcode.cn/problems/minimum-subsequence-in-non-increasing-order/ 非递增顺序的最小子序列
+    def minSubsequence(self, nums: List[int]) -> List[int]:
+        nums.sort(reverse=True)
+        ans, a, s = [], 0, sum(nums)
+        for num in nums:
+            a += num
+            ans.append(num)
+            if a > s - a:
+                break
+        return ans
+
 
 if __name__ == '__main__':
     s = Solution()

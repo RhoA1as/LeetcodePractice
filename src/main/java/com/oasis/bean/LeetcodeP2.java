@@ -513,6 +513,30 @@ class MagicDictionary {
             return new String(chars);
         }
     }
+
+    //https://leetcode.cn/problems/add-one-row-to-tree/ 在二叉树中增加一行
+    public TreeNode addOneRow(TreeNode root, int val, int depth) {
+        if(depth == 1){
+            return new TreeNode(val, root, null);
+        }
+        List<TreeNode> level = new ArrayList<>();
+        level.add(root);
+        for (int i = 1; i < depth - 1; i++) {
+            List<TreeNode> tmp = new ArrayList<>();
+            int n = level.size();
+            for (int j = 0; j < n; j++) {
+                TreeNode curr = level.get(j);
+                if(curr.left != null) tmp.add(curr.left);
+                if(curr.right != null) tmp.add(curr.right);
+            }
+            level = tmp;
+        }
+        for (TreeNode node : level) {
+            node.left = new TreeNode(val, node.left, null);
+            node.right = new TreeNode(val, null, node.right);
+        }
+        return root;
+    }
 }
 
 class TreeNode {

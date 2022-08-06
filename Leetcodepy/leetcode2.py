@@ -171,7 +171,18 @@ class Solution:
                 break
         return ans
 
+    # https://leetcode.cn/problems/string-matching-in-an-array/ 数组中的字符串匹配
+    def stringMatching(self, words: List[str]) -> List[str]:
+        ans = []
+        for i, w in enumerate(words):
+            for j, o in enumerate(words):
+                if i != j and words[i] in words[j]:
+                    ans.append(words[i])
+                    break
+        return ans
+
 
 if __name__ == '__main__':
     s = Solution()
     s.intersectionSizeTwo([[1,2],[2,3],[2,4],[4,5]])
+    print(500+55100+678+1500+5000+43000+1026+7280+20000+580+430+1932+6800)

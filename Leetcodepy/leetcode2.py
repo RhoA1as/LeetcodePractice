@@ -181,8 +181,26 @@ class Solution:
                     break
         return ans
 
+    # https://leetcode.cn/problems/exclusive-time-of-functions/ 函数的独占时间
+    def exclusiveTime(self, n: int, logs: List[str]) -> List[int]:
+        ans = [0] * n
+        stack = []
+        for log in logs:
+            idx, tpe, timestamp = log.split(":")
+            idx, timestamp = int(idx), int(timestamp)
+            if tpe == 'start':
+                if stack:
+                    ans[stack[-1][0]] += timestamp - stack[-1][1]
+                stack.append([idx, timestamp])
+            else:
+                t = stack.pop(-1)
+                ans[t[0]] += timestamp - t[1] + 1
+                if stack:
+                    stack[-1][1] = timestamp + 1
+        return ans
+
 
 if __name__ == '__main__':
     s = Solution()
-    s.intersectionSizeTwo([[1,2],[2,3],[2,4],[4,5]])
+    s.intersectionSizeTwo([[1, 2], [2, 3], [2, 4], [4, 5]])
     print(500+55100+678+1500+5000+43000+1026+7280+20000+580+430+1932+6800)

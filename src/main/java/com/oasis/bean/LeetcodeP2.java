@@ -537,6 +537,43 @@ class MagicDictionary {
         }
         return root;
     }
+
+    @Test
+    public void testExclusiveTime(){
+        List<String> logs = new ArrayList<>();
+        logs.add("0:start:0");
+        logs.add("0:start:1");
+        logs.add("0:start:2");
+        logs.add("0:end:3");
+        logs.add("0:end:4");
+        logs.add("0:end:5");
+        exclusiveTime(1, logs);
+    }
+
+    //https://leetcode.cn/problems/exclusive-time-of-functions/ 函数的独占时间
+    public int[] exclusiveTime(int n, List<String> logs) {
+        int[] ans = new int[n];
+        Deque<int[]> deque = new ArrayDeque<>();
+        for (String log : logs) {
+            String[] split = log.split(":");
+            int idx = Integer.parseInt(split[0]);
+            String type = split[1];
+            int timestamp = Integer.parseInt(split[2]);
+            if("start".equals(type)){
+                if(!deque.isEmpty()){
+                    ans[deque.peekLast()[0]] += timestamp - deque.peekLast()[1];
+                }
+                deque.offer(new int[]{idx, timestamp});
+            } else {
+                int[] t = deque.removeLast();
+                ans[t[0]] += timestamp - t[1] + 1;
+                if(!deque.isEmpty()){
+                    deque.peekLast()[1] = timestamp + 1;
+                }
+            }
+        }
+        return ans;
+    }
 }
 
 class TreeNode {

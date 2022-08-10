@@ -574,6 +574,36 @@ class MagicDictionary {
         }
         return ans;
     }
+
+    //https://leetcode.cn/problems/solve-the-equation/ 求解方程
+    public String solveEquation(String equation) {
+        if(equation == null || equation.length() == 0){
+            return "No solution";
+        }
+        char[] array = equation.toCharArray();
+        int idx = 0, x = 0, num = 0, op = 1, n = array.length;
+        while (idx < n){
+            if(array[idx] == '+'){
+                op = 1; idx++;
+            } else if(array[idx] == '-'){
+                op = -1; idx++;
+            } else if (array[idx] == '=') {
+                op = 1; num *= -1; x *= -1;
+                idx++;
+            } else {
+                int j = idx;
+                while (j < n && array[j] != '+' && array[j] != '-' && array[j] != '=') j++;
+                if(array[j-1] == 'x'){
+                    x += (j - 1 == idx ? 1 : Integer.parseInt(equation.substring(idx, j - 1))) * op;
+                } else {
+                    num += Integer.parseInt(equation.substring(idx, j)) * op;
+                }
+                idx = j;
+            }
+        }
+        if(x == 0) return num == 0 ? "Infinite solutions" : "No solution";
+        return "x=" + (num / -x);
+    }
 }
 
 class TreeNode {

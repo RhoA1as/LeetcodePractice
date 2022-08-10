@@ -199,6 +199,36 @@ class Solution:
                     stack[-1][1] = timestamp + 1
         return ans
 
+    # https://leetcode.cn/problems/solve-the-equation/ 求解方程
+    def solveEquation(self, equation: str) -> str:
+        if not equation:
+            return "No solution"
+        i, op, x, num, n = 0, 1, 0, 0, len(equation)
+        while i < n:
+            if equation[i] == '+':
+                op = 1
+                i += 1
+            elif equation[i] == '-':
+                op = -1
+                i += 1
+            elif equation[i] == '=':
+                num *= -1
+                x *= -1
+                i += 1
+                op = 1
+            else:
+                j = i
+                while j < n and equation[j] != '+' and equation[j] != '-' and equation[j] != '=':
+                    j += 1
+                if equation[j-1] == 'x':
+                    x += (1 if j - 1 == i else int(equation[i:j-1])) * op
+                else:
+                    num += int(equation[i:j]) * op
+                i = j
+        if x == 0:
+            return "Infinite solutions" if num == 0 else "No solution"
+        return f'x={num // -x}'
+
 
 if __name__ == '__main__':
     s = Solution()

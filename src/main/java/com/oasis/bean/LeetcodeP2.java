@@ -604,6 +604,32 @@ class MagicDictionary {
         if(x == 0) return num == 0 ? "Infinite solutions" : "No solution";
         return "x=" + (num / -x);
     }
+
+    //https://leetcode.cn/problems/reformat-the-string/ 重新格式化字符串
+    public String reformat(String s) {
+        if(s == null || s.length() == 0) return s;
+        int n = s.length(), num = 0, cha = 0;
+        StringBuilder a = new StringBuilder(), b = new StringBuilder();
+        for (int i = 0; i < n; i++) {
+            char c = s.charAt(i);
+            if(Character.isDigit(c)){
+                a.append(c);
+                num++;
+            } else {
+                b.append(c);
+                cha++;
+            }
+        }
+        if(Math.abs(num - cha) > 1) return "";
+        StringBuilder ans = new StringBuilder();
+        boolean flag = num > cha;
+        int len = num + cha;
+        while (ans.length() < len){
+            ans.append(flag ? a.charAt(--num) : b.charAt(--cha));
+            flag = !flag;
+        }
+        return ans.toString();
+    }
 }
 
 class TreeNode {

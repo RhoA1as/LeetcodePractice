@@ -229,6 +229,14 @@ class Solution:
             return "Infinite solutions" if num == 0 else "No solution"
         return f'x={num // -x}'
 
+    # https://leetcode.cn/problems/maximum-score-after-splitting-a-string/ 分割字符串的最大得分
+    def maxScore(self, s: str) -> int:
+        ans = score = (s[0] == "0") + s[1:].count("1")
+        for c in s[1:-1]:
+            score += (1 if c == "0" else -1)
+            ans = max(ans, score)
+        return ans
+
 
 if __name__ == '__main__':
     s = Solution()

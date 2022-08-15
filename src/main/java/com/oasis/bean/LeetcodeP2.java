@@ -630,6 +630,63 @@ class MagicDictionary {
         }
         return ans.toString();
     }
+
+    //https://leetcode.cn/problems/design-circular-deque/ 设计循环双端队列
+    class MyCircularDeque {
+
+        private int[] mQueue;
+        private int mSize;
+        private int mTop;
+        private int mTail;
+        public MyCircularDeque(int k) {
+            mQueue = new int[k+1];
+            mSize = k+1;
+        }
+
+        public boolean insertFront(int value) {
+            if(isFull()) return false;
+            mTop = (mTop - 1 + mSize) % mSize;
+            mQueue[mTop] = value;
+            return true;
+        }
+
+        public boolean insertLast(int value) {
+            if(isFull()) return false;
+            mQueue[mTail] = value;
+            mTail = (mTail + 1) % mSize;
+            return true;
+        }
+
+        public boolean deleteFront() {
+            if(isEmpty()) return false;
+            mTop = (mTop + 1) % mSize;
+            return true;
+        }
+
+        public boolean deleteLast() {
+            if(isEmpty()) return false;
+            mTail = (mTail - 1 + mSize) % mSize;
+            return true;
+        }
+
+        public int getFront() {
+            if(isEmpty()) return -1;
+            return mQueue[mTop];
+        }
+
+        public int getRear() {
+            if(isEmpty()) return -1;
+            return mQueue[(mTail - 1 + mSize) % mSize];
+        }
+
+        public boolean isEmpty() {
+            return mTop == mTail;
+        }
+
+        public boolean isFull() {
+            return (mTail + 1) % mSize == mTop;
+        }
+    }
 }
 
 class TreeNode {

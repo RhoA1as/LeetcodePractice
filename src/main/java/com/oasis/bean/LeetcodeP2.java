@@ -687,6 +687,26 @@ class MagicDictionary {
             return (mTail + 1) % mSize == mTop;
         }
     }
+
+    //https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
+    class OrderedStream {
+
+        private String[] mStream;
+        private int ptr;
+        public OrderedStream(int n) {
+            mStream = new String[n + 1];
+            ptr = 1;
+        }
+
+        public List<String> insert(int idKey, String value) {
+            mStream[idKey] = value;
+            List<String> ans = new ArrayList<>();
+            while (ptr < mStream.length && mStream[ptr] != null){
+                ans.add(mStream[ptr++]);
+            }
+            return ans;
+        }
+    }
 }
 
 class TreeNode {

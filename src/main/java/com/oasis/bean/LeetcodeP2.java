@@ -707,6 +707,25 @@ class MagicDictionary {
             return ans;
         }
     }
+
+    //https://leetcode.cn/problems/deepest-leaves-sum/ 层数最深叶子节点的和
+    public int deepestLeavesSum(TreeNode root) {
+        if(root == null) return 0;
+        int ans = 0;
+        Deque<TreeNode> deque = new ArrayDeque<>();
+        deque.offer(root);
+        while (!deque.isEmpty()){
+            int size = deque.size();
+            ans = 0;
+            for (int i = 0; i < size; i++) {
+                TreeNode node = deque.poll();
+                ans += node.val;
+                if(node.left != null) deque.offer(node.left);
+                if(node.right != null) deque.offer(node.right);
+            }
+        }
+        return ans;
+    }
 }
 
 class TreeNode {

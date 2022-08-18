@@ -1,6 +1,5 @@
-
+from collections import Counter
 from typing import List, Optional
-
 
 # https://leetcode.cn/problems/cells-with-odd-values-in-a-matrix/ 奇数值单元格的数目
 from leetcode import TreeNode
@@ -138,7 +137,7 @@ class Solution:
     def generateTheString(self, n: int) -> str:
         if n & 1:
             return 'a' * n
-        return "a" * (n-1) + "b"
+        return "a" * (n - 1) + "b"
 
     # https://leetcode.cn/problems/orderly-queue/ 有序队列
     def orderlyQueue(self, s: str, k: int) -> str:
@@ -220,8 +219,8 @@ class Solution:
                 j = i
                 while j < n and equation[j] != '+' and equation[j] != '-' and equation[j] != '=':
                     j += 1
-                if equation[j-1] == 'x':
-                    x += (1 if j - 1 == i else int(equation[i:j-1])) * op
+                if equation[j - 1] == 'x':
+                    x += (1 if j - 1 == i else int(equation[i:j - 1])) * op
                 else:
                     num += int(equation[i:j]) * op
                 i = j
@@ -235,6 +234,23 @@ class Solution:
         for c in s[1:-1]:
             score += (1 if c == "0" else -1)
             ans = max(ans, score)
+        return ans
+
+    # https://leetcode.cn/problems/maximum-equal-frequency/ 最大相等频率
+    def maxEqualFreq(self, nums: List[int]) -> int:
+        count, freq = Counter(), Counter()
+        ans = max_freq = 0
+        for i, num in enumerate(nums):
+            if count[num]:
+                freq[count[num]] -= 1
+            count[num] += 1
+            freq[count[num]] += 1
+            max_freq = max(max_freq, count[num])
+            if max_freq == 1 \
+                    or freq[max_freq] * max_freq == i \
+                    or (freq[max_freq - 1] * (max_freq - 1) + freq[max_freq] * max_freq == i + 1
+                        and freq[max_freq] == 1):
+                ans = max(ans, i + 1)
         return ans
 
 
@@ -257,4 +273,4 @@ class OrderedStream:
 if __name__ == '__main__':
     s = Solution()
     s.intersectionSizeTwo([[1, 2], [2, 3], [2, 4], [4, 5]])
-    print(500+55100+678+1500+5000+43000+1026+7280+20000+580+430+1932+6800)
+    print(500 + 55100 + 678 + 1500 + 5000 + 43000 + 1026 + 7280 + 20000 + 580 + 430 + 1932 + 6800)

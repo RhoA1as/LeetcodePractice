@@ -253,6 +253,17 @@ class Solution:
                 ans = max(ans, i + 1)
         return ans
 
+    # https://leetcode.cn/problems/number-of-students-doing-homework-at-a-given-time/ 在既定时间做作业的学生人数
+    def busyStudent(self, startTime: List[int], endTime: List[int], queryTime: int) -> int:
+        max_end_time = max(endTime)
+        if queryTime > max_end_time:
+            return 0
+        dif = [0] * (max_end_time + 2)
+        for st, ed in zip(startTime, endTime):
+            dif[st] += 1
+            dif[ed + 1] -= 1
+        return sum(dif[:queryTime + 1])
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

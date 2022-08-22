@@ -738,6 +738,44 @@ class MagicDictionary {
         }
         return -1;
     }
+
+    @Test
+    public void testprintTree(){
+        TreeNode root = new TreeNode(1);
+        root.left = new TreeNode(2);
+        printTree(root);
+    }
+
+    //https://leetcode.cn/problems/print-binary-tree/ 输出二叉树
+    List<List<String>> mTree;
+    int h;
+    public List<List<String>> printTree(TreeNode root) {
+        mTree = new ArrayList<>();
+        if(root == null) return mTree;
+        h = getTreeHeight(root) - 1;
+        int m = h + 1, n = (1 << (h + 1)) - 1;
+        for (int i = 0; i < m; i++) {
+            List<String> level = new ArrayList<>();
+            for (int j = 0; j < n; j++) {
+                level.add("");
+            }
+            mTree.add(level);
+        }
+        buildTree(root, 0, (n - 1) / 2);
+        return mTree;
+    }
+
+    private void buildTree(TreeNode root, int x, int y){
+        if(root == null) return;
+        mTree.get(x).set(y, String.valueOf(root.val));
+        buildTree(root.left, x + 1, y - (1 << (h - x - 1)));
+        buildTree(root.right, x + 1, y + (1 << (h - x - 1)));
+    }
+
+    private int getTreeHeight(TreeNode root){
+        if(root == null) return 0;
+        return 1 + Math.max(getTreeHeight(root.left), getTreeHeight(root.right));
+    }
 }
 
 class TreeNode {

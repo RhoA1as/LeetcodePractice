@@ -264,6 +264,10 @@ class Solution:
             dif[ed + 1] -= 1
         return sum(dif[:queryTime + 1])
 
+    # https://leetcode.cn/problems/make-two-arrays-equal-by-reversing-sub-arrays/ 通过翻转子数组使两个数组相等
+    def canBeEqual(self, target: List[int], arr: List[int]) -> bool:
+        return Counter(target) == Counter(arr)
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

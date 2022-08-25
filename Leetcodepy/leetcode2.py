@@ -268,6 +268,11 @@ class Solution:
     def canBeEqual(self, target: List[int], arr: List[int]) -> bool:
         return Counter(target) == Counter(arr)
 
+    # https://leetcode.cn/problems/find-k-closest-elements/ 找到 K 个最接近的元素
+    def findClosestElements(self, arr: List[int], k: int, x: int) -> List[int]:
+        arr.sort(key=lambda a: abs(a - x))
+        return sorted(arr[:k])
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

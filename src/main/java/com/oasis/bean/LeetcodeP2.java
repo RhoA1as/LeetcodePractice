@@ -776,6 +776,44 @@ class MagicDictionary {
         if(root == null) return 0;
         return 1 + Math.max(getTreeHeight(root.left), getTreeHeight(root.right));
     }
+
+    @Test
+    public void testFindClosestElements(){
+        findClosestElements(new int[]{1, 2, 3, 4, 5}, 4, 3);
+    }
+
+    //https://leetcode.cn/problems/find-k-closest-elements/ 找到 K 个最接近的元素
+    public List<Integer> findClosestElements(int[] arr, int k, int x) {
+        int r = binarySearch(arr, x);
+        int l = r - 1, n = arr.length;
+        for (int i = 0; i < k; i++) {
+            if (l < 0){
+                r++;
+            }else if(r >= n || Math.abs(arr[r] - x) >= Math.abs(arr[l] - x)){
+                l--;
+            }else {
+                r++;
+            }
+        }
+        List<Integer> ans = new ArrayList<>();
+        for (int i = l + 1; i < r; i++) {
+            ans.add(arr[i]);
+        }
+        return ans;
+    }
+
+    public int binarySearch(int[] arr, int x){
+        int l = 0, r = arr.length - 1;
+        while (l < r){
+            int m = (l + r) >> 1;
+            if(arr[m] < x){
+                l = m + 1;
+            } else {
+                r = m;
+            }
+        }
+        return l;
+    }
 }
 
 class TreeNode {

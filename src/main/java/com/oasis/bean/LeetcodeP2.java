@@ -829,6 +829,21 @@ class MagicDictionary {
         }
         return (a - 1) * (b - 1);
     }
+
+    //https://leetcode.cn/problems/maximum-width-of-binary-tree/ 二叉树最大宽度
+    Map<Integer, Integer> mMinIdx;
+    public int widthOfBinaryTree(TreeNode root) {
+        mMinIdx = new HashMap<>();
+        return dfsMaxWidth(root, 0, 0);
+    }
+
+    public int dfsMaxWidth(TreeNode node, int depth, int idx){
+        if(node == null) return 0;
+        mMinIdx.putIfAbsent(depth, idx);
+        return Math.max(idx - mMinIdx.get(depth) + 1,
+                Math.max(dfsMaxWidth(node.left, depth + 1, 2 * idx),
+                        dfsMaxWidth(node.right, depth + 1, 2 * idx + 1)));
+    }
 }
 
 class TreeNode {

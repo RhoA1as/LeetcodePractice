@@ -278,6 +278,21 @@ class Solution:
         nums.sort()
         return (nums[-1] - 1) * (nums[-2] - 1)
 
+    # https://leetcode.cn/problems/maximum-width-of-binary-tree/ 二叉树最大宽度
+    def widthOfBinaryTree(self, root: Optional[TreeNode]) -> int:
+        ans = 1
+        que = [[root, 1]]
+        while que:
+            nxt = []
+            for node, idx in que:
+                if node.left:
+                    nxt.append([node.left, 2 * idx])
+                if node.right:
+                    nxt.append([node.right, 2 * idx + 1])
+            ans = max(ans, que[-1][1] - que[0][1] + 1)
+            que = nxt
+        return ans
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

@@ -293,6 +293,24 @@ class Solution:
             que = nxt
         return ans
 
+    # https://leetcode.cn/problems/shuffle-the-array/ 重新排列数组
+    def shuffle(self, nums: List[int], n: int) -> List[int]:
+        ans = []
+        x, y = 0, n
+        for _ in range(n):
+            ans.append(nums[x])
+            ans.append(nums[y])
+            x += 1
+            y += 1
+        return ans
+
+    def shuffle_1(self, nums: List[int], n: int) -> List[int]:
+        ans = [0] * (2 * n)
+        for i in range(n):
+            ans[2 * i] = nums[i]
+            ans[2 * i + 1] = nums[n + i]
+        return ans
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

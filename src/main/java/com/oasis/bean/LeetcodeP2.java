@@ -844,6 +844,22 @@ class MagicDictionary {
                 Math.max(dfsMaxWidth(node.left, depth + 1, 2 * idx),
                         dfsMaxWidth(node.right, depth + 1, 2 * idx + 1)));
     }
+
+    //https://leetcode.cn/problems/maximum-binary-tree-ii/ 最大二叉树2
+    public TreeNode insertIntoMaxTree(TreeNode root, int val) {
+        TreeNode node = new TreeNode(val);
+        TreeNode prev = null, curr = root;
+        while (curr != null && curr.val > val){
+            prev = curr;
+            curr = curr.right;
+        }
+        node.left = curr;
+        if(prev != null) {
+            prev.right = node;
+            return root;
+        }
+        return node;
+    }
 }
 
 class TreeNode {

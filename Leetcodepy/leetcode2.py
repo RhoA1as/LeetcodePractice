@@ -311,6 +311,19 @@ class Solution:
             ans[2 * i + 1] = nums[n + i]
         return ans
 
+    # https://leetcode.cn/problems/validate-stack-sequences/ 验证栈序列
+    def validateStackSequences(self, pushed: List[int], popped: List[int]) -> bool:
+        if len(pushed) - len(popped):
+            return False
+        queue = []
+        i = 0
+        for num in pushed:
+            queue.append(num)
+            while queue and queue[-1] == popped[i]:
+                queue.pop(-1)
+                i += 1
+        return not queue
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

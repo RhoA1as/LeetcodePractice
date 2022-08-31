@@ -860,6 +860,22 @@ class MagicDictionary {
         }
         return node;
     }
+
+    //https://leetcode.cn/problems/validate-stack-sequences/ 验证栈序列
+    public boolean validateStackSequences(int[] pushed, int[] popped) {
+        if(pushed == null || popped == null || pushed.length != popped.length){
+            return false;
+        }
+        Deque<Integer> deque = new ArrayDeque<>();
+        for (int i = 0, j = 0; i < pushed.length; i++) {
+            deque.offer(pushed[i]);
+            while (!deque.isEmpty() && deque.peekLast() == popped[j]){
+                deque.pollLast();
+                j++;
+            }
+        }
+        return deque.isEmpty();
+    }
 }
 
 class TreeNode {

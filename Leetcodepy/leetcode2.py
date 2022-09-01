@@ -324,6 +324,20 @@ class Solution:
                 i += 1
         return not queue
 
+    # https://leetcode.cn/problems/final-prices-with-a-special-discount-in-a-shop/ 商品折扣后的最终价格
+    def finalPrices(self, prices: List[int]) -> List[int]:
+        if not prices:
+            return prices
+        stack, n = [0], len(prices)
+        ans = [0] * n
+        for i in range(n - 1, -1, -1):
+            p = prices[i]
+            while stack and stack[-1] > p:
+                stack.pop()
+            ans[i] = prices[i] - stack[-1]
+            stack.append(p)
+        return ans
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

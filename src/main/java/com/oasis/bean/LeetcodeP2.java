@@ -876,6 +876,30 @@ class MagicDictionary {
         }
         return deque.isEmpty();
     }
+
+    //https://leetcode.cn/problems/longest-univalue-path/ 最长同值路径
+    private int max;
+    public int longestUnivaluePath(TreeNode root) {
+        max = 0;
+        dfsPath(root);
+        return max;
+    }
+
+    public int dfsPath(TreeNode node){
+        if(node == null) return 0;
+        int l = dfsPath(node.left), r = dfsPath(node.right);
+        int curr = 0, path = 0;
+        if(node.left != null && node.left.val == node.val){
+            path = l + 1;
+            curr += l + 1;
+        }
+        if(node.right != null && node.right.val == node.val){
+            path = Math.max(path, r + 1);
+            curr += r + 1;
+        }
+        max = Math.max(max, curr);
+        return path;
+    }
 }
 
 class TreeNode {

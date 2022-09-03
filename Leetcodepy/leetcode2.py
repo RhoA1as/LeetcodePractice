@@ -1,3 +1,4 @@
+import bisect
 from collections import Counter
 from typing import List, Optional
 
@@ -337,6 +338,27 @@ class Solution:
             ans[i] = prices[i] - stack[-1]
             stack.append(p)
         return ans
+
+    # https://leetcode.cn/problems/maximum-length-of-pair-chain/ 最长数对链
+    def findLongestChain(self, pairs: List[List[int]]) -> int:
+        pairs.sort()
+        dp = [1] * len(pairs)
+        for i, pair in enumerate(pairs):
+            for j in range(i):
+                if pair[0] > pairs[j][1]:
+                    dp[i] = max(dp[i], dp[j] + 1)
+        return dp[-1]
+
+    def findLongestChain_1(self, pairs: List[List[int]]) -> int:
+        ans = []
+        pairs.sort()
+        for pair in pairs:
+            i = bisect.bisect_left(ans, pair[0])
+            if i < len(ans):
+                ans[i] = min(ans[i], pair[1])
+            else:
+                ans.append(pair[1])
+        return len(ans)
 
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流

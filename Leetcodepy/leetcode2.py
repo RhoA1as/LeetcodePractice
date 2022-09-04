@@ -360,6 +360,25 @@ class Solution:
                 ans.append(pair[1])
         return len(ans)
 
+    # https://leetcode.cn/problems/special-positions-in-a-binary-matrix/ 二进制矩阵中的特殊位置
+    def numSpecial(self, mat: List[List[int]]) -> int:
+        row_sum = [sum(i) for i in mat]
+        col_sum = [sum(i) for i in zip(*mat)]
+        ans = 0
+        for i, nums in enumerate(mat):
+            for j, num in enumerate(nums):
+                if num and row_sum[i] and col_sum[j]:
+                    ans += 1
+        return ans
+
+    def numSpecial_1(self, mat: List[List[int]]) -> int:
+        for i, nums in enumerate(mat):
+            val = sum(nums) - (i == 0)
+            if val:
+                for j, num in enumerate(nums):
+                    if num:
+                        mat[0][j] += val
+        return sum(i == 1 for i in mat[0])
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

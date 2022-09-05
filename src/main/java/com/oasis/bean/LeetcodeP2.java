@@ -920,6 +920,28 @@ class MagicDictionary {
         }
         return ans;
     }
+
+    //https://leetcode.cn/problems/find-duplicate-subtrees/ 寻找重复的子树
+    Map<String, Integer> map;
+    List<TreeNode> subTrees;
+    public List<TreeNode> findDuplicateSubtrees(TreeNode root) {
+        map = new HashMap<>();
+        subTrees = new ArrayList<>();
+        dfsDuplicateSubTrees(root);
+        return subTrees;
+    }
+
+    private String dfsDuplicateSubTrees(TreeNode node){
+        if(node == null) return "#";
+        StringBuilder tree = new StringBuilder();
+        String s = tree.append(node.val).append(",").append(dfsDuplicateSubTrees(node.left))
+                .append(",").append(dfsDuplicateSubTrees(node.right)).toString();
+        map.put(s, map.getOrDefault(s, 0) + 1);
+        if(map.get(s) == 2){
+            subTrees.add(node);
+        }
+        return s;
+    }
 }
 
 class TreeNode {

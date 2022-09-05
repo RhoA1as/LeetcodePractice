@@ -380,6 +380,7 @@ class Solution:
                         mat[0][j] += val
         return sum(i == 1 for i in mat[0])
 
+
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:
 

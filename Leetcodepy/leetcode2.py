@@ -1,4 +1,5 @@
 import bisect
+import collections
 from collections import Counter
 from typing import List, Optional
 
@@ -379,6 +380,20 @@ class Solution:
                     if num:
                         mat[0][j] += val
         return sum(i == 1 for i in mat[0])
+
+    # https://leetcode.cn/problems/count-unique-characters-of-all-substrings-of-a-given-string/ 统计子串中的唯一字符
+    def uniqueLetterString(self, s: str) -> int:
+        if not s:
+            return 0
+        d = collections.defaultdict(list)
+        ans = 0
+        for i, c in enumerate(s):
+            d[c].append(i)
+        for l in d.values():
+            l = [-1] + l + [len(s)]
+            for j in range(1, len(l) - 1):
+                ans += (l[j] - l[j-1]) * (l[j+1] - l[j])
+        return ans
 
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流

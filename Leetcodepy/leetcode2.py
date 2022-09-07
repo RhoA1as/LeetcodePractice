@@ -395,6 +395,16 @@ class Solution:
                 ans += (l[j] - l[j-1]) * (l[j+1] - l[j])
         return ans
 
+    # https://leetcode.cn/problems/rearrange-spaces-between-words/ 重新排列单词间的空格
+    def reorderSpaces(self, text: str) -> str:
+        space = text.count(" ")
+        chars = text.split()
+        n = len(chars)
+        if n == 1:
+            return chars[0] + ' ' * space
+        a, b = divmod(space, n - 1)
+        return (' ' * a).join(chars) + ' ' * b
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

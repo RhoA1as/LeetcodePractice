@@ -942,6 +942,26 @@ class MagicDictionary {
         }
         return s;
     }
+
+    //https://leetcode.cn/problems/rearrange-spaces-between-words/ 重新排列单词间的空格
+    public String reorderSpaces(String text) {
+        int n = text.length();
+        String[] split = text.trim().split("\\s+");
+        int space = n;
+        for (String s : split) {
+            space -= s.length();
+        }
+        StringBuilder builder = new StringBuilder();
+        int l = split.length;
+        if(l == 1)
+            return builder.append(split[0]).append(" ".repeat(space)).toString();
+        String sp = " ".repeat(space / (l - 1));
+        for (int i = 0; i < l; i++) {
+            builder.append(split[i]);
+            if(i != l - 1) builder.append(sp);
+        }
+        return builder.append(" ".repeat(space % (l - 1))).toString();
+    }
 }
 
 class TreeNode {

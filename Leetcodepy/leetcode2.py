@@ -405,6 +405,18 @@ class Solution:
         a, b = divmod(space, n - 1)
         return (' ' * a).join(chars) + ' ' * b
 
+    # https://leetcode.cn/problems/beautiful-arrangement-ii/ 优美的排列 II
+    def constructArray(self, n: int, k: int) -> List[int]:
+        ans = list(range(1, n - k))
+        i, j = n - k, n
+        while i <= j:
+            ans.append(i)
+            if i - j:
+                ans.append(j)
+            i += 1
+            j -= 1
+        return ans
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

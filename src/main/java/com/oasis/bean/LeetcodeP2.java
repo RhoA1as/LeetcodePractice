@@ -962,6 +962,22 @@ class MagicDictionary {
         }
         return builder.append(" ".repeat(space % (l - 1))).toString();
     }
+
+    //https://leetcode.cn/problems/beautiful-arrangement-ii/ 优美的排列 II
+    public int[] constructArray(int n, int k) {
+        int[] ans = new int[n];
+        int idx = 0;
+        for (int i = 1; i < n - k; i++) {
+            ans[idx++] = i;
+        }
+        int l = n - k, r = n;
+        while (l <= r){
+            ans[idx++] = l;
+            if(l != r) ans[idx++] = r;
+            l++;r--;
+        }
+        return ans;
+    }
 }
 
 class TreeNode {

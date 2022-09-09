@@ -978,6 +978,26 @@ class MagicDictionary {
         }
         return ans;
     }
+
+    //https://leetcode.cn/problems/crawler-log-folder/ 文件夹操作日志搜集器
+    public int minOperations(String[] logs) {
+        if(logs == null || logs.length == 0){
+            return 0;
+        }
+        int depth = 0;
+        for (String log : logs) {
+            switch (log) {
+                case "./":
+                    break;
+                case "../":
+                    if(depth != 0) depth--;
+                    break;
+                default:
+                    depth++;
+            }
+        }
+        return depth;
+    }
 }
 
 class TreeNode {

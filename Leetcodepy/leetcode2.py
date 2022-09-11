@@ -417,6 +417,29 @@ class Solution:
             j -= 1
         return ans
 
+    # https://leetcode.cn/problems/trim-a-binary-search-tree/ 修剪二叉搜索树
+    def trimBST(self, root: Optional[TreeNode], low: int, high: int) -> Optional[TreeNode]:
+        while root and (root.val < low or root.val > high):
+            if root.val < low:
+                root = root.right
+            else:
+                root = root.left
+        if not root:
+            return None
+        node = root
+        while node.left:
+            if node.left.val >= low:
+                node = node.left
+            else:
+                node.left = node.left.right
+        node = root
+        while node.right:
+            if node.right.val <= high:
+                node = node.right
+            else:
+                node.right = node.right.left
+        return root
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

@@ -440,6 +440,15 @@ class Solution:
                 node.right = node.right.left
         return root
 
+    # https://leetcode.cn/problems/special-array-with-x-elements-greater-than-or-equal-x/ 特殊数组的特征值
+    def specialArray(self, nums: List[int]) -> int:
+        nums.sort(reverse=True)
+        n = len(nums)
+        for i in range(1, n + 1):
+            if nums[i-1] >= i and (i == n or nums[i] < i):
+                return i
+        return -1
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

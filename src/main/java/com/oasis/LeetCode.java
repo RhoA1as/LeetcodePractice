@@ -3954,6 +3954,30 @@ public class LeetCode {
         return root;
     }
 
+    //https://leetcode.cn/problems/maximum-swap/ 最大交换
+    public int maximumSwap(int num) {
+        char[] array = String.valueOf(num).toCharArray();
+        int n = array.length;
+        int maxIdx = n - 1, idx1 = -1, idx2 = -1;
+        for (int i = n-2; i >= 0; i--) {
+            if(array[i] > array[maxIdx]){
+                maxIdx = i;
+            } else if(array[i] < array[maxIdx]){
+                idx1 = i;
+                idx2 = maxIdx;
+            }
+        }
+        if(idx1 == -1) return num;
+        swap(array, idx1, idx2);
+        return Integer.parseInt(String.valueOf(array));
+    }
+
+    public void swap(char[] array, int idx1, int idx2){
+        char tmp = array[idx1];
+        array[idx1] = array[idx2];
+        array[idx2] = tmp;
+    }
+
     //https://leetcode.cn/problems/random-point-in-non-overlapping-rectangles/ 非重叠矩形中的随机点
     class Solution {
 

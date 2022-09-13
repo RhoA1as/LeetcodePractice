@@ -1051,6 +1051,19 @@ class Solution:
         cnt = collections.Counter([i & 1 for i in position])
         return min(cnt[0], cnt[1])
 
+    # https://leetcode.cn/problems/maximum-swap/ 最大交换
+    def maximumSwap(self, num: int) -> int:
+        nums = list(str(num))
+        n = len(nums)
+        max_idx, idx1, idx2 = n-1, -1, -1
+        for i in range(n-2, -1, -1):
+            if nums[i] > nums[max_idx]:
+                max_idx = i
+            elif nums[i] < nums[max_idx]:
+                idx1, idx2 = i, max_idx
+        nums[idx1], nums[idx2] = nums[idx2], nums[idx1]
+        return int("".join(nums))
+
 
 # https://leetcode.cn/problems/random-point-in-non-overlapping-rectangles/ 非重叠矩形中的随机点
 class Solution3:

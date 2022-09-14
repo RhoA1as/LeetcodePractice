@@ -1064,6 +1064,12 @@ class Solution:
         nums[idx1], nums[idx2] = nums[idx2], nums[idx1]
         return int("".join(nums))
 
+    # https://leetcode.cn/problems/mean-of-array-after-removing-some-elements/ 删除某些元素后的数组均值
+    def trimMean(self, arr: List[int]) -> float:
+        arr.sort()
+        n = len(arr)
+        return sum(arr[n // 20:n * 19 // 20]) / (0.9 * n)
+
 
 # https://leetcode.cn/problems/random-point-in-non-overlapping-rectangles/ 非重叠矩形中的随机点
 class Solution3:

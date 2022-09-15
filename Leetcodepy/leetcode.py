@@ -1087,6 +1087,16 @@ class Solution3:
         da, db = divmod(area - self.areas[idx], y - b + 1)
         return [a + da, b + db]
 
+    # https://leetcode.cn/problems/bulb-switcher-ii/ 灯泡开关 Ⅱ
+    def flipLights(self, n: int, presses: int) -> int:
+        if presses == 0:
+            return 1
+        if n == 1:
+            return 2
+        if n == 2:
+            return 3 if presses == 1 else 4
+        return 4 if presses == 1 else 7 if presses == 2 else 8
+
 
 # https://leetcode.cn/problems/serialize-and-deserialize-bst/ 序列化和反序列化二叉搜索树
 class Codec:

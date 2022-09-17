@@ -3978,6 +3978,19 @@ public class LeetCode {
         array[idx2] = tmp;
     }
 
+    //https://leetcode.cn/problems/largest-substring-between-two-equal-characters/ 两个相同字符之间的最长子字符串
+    public int maxLengthBetweenEqualCharacters(String s) {
+        if(s == null || s.length() == 0) return -1;
+        Map<Character, Integer> map = new HashMap<>();
+        int n = s.length(), max = -1;
+        for (int i = 0; i < n; i++) {
+            char c = s.charAt(i);
+            if(map.containsKey(c)) max = Math.max(max, i - map.get(c) - 1);
+            else map.put(c, i);
+        }
+        return max;
+    }
+
     //https://leetcode.cn/problems/random-point-in-non-overlapping-rectangles/ 非重叠矩形中的随机点
     class Solution {
 

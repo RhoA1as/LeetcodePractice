@@ -3991,6 +3991,55 @@ public class LeetCode {
         return max;
     }
 
+    //https://leetcode.cn/problems/making-a-large-island/ 最大人工岛
+    int[][] mTag;
+    public int largestIsland(int[][] grid) {
+        if(grid == null || grid.length == 0) return 0;
+        int n = grid.length, res = 0;
+        mTag = new int[n][n];
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if(grid[i][j] == 1 && mTag[i][j] == 0){
+                    int t = i * n + j + 1;
+                    int val = dfsIsland(grid, i, j, t);
+                    map.put(t, val);
+                    res = Math.max(res, val);
+                }
+            }
+        }
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if(grid[i][j] == 1) continue;
+                Set<Integer> connected = new HashSet<>();
+                int curr = 1;
+                for (int[] dir : dirs) {
+                    int r = i + dir[0], c = j + dir[1];
+                    if(!isValid(r, c, grid) || grid[r][c] == 0 || connected.contains(mTag[r][c])) continue;
+                    curr += map.get(mTag[r][c]);
+                    connected.add(mTag[r][c]);
+                }
+                res = Math.max(res, curr);
+            }
+        }
+        return res;
+    }
+
+    private int dfsIsland(int[][] grid, int row, int col, int t){
+        int ans = 1;
+        mTag[row][col] = t;
+        for (int[] dir : dirs) {
+            int r = row + dir[0], c = col + dir[1];
+            if(!isValid(r, c, grid) || mTag[r][c] != 0 || grid[r][c] != 1) continue;
+            ans += dfsIsland(grid, r, c, t);
+        }
+        return ans;
+    }
+
+    private boolean isValid(int row, int col, int[][] grid){
+        return row >= 0 && row < grid.length && col >= 0 && col < grid[0].length;
+    }
+
     //https://leetcode.cn/problems/random-point-in-non-overlapping-rectangles/ 非重叠矩形中的随机点
     class Solution {
 

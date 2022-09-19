@@ -449,6 +449,12 @@ class Solution:
                 return i
         return -1
 
+    # https://leetcode.cn/problems/sort-array-by-increasing-frequency/ 按照频率将数组升序排序
+    def frequencySort(self, nums: List[int]) -> List[int]:
+        cnt = collections.Counter(nums)
+        nums.sort(key=lambda x: (cnt[x], -x))
+        return nums
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

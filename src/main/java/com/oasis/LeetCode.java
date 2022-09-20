@@ -4040,6 +4040,39 @@ public class LeetCode {
         return row >= 0 && row < grid.length && col >= 0 && col < grid[0].length;
     }
 
+    //https://leetcode.cn/problems/partition-to-k-equal-sum-subsets/ 划分为k个相等的子集
+    int[] nums;
+    int nl;
+    int target;
+    boolean[] p;
+    public boolean canPartitionKSubsets(int[] nums, int k) {
+        if(nums == null || nums.length == 0) return false;
+        this.nums = nums;
+        nl = nums.length;
+        int sum = Arrays.stream(nums).sum();
+        if(sum % k != 0) return false;
+        target = sum / k;
+        Arrays.sort(nums);
+        if(nums[nl-1] > target) return false;
+        while (nl - 1 >= 0 && nums[nl - 1] == target) nl--;
+        if(nl == 0) return true;
+        p = new boolean[1 << nl];
+        Arrays.fill(p, true);
+        return dfsSubsets((1 << nl) - 1, 0);
+    }
+
+    public boolean dfsSubsets(int f, int v){
+        if(f == 0) return true;
+        if(!p[f]) return false;
+        p[f] = false;
+        for (int i = 0; i < nl; i++) {
+            if(v + nums[i] > target) break;
+            if(((1 << i) & f) == 0) continue;
+            if(dfsSubsets((1 << i) ^ f, (v + nums[i]) % target)) return true;
+        }
+        return false;
+    }
+
     //https://leetcode.cn/problems/random-point-in-non-overlapping-rectangles/ 非重叠矩形中的随机点
     class Solution {
 

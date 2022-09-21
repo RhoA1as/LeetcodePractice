@@ -392,7 +392,7 @@ class Solution:
         for l in d.values():
             l = [-1] + l + [len(s)]
             for j in range(1, len(l) - 1):
-                ans += (l[j] - l[j-1]) * (l[j+1] - l[j])
+                ans += (l[j] - l[j - 1]) * (l[j + 1] - l[j])
         return ans
 
     # https://leetcode.cn/problems/rearrange-spaces-between-words/ 重新排列单词间的空格
@@ -445,7 +445,7 @@ class Solution:
         nums.sort(reverse=True)
         n = len(nums)
         for i in range(1, n + 1):
-            if nums[i-1] >= i and (i == n or nums[i] < i):
+            if nums[i - 1] >= i and (i == n or nums[i] < i):
                 return i
         return -1
 
@@ -454,6 +454,29 @@ class Solution:
         cnt = collections.Counter(nums)
         nums.sort(key=lambda x: (cnt[x], -x))
         return nums
+
+    # https://leetcode.cn/problems/k-similar-strings/ 相似度为 K 的字符串
+    def kSimilarity(self, s1: str, s2: str) -> int:
+        step, n = 0, len(s2)
+        queue, visited = [(s1, 0)], {s1}
+        while queue:
+            size = len(queue)
+            for _ in range(size):
+                tmp = queue.pop(0)
+                s, idx = tmp[0], tmp[1]
+                if s == s2:
+                    return step
+                while s[idx] == s2[idx]:
+                    idx += 1
+                for j in range(idx + 1, n):
+                    if s[j] == s2[idx] and s[j] != s2[j]:
+                        l = list(s)
+                        l[idx], l[j] = l[j], l[idx]
+                        t = "".join(l)
+                        if t not in visited:
+                            queue.append((t, idx + 1))
+                            visited.add(t)
+            step += 1
 
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流

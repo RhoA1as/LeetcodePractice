@@ -478,6 +478,19 @@ class Solution:
                             visited.add(t)
             step += 1
 
+    # https://leetcode.cn/problems/check-array-formation-through-concatenation/ 能否连接形成数组
+    def canFormArray(self, arr: List[int], pieces: List[List[int]]) -> bool:
+        m = {piece[0]: i for i, piece in enumerate(pieces)}
+        n, i = len(arr), 0
+        while i < n:
+            if arr[i] not in m:
+                return False
+            l = pieces[m[arr[i]]]
+            if arr[i:i+len(l)] != l:
+                return False
+            i += len(l)
+        return True
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

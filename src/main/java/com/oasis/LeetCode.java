@@ -4073,6 +4073,99 @@ public class LeetCode {
         return false;
     }
 
+    @Test
+    public void testLinkedList(){
+        MyLinkedList list = new MyLinkedList();
+        list.addAtHead(1);
+        list.addAtTail(3);
+        list.addAtIndex(1, 2);
+        System.out.println(list.get(0));
+        System.out.println(list.get(1));
+        System.out.println(list.get(2));
+    }
+
+    //https://leetcode.cn/problems/design-linked-list/ 设计链表
+    class MyLinkedList {
+
+        class ListNode{
+            ListNode prev;
+            ListNode nxt;
+            int val;
+            public ListNode(){}
+
+            public ListNode(int val) {
+                this.val = val;
+            }
+        }
+
+        int mSize;
+        ListNode mHead;
+        ListNode mTail;
+
+        public MyLinkedList() {
+            mHead = new ListNode();
+            mTail = new ListNode();
+            mHead.nxt = mTail;
+            mTail.prev = mHead;
+        }
+
+        private ListNode getNode(int index){
+            boolean fromStart = index < mSize / 2;
+            if(!fromStart) index = mSize - index - 1;
+            ListNode start = fromStart ? mHead.nxt : mTail.prev;
+            for (int i = 0; i < index; i++) {
+                start = fromStart ? start.nxt : start.prev;
+            }
+            return start;
+        }
+
+        public int get(int index) {
+            if(index < 0 || index >= mSize) return -1;
+            return getNode(index).val;
+        }
+
+        public void addAtHead(int val) {
+            ListNode node = new ListNode(val);
+            node.nxt = mHead.nxt;
+            mHead.nxt.prev = node;
+            mHead.nxt = node;
+            node.prev = mHead;
+            mSize++;
+        }
+
+        public void addAtTail(int val) {
+            ListNode node = new ListNode(val);
+            node.prev = mTail.prev;
+            mTail.prev.nxt = node;
+            mTail.prev = node;
+            node.nxt = mTail;
+            mSize++;
+        }
+
+        public void addAtIndex(int index, int val) {
+            if(index > mSize) return;
+            if(index == mSize) addAtTail(val);
+            else if(index <= 0) addAtHead(val);
+            else {
+                ListNode tmp = getNode(index);
+                ListNode node = new ListNode(val);
+                node.nxt = tmp;
+                node.prev = tmp.prev;
+                tmp.prev.nxt = node;
+                tmp.prev = node;
+                mSize++;
+            }
+        }
+
+        public void deleteAtIndex(int index) {
+            if(index < 0 || index >= mSize) return;
+            ListNode tmp = getNode(index);
+            tmp.prev.nxt = tmp.nxt;
+            tmp.nxt.prev = tmp.prev;
+            mSize--;
+        }
+    }
+
     //https://leetcode.cn/problems/random-point-in-non-overlapping-rectangles/ 非重叠矩形中的随机点
     class Solution {
 

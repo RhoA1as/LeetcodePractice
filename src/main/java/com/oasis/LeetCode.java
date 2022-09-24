@@ -4166,6 +4166,28 @@ public class LeetCode {
         }
     }
 
+    @Test
+    public void testDecrypt(){
+        decrypt(new int[]{2, 4, 9, 3}, -2);
+    }
+
+    //https://leetcode.cn/problems/defuse-the-bomb/ 拆炸弹
+    public int[] decrypt(int[] code, int k) {
+        if(code == null || code.length == 0) return new int[0];
+        int n = code.length;
+        int[] ans = new int[n];
+        if(k == 0) return ans;
+        int[] sum = new int[2 * n];
+        sum[0] = code[0];
+        for (int i = 1; i < 2 * n; i++) {
+            sum[i] = sum[i-1] + code[i % n];
+        }
+        for (int i = 0; i < n; i++) {
+            ans[i] = k > 0 ? sum[i + k] - sum[i] : sum[i+n-1] - sum[i+n+k-1];
+        }
+        return ans;
+    }
+
     //https://leetcode.cn/problems/random-point-in-non-overlapping-rectangles/ 非重叠矩形中的随机点
     class Solution {
 

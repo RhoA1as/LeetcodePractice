@@ -491,6 +491,23 @@ class Solution:
             i += len(l)
         return True
 
+    # https://leetcode.cn/problems/rotated-digits/  旋转数字
+    def rotatedDigits(self, n: int) -> int:
+        ans = 0
+        for i in range(1, n + 1):
+            flag = False
+            while i:
+                j = i % 10
+                i //= 10
+                if j in (2, 5, 6, 9):
+                    flag = True
+                elif j in (3, 4, 7):
+                    flag = False
+                    break
+            if flag:
+                ans += 1
+        return ans
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

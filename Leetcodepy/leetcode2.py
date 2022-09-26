@@ -1,6 +1,8 @@
 import bisect
 import collections
 from collections import Counter
+from functools import reduce
+from operator import or_
 from typing import List, Optional
 
 # https://leetcode.cn/problems/cells-with-odd-values-in-a-matrix/ 奇数值单元格的数目
@@ -507,6 +509,28 @@ class Solution:
             if flag:
                 ans += 1
         return ans
+
+    # https://leetcode.cn/problems/missing-two-lcci/ 消失的两个数字
+    def missingTwo(self, nums: List[int]) -> List[int]:
+        xorsum = 0
+        for i in nums:
+            xorsum ^= i
+        n = len(nums) + 2
+        for i in range(1, n + 1):
+            xorsum ^= i
+        flag = xorsum & -xorsum
+        t1 = t2 = 0
+        for i in nums:
+            if i & flag:
+                t1 ^= i
+            else:
+                t2 ^= i
+        for i in range(1, n + 1):
+            if i & flag:
+                t1 ^= i
+            else:
+                t2 ^= i
+        return [t1, t2]
 
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流

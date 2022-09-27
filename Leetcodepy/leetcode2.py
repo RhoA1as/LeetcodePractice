@@ -532,6 +532,14 @@ class Solution:
                 t2 ^= i
         return [t1, t2]
 
+    # https://leetcode.cn/problems/check-permutation-lcci/ 判定是否互为字符重排
+    def CheckPermutation(self, s1: str, s2: str) -> bool:
+        if len(s1) != len(s2):
+            return False
+        if s1 == s2:
+            return True
+        return collections.Counter(s1) == collections.Counter(s2)
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

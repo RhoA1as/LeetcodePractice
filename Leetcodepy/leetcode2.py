@@ -540,6 +540,21 @@ class Solution:
             return True
         return collections.Counter(s1) == collections.Counter(s2)
 
+    # https://leetcode.cn/problems/get-kth-magic-number-lcci/ 第k个数
+    def getKthMagicNumber(self, k: int) -> int:
+        p3 = p5 = p7 = 0
+        ans = [0] * k
+        ans[0] = 1
+        for i in range(1, k):
+            ans[i] = min(ans[p3] * 3, ans[p5] * 5, ans[p7] * 7)
+            if ans[i] == ans[p3] * 3:
+                p3 += 1
+            if ans[i] == ans[p5] * 5:
+                p5 += 1
+            if ans[i] == ans[p7] * 7:
+                p7 += 1
+        return ans[-1]
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

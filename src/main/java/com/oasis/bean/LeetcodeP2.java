@@ -998,6 +998,12 @@ class MagicDictionary {
         }
         return depth;
     }
+
+    //https://leetcode.cn/problems/string-rotation-lcci/ 字符串轮转
+    public boolean isFlipedString(String s1, String s2) {
+        if(s1 == null || s2 == null) return false;
+        return s1.length() == s2.length() && (s1 + s1).contains(s2);
+    }
 }
 
 class TreeNode {

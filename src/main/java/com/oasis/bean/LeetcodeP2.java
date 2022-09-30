@@ -1004,6 +1004,28 @@ class MagicDictionary {
         if(s1 == null || s2 == null) return false;
         return s1.length() == s2.length() && (s1 + s1).contains(s2);
     }
+
+    //https://leetcode.cn/problems/zero-matrix-lcci/ 零矩阵
+    public void setZeroes(int[][] matrix) {
+        if (matrix == null) return;
+        int m = matrix.length, n = matrix[0].length;
+        if(m == 0 || n == 0) return;
+        int[] rows = new int[m];
+        int[] cols = new int[n];
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if(matrix[i][j] == 0){
+                    rows[i] = 1;
+                    cols[j] = 1;
+                }
+            }
+        }
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if(rows[i] == 1 || cols[j] == 1) matrix[i][j] = 0;
+            }
+        }
+    }
 }
 
 class TreeNode {

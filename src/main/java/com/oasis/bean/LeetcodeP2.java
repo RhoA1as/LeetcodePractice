@@ -1026,6 +1026,25 @@ class MagicDictionary {
             }
         }
     }
+
+    //https://leetcode.cn/problems/swap-adjacent-in-lr-string/ 在LR字符串中交换相邻字符
+    public boolean canTransform(String start, String end) {
+        if(start == null || end == null || start.length() != end.length()){
+            return false;
+        }
+        if(start.equals(end)) return true;
+        int n = start.length(), a = 0, b = 0;
+        while (a < n || b < n){
+            while (a < n && start.charAt(a) == 'X') a++;
+            while (b < n && end.charAt(b) == 'X') b++;
+            if(a == n || b == n) break;
+            if(start.charAt(a) != end.charAt(b)) return false;
+            if(start.charAt(a) == 'L' && a < b) return false;
+            if(start.charAt(a) == 'R' && a > b) return false;
+            a++; b++;
+        }
+        return a == b;
+    }
 }
 
 class TreeNode {

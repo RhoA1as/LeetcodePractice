@@ -1045,6 +1045,18 @@ class MagicDictionary {
         }
         return a == b;
     }
+
+    //https://leetcode.cn/problems/maximum-ascending-subarray-sum/ 最大升序子数组和
+    public int maxAscendingSum(int[] nums) {
+        if(nums == null || nums.length == 0) return 0;
+        int curr = nums[0], max = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            if(nums[i] > nums[i-1]) curr += nums[i];
+            else curr = nums[i];
+            max = Math.max(max, curr);
+        }
+        return max;
+    }
 }
 
 class TreeNode {

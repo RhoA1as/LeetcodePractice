@@ -555,6 +555,17 @@ class Solution:
                 p7 += 1
         return ans[-1]
 
+    # https://leetcode.cn/problems/score-of-parentheses/ 括号的分数
+    def scoreOfParentheses(self, s: str) -> int:
+        st = [0]
+        for c in s:
+            if c == '(':
+                st.append(0)
+            else:
+                v = st.pop()
+                st[-1] += max(2 * v, 1)
+        return st[-1]
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

@@ -566,6 +566,19 @@ class Solution:
                 st[-1] += max(2 * v, 1)
         return st[-1]
 
+    # https://leetcode.cn/problems/minimum-swaps-to-make-sequences-increasing/ 使序列递增的最小交换次数
+    def minSwap(self, nums1: List[int], nums2: List[int]) -> int:
+        n = len(nums1)
+        a, b = 0, 1
+        for i in range(1, n):
+            at, bt = a, b
+            a = b = n
+            if nums1[i] > nums1[i-1] and nums2[i] > nums2[i-1]:
+                a, b = at, bt + 1
+            if nums1[i] > nums2[i-1] and nums2[i] > nums1[i-1]:
+                a, b = min(a, bt), min(b, at + 1)
+        return min(a, b)
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

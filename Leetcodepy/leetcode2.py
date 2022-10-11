@@ -579,6 +579,21 @@ class Solution:
                 a, b = min(a, bt), min(b, at + 1)
         return min(a, b)
 
+    # https://leetcode.cn/problems/check-if-one-string-swap-can-make-strings-equal/ 仅执行一次字符串交换能否使两个字符串相等
+    def areAlmostEqual(self, s1: str, s2: str) -> bool:
+        if s1 == s2:
+            return True
+        i = j = -1
+        for idx, (a, b) in enumerate(zip(s1, s2)):
+            if a == b:
+                continue
+            if i < 0:
+                i = idx
+            elif j < 0:
+                j = idx
+            else:
+                return False
+        return s1[i] == s2[j] and s1[j] == s2[i]
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

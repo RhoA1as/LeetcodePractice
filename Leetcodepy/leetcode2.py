@@ -97,6 +97,12 @@ def shiftGrid(self, grid: List[List[int]], k: int) -> List[List[int]]:
     return ans
 
 
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+
 class Solution:
 
     # https://leetcode.cn/problems/binary-tree-pruning/ 二叉树减枝
@@ -594,6 +600,21 @@ class Solution:
             else:
                 return False
         return s1[i] == s2[j] and s1[j] == s2[i]
+
+    # https://leetcode.cn/problems/linked-list-components/ 链表组件
+    def numComponents(self, head: Optional[ListNode], nums: List[int]) -> int:
+        ans = 0
+        is_head = False
+        n = set(nums)
+        while head:
+            if head.val not in n:
+                is_head = False
+            elif not is_head:
+                ans += 1
+                is_head = True
+            head = head.next
+        return ans
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

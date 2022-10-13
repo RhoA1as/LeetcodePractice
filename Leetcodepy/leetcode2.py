@@ -615,6 +615,16 @@ class Solution:
             head = head.next
         return ans
 
+    # https://leetcode.cn/problems/max-chunks-to-make-sorted/ 最多能完成排序的块
+    def maxChunksToSorted(self, arr: List[int]) -> int:
+        if not arr:
+            return 0
+        ans = mx = 0
+        for i, num in enumerate(arr):
+            mx = max(mx, num)
+            ans += mx == i
+        return ans
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

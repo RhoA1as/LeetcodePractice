@@ -441,6 +441,20 @@ class MagicDictionary {
         return new StringBuilder("a".repeat(n-1)).append("b").toString();
     }
 
+    //https://leetcode.cn/problems/fruit-into-baskets/ 水果成篮
+    public int totalFruit(int[] fruits) {
+        int n = fruits.length;
+        int[] cnt = new int[n];
+        int l = 0, r = 0;
+        for (int tot = 0; r < n; r++) {
+            if(++cnt[fruits[r]] == 1) tot++;
+            if(tot > 2){
+                if(--cnt[fruits[l++]] == 0) tot--;
+            }
+        }
+        return r - l;
+    }
+
     //https://leetcode.cn/problems/design-circular-queue/ 设计循环队列
     class MyCircularQueue {
 

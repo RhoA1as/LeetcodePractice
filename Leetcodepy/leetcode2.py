@@ -625,6 +625,19 @@ class Solution:
             ans += mx == i
         return ans
 
+    # https://leetcode.cn/problems/number-of-students-unable-to-eat-lunch/ 无法吃午餐的学生数量
+    def countStudents(self, students: List[int], sandwiches: List[int]) -> int:
+        sum1 = sum(students)
+        sum0 = len(students) - sum1
+        for sa in sandwiches:
+            if sa == 0 and sum0:
+                sum0 -= 1
+            elif sa == 1 and sum1:
+                sum1 -= 1
+            else:
+                break
+        return sum0 + sum1
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

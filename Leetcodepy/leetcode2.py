@@ -638,6 +638,10 @@ class Solution:
                 break
         return sum0 + sum1
 
+    # https://leetcode.cn/problems/k-th-symbol-in-grammar/ 第k个语法符号
+    def kthGrammar(self, n: int, k: int) -> int:
+        return (k - 1).bit_count() & 1
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

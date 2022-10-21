@@ -1106,6 +1106,27 @@ class MagicDictionary {
     }
 }
 
+//https://leetcode.cn/problems/online-stock-span/ 股票价格跨度
+class StockSpanner {
+    int idx;
+    Deque<int[]> deque;
+    public StockSpanner() {
+        idx = -1;
+        deque = new ArrayDeque<>();
+        deque.offer(new int[]{idx, Integer.MAX_VALUE});
+    }
+
+    public int next(int price) {
+        idx++;
+        while (deque.peekLast()[1] <= price) {
+            deque.pollLast();
+        }
+        int ans = idx - deque.peekLast()[0];
+        deque.offer(new int[]{idx, price});
+        return ans;
+    }
+}
+
 class TreeNode {
     int val;
     TreeNode left;

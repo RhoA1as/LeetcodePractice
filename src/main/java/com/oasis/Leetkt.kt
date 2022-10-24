@@ -13,3 +13,20 @@ fun maxLengthBetweenEqualCharacters(s: String): Int {
     }
     return max
 }
+
+//https://leetcode.cn/problems/partition-array-into-disjoint-intervals/ 分割数组
+fun partitionDisjoint(nums: IntArray): Int {
+    if(nums.isEmpty()) return -1
+    var maxVal = nums[0]
+    var leftMax = nums[0]
+    var position = 0
+    val n = nums.size
+    for (i in 1 until n){
+        maxVal = maxVal.coerceAtLeast(nums[i])
+        if(nums[i] < leftMax){
+            position = i
+            leftMax = maxVal
+        }
+    }
+    return position + 1
+}

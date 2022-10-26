@@ -1104,6 +1104,59 @@ class MagicDictionary {
         }
         return kthGrammar(n - 1, k);
     }
+
+    //https://leetcode.cn/problems/shortest-bridge/ 最短的桥
+    int gm;
+    int gn;
+    int[][] island;
+    int[][] gd = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+    public int shortestBridge(int[][] grid) {
+        if(grid == null) return -1;
+        gm = grid.length;
+        gn = grid[0].length;
+        island = grid;
+        Deque<int[]> deque = new ArrayDeque<>();
+        int step = 0;
+        for (int i = 0; i < gm; i++) {
+            for (int j = 0; j < gn; j++) {
+                if(grid[i][j] == 1){
+                    dfsIsland(i, j, deque);
+                    while (!deque.isEmpty()){
+                        int size = deque.size();
+                        for (int k = 0; k < size; k++) {
+                            int[] node = deque.poll();
+                            int row = node[0], col = node[1];
+                            for (int[] dir : gd) {
+                                int row0 = row + dir[0], col0 = col + dir[1];
+                                if(row0 < 0 || row0 >= gm || col0 < 0 || col0 >= gn || grid[row0][col0] == -1){
+                                    continue;
+                                }
+                                if(grid[row0][col0] == 1){
+                                    return step;
+                                } else if (grid[row0][col0] == 0) {
+                                    grid[row0][col0] = -1;
+                                    deque.offer(new int[]{row0, col0});
+                                }
+                            }
+                        }
+                        step++;
+                    }
+                }
+            }
+        }
+        return step;
+    }
+
+    public void dfsIsland(int x, int y, Deque<int[]> deque){
+        if(x < 0 || x >= gm || y < 0 || y >= gn || island[x][y] != 1){
+            return;
+        }
+        island[x][y] = -1;
+        deque.offer(new int[]{x, y});
+        for (int[] dir : gd) {
+            dfsIsland(x + dir[0], y + dir[1], deque);
+        }
+    }
 }
 
 //https://leetcode.cn/problems/online-stock-span/ 股票价格跨度

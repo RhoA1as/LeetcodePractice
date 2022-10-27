@@ -642,6 +642,16 @@ class Solution:
     def kthGrammar(self, n: int, k: int) -> int:
         return (k - 1).bit_count() & 1
 
+    # https://leetcode.cn/problems/sign-of-the-product-of-an-array/ 数组元素积的符号
+    def arraySign(self, nums: List[int]) -> int:
+        ans = 1
+        for i in nums:
+            if i == 0:
+                return 0
+            elif i < 0:
+                ans *= -1
+        return ans
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

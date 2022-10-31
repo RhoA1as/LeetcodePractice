@@ -652,6 +652,26 @@ class Solution:
                 ans *= -1
         return ans
 
+    # https://leetcode.cn/problems/magical-string/ 神奇字符串
+    def magicalString(self, n: int) -> int:
+        if n < 4:
+            return 1
+        array = [0] * n
+        array[0] = 1
+        array[1] = array[2] = 2
+        i, j, ans = 2, 2, 1
+        while j < n-1:
+            k = array[i]
+            num = 3 - array[j]
+            while k and j < n-1:
+                if num == 1:
+                    ans += 1
+                array[j] = num
+                j += 1
+                k -= 1
+            i += 1
+        return ans
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

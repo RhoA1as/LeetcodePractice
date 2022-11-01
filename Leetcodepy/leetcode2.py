@@ -672,6 +672,24 @@ class Solution:
             i += 1
         return ans
 
+    # https://leetcode.cn/problems/check-if-two-string-arrays-are-equivalent/ 检查两个字符串是否相等
+    def arrayStringsAreEqual(self, word1: List[str], word2: List[str]) -> bool:
+        f1 = f2 = 0
+        l1 = l2 = 0
+        m, n = len(word1), len(word2)
+        while f1 < m and f2 < n:
+            if word1[f1][l1] != word2[f2][l2]:
+                return False
+            l1 += 1
+            if l1 == len(word1[f1]):
+                l1 = 0
+                f1 += 1
+            l2 += 1
+            if l2 == len(word2[f2]):
+                l2 = 0
+                f2 += 1
+        return f1 == m and f2 == n
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

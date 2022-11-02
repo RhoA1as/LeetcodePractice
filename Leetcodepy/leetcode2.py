@@ -690,6 +690,22 @@ class Solution:
                 f2 += 1
         return f1 == m and f2 == n
 
+    # https://leetcode.cn/problems/coordinate-with-maximum-network-quality/网络信号最好的坐标
+    def bestCoordinate(self, towers: List[List[int]], radius: int) -> List[int]:
+        max_row = max([tower[0] for tower in towers])
+        max_col = max([tower[1] for tower in towers])
+        x = y = z = 0
+        for i in range(max_row + 1):
+            for j in range(max_col + 1):
+                cval = 0
+                for tower in towers:
+                    d = (i - tower[0]) ** 2 + (j - tower[1]) ** 2
+                    if d <= radius ** 2:
+                        cval += tower[2] // (1 + d ** 0.5)
+                if cval > z:
+                    x, y, z = i, j, cval
+        return [x, y]
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

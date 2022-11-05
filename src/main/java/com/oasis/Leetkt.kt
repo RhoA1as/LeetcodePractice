@@ -1,5 +1,6 @@
 package com.oasis
 
+import kotlin.math.abs
 import kotlin.math.max
 
 //https://leetcode.cn/problems/largest-substring-between-two-equal-characters/ 两个相同字符之间的最长子字符串
@@ -29,4 +30,15 @@ fun partitionDisjoint(nums: IntArray): Int {
         }
     }
     return position + 1
+}
+
+//https://leetcode.cn/problems/reach-a-number/ 到达终点数字
+fun reachNumber(target: Int): Int {
+    var t = abs(target)
+    var k = 0
+    while (t > 0){
+        k++
+        t -= k
+    }
+    return if (t and 1 == 0) k else k + 1 + (k and 1)
 }

@@ -706,6 +706,15 @@ class Solution:
                     x, y, z = i, j, cval
         return [x, y]
 
+    # https://leetcode.cn/problems/reach-a-number/ 到达终点数字
+    def reachNumber(self, target: int) -> int:
+        target = abs(target)
+        k = 0
+        while target:
+            k += 1
+            target -= k
+        return k if target & 1 == 0 else k + 1 + (k & 1)
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

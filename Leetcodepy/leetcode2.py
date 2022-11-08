@@ -715,6 +715,21 @@ class Solution:
             target -= k
         return k if target & 1 == 0 else k + 1 + (k & 1)
 
+    # https://leetcode.cn/problems/count-the-number-of-consistent-strings/ 统计一致字符串的数目
+    def countConsistentStrings(self, allowed: str, words: List[str]) -> int:
+        a = ans = 0
+        for c in allowed:
+            a |= 1 << (ord(c) - ord('a'))
+        for word in words:
+            f = True
+            for w in word:
+                if a | (1 << (ord(w) - ord('a'))) != a:
+                    f = False
+                    break
+            if f:
+                ans += 1
+        return ans
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

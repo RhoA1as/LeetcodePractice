@@ -1,7 +1,6 @@
 package com.oasis
 
-import kotlin.math.abs
-import kotlin.math.max
+import kotlin.math.*
 
 //https://leetcode.cn/problems/largest-substring-between-two-equal-characters/ 两个相同字符之间的最长子字符串
 fun maxLengthBetweenEqualCharacters(s: String): Int {
@@ -41,4 +40,41 @@ fun reachNumber(target: Int): Int {
         t -= k
     }
     return if (t and 1 == 0) k else k + 1 + (k and 1)
+}
+
+//https://leetcode.cn/problems/largest-plus-sign/ 最大加号标志
+fun orderOfLargestPlusSign(n: Int, mines: Array<IntArray>): Int {
+    val dp = Array(n){ IntArray(n){n} }
+    val set = mutableSetOf<Int>().apply {
+        for((row, col) in mines)
+            add(row * n + col)
+    }
+    var ans = 0
+    var cnt: Int
+    for (i in 0 until n){
+        cnt = 0
+        for(j in 0 until n){
+            cnt = if(set.contains(i * n + j)) 0 else cnt + 1
+            dp[i][j] = min(dp[i][j], cnt)
+        }
+        cnt = 0
+        for(j in n - 1 downTo 0){
+            cnt = if(set.contains(i * n + j)) 0 else cnt + 1
+            dp[i][j] = min(dp[i][j], cnt)
+        }
+    }
+    for (i in 0 until n){
+        cnt = 0
+        for(j in 0 until n){
+            cnt = if(set.contains(j * n + i)) 0 else cnt + 1
+            dp[j][i] = min(dp[j][i], cnt)
+        }
+        cnt = 0
+        for(j in n - 1 downTo 0){
+            cnt = if(set.contains(j * n + i)) 0 else cnt + 1
+            dp[j][i] = min(dp[j][i], cnt)
+            ans = max(dp[j][i], ans)
+        }
+    }
+    return ans
 }

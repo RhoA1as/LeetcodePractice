@@ -2,6 +2,7 @@ import bisect
 import collections
 from collections import Counter
 from functools import reduce
+from itertools import product
 from operator import or_
 from typing import List, Optional
 
@@ -729,6 +730,36 @@ class Solution:
             if f:
                 ans += 1
         return ans
+
+    # https://leetcode.cn/problems/ambiguous-coordinates/ 模糊坐标
+    def ambiguousCoordinates(self, s: str) -> List[str]:
+        def get_position(st: str) -> List[str]:
+            ans = []
+            if st[0] != '0' or st == '0':
+                ans.append(st)
+            if st[-1] == '0':
+                return ans
+            n, f = len(st), False
+            for i in range(1, n):
+                if f:
+                    break
+                if st[0] == '0':
+                    f = True
+                ans.append(f"{st[:i]}.{st[i:]}")
+            return ans
+        s = s[1:len(s)-1]
+        l = len(s)
+        res = []
+        for idx in range(1, l):
+            ls = get_position(s[:idx])
+            if not ls:
+                continue
+            rs = get_position(s[idx:])
+            if not rs:
+                continue
+            for lsv, rsv in product(ls, rs):
+                res.append(f"({lsv}, {rsv})")
+        return res
 
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流

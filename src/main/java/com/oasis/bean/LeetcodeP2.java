@@ -645,6 +645,49 @@ class MagicDictionary {
         return ans.toString();
     }
 
+    @Test
+    public void testSplitArraySameAverage(){
+        System.out.println(splitArraySameAverage(new int[]{1, 6, 1}));
+    }
+
+    //https://leetcode.cn/problems/split-array-with-same-average/ 数组的均值分割
+    public boolean splitArraySameAverage(int[] nums) {
+        if(nums == null || nums.length <= 1) return false;
+        int sum = Arrays.stream(nums).sum();
+        int n = nums.length;
+        for (int i = 0; i < n; i++) {
+            nums[i] = nums[i] * n - sum;
+        }
+        Set<Integer> set = new HashSet<>();
+        int m = n / 2;
+        for (int i = 1; i < (1 << m); i++) {
+            int tot = 0;
+            for (int j = 0; j < m; j++) {
+                if((i & (1 << j)) != 0){
+                    tot += nums[j];
+                }
+            }
+            if(tot == 0) return true;
+            set.add(tot);
+        }
+        int rSum = 0;
+        for (int i = m; i < n; i++) {
+            rSum += nums[i];
+        }
+        for (int i = 1; i < (1 << (n - m)); i++) {
+            int tot = 0;
+            for (int j = m; j < n; j++) {
+                if((i & (1 << (j - m))) != 0){
+                    tot += nums[j];
+                }
+            }
+            if(tot == 0 || (tot != rSum && set.contains(-tot))){
+                return true;
+            }
+        }
+        return false;
+    }
+
     //https://leetcode.cn/problems/design-circular-deque/ 设计循环双端队列
     class MyCircularDeque {
 

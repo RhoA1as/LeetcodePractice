@@ -78,3 +78,19 @@ fun orderOfLargestPlusSign(n: Int, mines: Array<IntArray>): Int {
     }
     return ans
 }
+
+//https://leetcode.cn/problems/maximum-units-on-a-truck/ 卡车上的最大单元数
+fun maximumUnits(boxTypes: Array<IntArray>, truckSize: Int): Int {
+    boxTypes.sortBy { -it[1] }
+    var ans = 0
+    var size = truckSize
+    for ((num, units) in boxTypes){
+        if(num >= size){
+            ans += size * units
+            break
+        }
+        ans += num * units
+        size -= num
+    }
+    return ans
+}

@@ -761,6 +761,18 @@ class Solution:
                 res.append(f"({lsv}, {rsv})")
         return res
 
+    # https://leetcode.cn/problems/global-and-local-inversions/ 全局倒置和局部倒置
+    def isIdealPermutation(self, nums: List[int]) -> bool:
+        if not nums:
+            return True
+        min_val = nums[-1]
+        n = len(nums)
+        for i in range(n - 3, -1, -1):
+            if nums[i] > min_val:
+                return False
+            min_val = min(min_val, nums[i+1])
+        return True
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

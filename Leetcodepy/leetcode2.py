@@ -773,6 +773,24 @@ class Solution:
             min_val = min(min_val, nums[i+1])
         return True
 
+    # https://leetcode.cn/problems/number-of-matching-subsequences/ 匹配子序列的单词数
+    def numMatchingSubseq(self, s: str, words: List[str]) -> int:
+        d = collections.defaultdict(list)
+        res = 0
+        for i, word in enumerate(words):
+            d[word[0]].append((i, 0))
+        for c in s:
+            p = d[c]
+            if not p:
+                continue
+            d[c] = []
+            for i, j in p:
+                if j == len(words[i]) - 1:
+                    res += 1
+                else:
+                    d[words[i][j+1]].append((i, j+1))
+        return res
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

@@ -94,3 +94,23 @@ fun maximumUnits(boxTypes: Array<IntArray>, truckSize: Int): Int {
     }
     return ans
 }
+
+//https://leetcode.cn/problems/soup-servings/ 分汤
+fun soupServings(n: Int): Double {
+    val tot = (n + 24) / 25
+    if(tot >= 179) return 1.0
+    val dp = Array(tot + 1){DoubleArray(tot + 1)}.apply {
+        for (i in 1..tot){
+            this[0][i] = 1.0
+        }
+        this[0][0] = 0.5
+    }
+    //(4, 0) (3, 1) (2, 2) (1, 3)
+    for (i in 1..tot){
+        for (j in 1..tot){
+            dp[i][j] = 0.25 * (dp[max(0, i - 4)][j] + dp[max(0, i - 3)][max(0, j - 1)]
+                    + dp[max(i - 2, 0)][max(j - 2, 0)] + dp[max(i - 1, 0)][max(j - 3, 0)])
+        }
+    }
+    return dp[tot][tot]
+}

@@ -791,6 +791,11 @@ class Solution:
                     d[words[i][j+1]].append((i, j+1))
         return res
 
+    # https://leetcode.cn/problems/maximum-number-of-balls-in-a-box/ 盒子中小球的最大数量
+    def countBalls(self, lowLimit: int, highLimit: int) -> int:
+        cnt = Counter(sum(map(int, str(i))) for i in range(lowLimit, highLimit + 1))
+        return max(cnt.values())
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

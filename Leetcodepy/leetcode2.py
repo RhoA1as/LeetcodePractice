@@ -796,6 +796,19 @@ class Solution:
         cnt = Counter(sum(map(int, str(i))) for i in range(lowLimit, highLimit + 1))
         return max(cnt.values())
 
+    # https://leetcode.cn/problems/number-of-subarrays-with-bounded-maximum/ 区间子数组个数
+    def numSubarrayBoundedMax(self, nums: List[int], left: int, right: int) -> int:
+        ans = 0
+        l1 = l2 = -1
+        for i, num in enumerate(nums):
+            if left <= num <= right:
+                l1 = i
+            elif num > right:
+                l1, l2 = -1, i
+            if l1 != -1:
+                ans += l1 - l2
+        return ans
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

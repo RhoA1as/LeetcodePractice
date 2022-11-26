@@ -114,3 +114,35 @@ fun soupServings(n: Int): Double {
     }
     return dp[tot][tot]
 }
+
+//https://leetcode.cn/problems/expressive-words/ 情感丰富的文字
+fun expressiveWords(s: String, words: Array<String>): Int {
+    var ans = 0
+    for (word in words){
+        if (expand(s, word))
+            ans++
+    }
+    return ans
+}
+
+private fun expand(s: String, s1: String): Boolean{
+    var l0 = 0
+    var l1 = 0
+    while (l0 < s.length && l1 < s1.length) {
+        if (s[l0] != s1[l1]) return false
+        var c = s[l0]
+        var cnt0 = 0
+        while (l0 < s.length && s[l0] == c){
+            cnt0++
+            l0++
+        }
+        var cnt1 = 0
+        while (l1 < s1.length && s1[l1] == c){
+            cnt1++
+            l1++
+        }
+        if (cnt0 < cnt1) return false
+        if (cnt0 != cnt1 && cnt0 < 3) return false
+    }
+    return l0 == s.length && l1 == s1.length
+}

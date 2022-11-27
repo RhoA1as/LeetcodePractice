@@ -146,3 +146,20 @@ private fun expand(s: String, s1: String): Boolean{
     }
     return l0 == s.length && l1 == s1.length
 }
+
+//https://leetcode.cn/problems/check-if-array-is-sorted-and-rotated/ 检查数组是否经排序和轮转得到
+fun check(nums: IntArray): Boolean {
+    if (nums == null || nums.isEmpty()) return false
+    var flag = false
+    var n = nums.size
+    for (i in 1 until n){
+        if (nums[i] < nums[i-1]){
+            if (flag){
+                return false
+            } else{
+                flag = true
+            }
+        }
+    }
+    return !flag || (nums[0] >= nums[n-1])
+}

@@ -809,6 +809,11 @@ class Solution:
                 ans += l1 - l2
         return ans
 
+    # https://leetcode.cn/problems/minimum-changes-to-make-alternating-binary-string/ 生成交替二进制字符串的最少操作数
+    def minOperations(self, s: str) -> int:
+        a = sum(int(v) != i & 1 for i, v in enumerate(s))
+        return min(a, len(s) - a)
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

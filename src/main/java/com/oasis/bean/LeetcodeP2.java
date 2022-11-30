@@ -688,6 +688,35 @@ class MagicDictionary {
         return false;
     }
 
+    //https://leetcode.cn/problems/maximum-frequency-stack/ 最大频率栈
+    class FreqStack {
+
+        private Map<Integer, Integer> freq;
+        private Map<Integer, Deque<Integer>> grp;
+        private int maxFreq;
+        public FreqStack() {
+            freq = new HashMap<>();
+            grp = new HashMap<>();
+        }
+
+        public void push(int val) {
+            int f = freq.getOrDefault(val, 0) + 1;
+            grp.putIfAbsent(f, new ArrayDeque<>());
+            grp.get(f).push(val);
+            freq.put(val, f);
+            maxFreq = Math.max(maxFreq, f);
+        }
+
+        public int pop() {
+            int val = grp.get(maxFreq).pop();
+            freq.put(val, maxFreq - 1);
+            if(grp.get(maxFreq).isEmpty()){
+                maxFreq--;
+            }
+            return val;
+        }
+    }
+
     //https://leetcode.cn/problems/design-circular-deque/ 设计循环双端队列
     class MyCircularDeque {
 

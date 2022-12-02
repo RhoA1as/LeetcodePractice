@@ -163,3 +163,25 @@ fun check(nums: IntArray): Boolean {
     }
     return !flag || (nums[0] >= nums[n-1])
 }
+
+//https://leetcode.cn/problems/minimum-number-of-operations-to-move-all-balls-to-each-box/ 移动所有球到每个盒子所需的最小操作数
+fun minOperations(boxes: String): IntArray {
+    val n = boxes.length
+    val res = IntArray(n)
+    var l = if (boxes[0] == '1') 1 else 0
+    var r = 0
+    for (i in 1 until n){
+        if (boxes[i] == '1'){
+            res[0] += i
+            r++
+        }
+    }
+    for (i in 1 until n){
+        res[i] = res[i-1] + l - r
+        if (boxes[i] == '1'){
+            l++
+            r--
+        }
+    }
+    return res
+}

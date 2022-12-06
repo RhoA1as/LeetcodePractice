@@ -814,6 +814,24 @@ class Solution:
         a = sum(int(v) != i & 1 for i, v in enumerate(s))
         return min(a, len(s) - a)
 
+    # https://leetcode.cn/problems/number-of-different-integers-in-a-string/ 字符串中不同整数的数目
+    def numDifferentIntegers(self, word: str) -> int:
+        n = len(word)
+        a = b = 0
+        se = set()
+        while a < n:
+            if not word[a].isdigit():
+                a += 1
+                continue
+            b = a + 1
+            while b < n and word[b].isdigit():
+                b += 1
+            while a < b - 1 and word[a] == '0':
+                a += 1
+            se.add(word[a:b])
+            a = b
+        return len(se)
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

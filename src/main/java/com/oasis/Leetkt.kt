@@ -185,3 +185,31 @@ fun minOperations(boxes: String): IntArray {
     }
     return res
 }
+
+//https://leetcode.cn/problems/equal-sum-arrays-with-minimum-number-of-operations/ 通过最少操作次数使数组的和相等
+fun minOperations(nums1: IntArray, nums2: IntArray): Int {
+    if (6 * nums1.size < nums2.size || 6 * nums2.size < nums1.size) return -1
+    var d = nums2.sum() - nums1.sum()
+    var n1 = nums1
+    var n2 = nums2
+    if (d < 0){
+        d *= -1
+        n1 = nums2
+        n2 = nums1
+    }
+    val cnt = IntArray(6).apply {
+        for (x in n1) ++this[6 - x]
+        for (x in n2) ++this[x - 1]
+    }
+    var ans = 0
+    for (i in 5 downTo 1){
+        if (i * cnt[i] >= d){
+            ans += (d + i - 1) / i
+            return ans
+        } else{
+            ans += cnt[i]
+            d -= i * cnt[i]
+        }
+    }
+    return -1
+}

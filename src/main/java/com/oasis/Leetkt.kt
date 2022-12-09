@@ -213,3 +213,13 @@ fun minOperations(nums1: IntArray, nums2: IntArray): Int {
     }
     return -1
 }
+
+//https://leetcode.cn/problems/check-if-number-is-a-sum-of-powers-of-three/ 判断一个数字是否可以表示成三的幂的和
+fun checkPowersOfThree(n: Int): Boolean {
+    var a = n
+    while (a > 0){
+        if (a % 3 == 2) return false
+        a /= 3
+    }
+    return true
+}

@@ -832,6 +832,22 @@ class Solution:
             a = b
         return len(se)
 
+    # https://leetcode.cn/problems/sum-of-beauty-of-all-substrings/ 所有子字符串美丽值之和
+    def beautySum(self, s: str) -> int:
+        if not s:
+            return -1
+        res = 0
+        n = len(s)
+        for i in range(n):
+            cnt = Counter()
+            mx = 0
+            for j in range(i, n):
+                cnt[s[j]] += 1
+                mx = max(mx, cnt[s[j]])
+                mn = min(cnt.values())
+                res += mx - mn
+        return res
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

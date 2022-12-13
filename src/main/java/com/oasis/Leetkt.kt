@@ -223,3 +223,13 @@ fun checkPowersOfThree(n: Int): Boolean {
     }
     return true
 }
+
+//https://leetcode.cn/problems/check-if-the-sentence-is-pangram/ 判断句子是否为全字母句
+fun checkIfPangram(sentence: String): Boolean {
+    if (sentence.isNullOrEmpty()) return false
+    var cnt = 0
+    for (s in sentence){
+        cnt = cnt or (1 shl (s - 'a'))
+    }
+    return cnt == (1 shl 26) - 1
+}

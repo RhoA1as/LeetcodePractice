@@ -848,6 +848,19 @@ class Solution:
                 res += mx - mn
         return res
 
+    # https://leetcode.cn/problems/sum-of-digits-of-string-after-convert/ 字符串转化后的各位数字之和
+    def getLucky(self, s: str, k: int) -> int:
+        if not s:
+            return -1
+        st = "".join(str(ord(c) - ord('a') + 1) for c in s)
+        ans = 0
+        for _ in range(k):
+            ans = sum(int(c) for c in st)
+            st = str(ans)
+            if len(st) == 1:
+                break
+        return ans
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

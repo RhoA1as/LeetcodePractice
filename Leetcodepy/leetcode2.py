@@ -861,6 +861,10 @@ class Solution:
                 break
         return ans
 
+    # https://leetcode.cn/problems/minimum-elements-to-add-to-form-a-given-sum/ 构成特定和需要添加的最少元素
+    def minElements(self, nums: List[int], limit: int, goal: int) -> int:
+        return (abs(goal - sum(nums)) + limit - 1) // limit
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

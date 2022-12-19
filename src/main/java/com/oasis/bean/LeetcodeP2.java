@@ -174,6 +174,34 @@ public class LeetcodeP2 {
         return new Node(false, false, topLeft, topRight, bottomLeft, bottomRight);
     }
 
+    //https://leetcode.cn/problems/find-if-path-exists-in-graph/ 寻找图中是否存在路径
+    public boolean validPath(int n, int[][] edges, int source, int destination) {
+        List<List<Integer>> children = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            children.add(new ArrayList<>());
+        }
+        for (int[] edge : edges) {
+            children.get(edge[0]).add(edge[1]);
+            children.get(edge[1]).add(edge[0]);
+        }
+        if (source == destination) return true;
+        boolean[] visited =new boolean[n];
+        Deque<Integer> deque = new ArrayDeque<>();
+        deque.offer(source);
+        visited[source] = true;
+        while (!deque.isEmpty()) {
+            int node = deque.poll();
+            for (int child : children.get(node)) {
+                if (!visited[child]) {
+                    if (child == destination) return true;
+                    deque.offer(child);
+                    visited[child] = true;
+                }
+            }
+        }
+        return false;
+    }
+
     //https://leetcode.cn/problems/qIsx9U/ 滑动窗口的平均值
     class MovingAverage {
 

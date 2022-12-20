@@ -865,6 +865,19 @@ class Solution:
     def minElements(self, nums: List[int], limit: int, goal: int) -> int:
         return (abs(goal - sum(nums)) + limit - 1) // limit
 
+    # https://leetcode.cn/problems/minimum-limit-of-balls-in-a-bag/ 袋子里最少数目的球
+    def minimumSize(self, nums: List[int], maxOperations: int) -> int:
+        l, r, ans = 1, max(nums), 0
+        while l <= r:
+            m = (l + r) // 2
+            ops = sum((num - 1) // m for num in nums)
+            if ops <= maxOperations:
+                ans = m
+                r = m - 1
+            else:
+                l = m + 1
+        return ans
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

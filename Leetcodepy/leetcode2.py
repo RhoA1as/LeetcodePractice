@@ -878,6 +878,13 @@ class Solution:
                 l = m + 1
         return ans
 
+    # https://leetcode.cn/problems/maximum-score-from-removing-stones/ 移除石子的最大得分
+    def maximumScore(self, a: int, b: int, c: int) -> int:
+        arr = sorted([a, b, c])
+        if arr[0] + arr[1] <= arr[2]:
+            return arr[0] + arr[1]
+        return (arr[0] + arr[1] + arr[2]) // 2
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

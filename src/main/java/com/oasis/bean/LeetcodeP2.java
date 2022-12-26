@@ -202,6 +202,28 @@ public class LeetcodeP2 {
         return false;
     }
 
+    //https://leetcode.cn/problems/count-number-of-homogenous-substrings/ 统计同构子字符串的数目
+    public int countHomogenous(String s) {
+        if (s == null || s.isEmpty()) return 0;
+        final int MOD = 1000000007;
+        char curr = s.charAt(0);
+        long cnt = 1;
+        long ans = 0;
+        int n = s.length();
+        for (int i = 1; i < n; i++) {
+            char c = s.charAt(i);
+            if (c == curr) {
+                ++cnt;
+            } else {
+                ans += (cnt + 1) * cnt / 2;
+                curr = c;
+                cnt = 1;
+            }
+        }
+        ans += (cnt + 1) * cnt / 2;
+        return (int) (ans % MOD);
+    }
+
     //https://leetcode.cn/problems/qIsx9U/ 滑动窗口的平均值
     class MovingAverage {
 

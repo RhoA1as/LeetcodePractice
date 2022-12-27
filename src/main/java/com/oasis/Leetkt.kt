@@ -233,3 +233,19 @@ fun checkIfPangram(sentence: String): Boolean {
     }
     return cnt == (1 shl 26) - 1
 }
+
+//https://leetcode.cn/problems/minimum-moves-to-convert-string/ 转换字符串的最少操作次数
+fun minimumMoves(s: String): Int {
+    val n = s.length
+    var i = 0
+    var res = 0
+    while (i < n) {
+        if (s[i] == 'X') {
+            ++res
+            i += 3
+        } else {
+            ++i
+        }
+    }
+    return res
+}

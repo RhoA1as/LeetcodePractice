@@ -885,6 +885,17 @@ class Solution:
             return arr[0] + arr[1]
         return (arr[0] + arr[1] + arr[2]) // 2
 
+    # https://leetcode.cn/problems/minimum-length-of-string-after-deleting-similar-ends/ 删除字符串两端相同字符后的最短长度
+    def minimumLength(self, s: str) -> int:
+        a, b = 0, len(s) - 1
+        while a < b and s[a] == s[b]:
+            c = s[a]
+            while a <= b and s[a] == c:
+                a += 1
+            while b > a and s[b] == c:
+                b -= 1
+        return b - a + 1
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

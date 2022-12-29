@@ -224,6 +224,27 @@ public class LeetcodeP2 {
         return (int) (ans % MOD);
     }
 
+    //https://leetcode.cn/problems/two-out-of-three/ 至少在两个数组中出现的值
+    public List<Integer> twoOutOfThree(int[] nums1, int[] nums2, int[] nums3) {
+        List<Integer> ans = new ArrayList<>();
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i : nums1) {
+            map.put(i, 1);
+        }
+        for (int i : nums2) {
+            map.put(i, map.getOrDefault(i, 0) | 2);
+        }
+        for (int i : nums3) {
+            map.put(i, map.getOrDefault(i, 0) | 4);
+        }
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            if ((entry.getValue() & (entry.getValue() - 1)) != 0) {
+                ans.add(entry.getKey());
+            }
+        }
+        return ans;
+    }
+
     //https://leetcode.cn/problems/qIsx9U/ 滑动窗口的平均值
     class MovingAverage {
 

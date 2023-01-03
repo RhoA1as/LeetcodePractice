@@ -896,6 +896,22 @@ class Solution:
                 b -= 1
         return b - a + 1
 
+    # https://leetcode.cn/problems/check-if-numbers-are-ascending-in-a-sentence/ 检查句子中的数字是否递增
+    def areNumbersAscending(self, s: str) -> bool:
+        prev = i = 0
+        while i < len(s):
+            if s[i].isdigit():
+                d = 0
+                while i < len(s) and s[i].isdigit():
+                    d = d * 10 + int(s[i])
+                    i += 1
+                if d <= prev:
+                    return False
+                prev = d
+            else:
+                i += 1
+        return True
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

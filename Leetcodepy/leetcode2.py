@@ -912,6 +912,10 @@ class Solution:
                 i += 1
         return True
 
+    # https://leetcode.cn/problems/count-integers-with-even-digit-sum/ 统计各位数字之和为偶数的整数个数
+    def countEven(self, num: int) -> int:
+        return num // 10 * 5 + (num % 10 + 2 - (sum(map(int, str(num // 10))) & 1)) // 2 - 1
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

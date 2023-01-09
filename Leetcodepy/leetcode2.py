@@ -916,6 +916,17 @@ class Solution:
     def countEven(self, num: int) -> int:
         return num // 10 * 5 + (num % 10 + 2 - (sum(map(int, str(num // 10))) & 1)) // 2 - 1
 
+    # https://leetcode.cn/problems/minimum-number-of-operations-to-reinitialize-a-permutation/ 还原排列的最少操作步数
+    def reinitializePermutation(self, n: int) -> int:
+        origin = list(range(n))
+        target = origin.copy()
+        step = 0
+        while True:
+            step += 1
+            origin = [origin[n // 2 + (i - 1) // 2] if i & 1 else origin[i // 2] for i in range(n)]
+            if origin == target:
+                return step
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

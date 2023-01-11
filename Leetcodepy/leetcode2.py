@@ -927,6 +927,14 @@ class Solution:
             if origin == target:
                 return step
 
+    # https://leetcode.cn/problems/check-if-number-has-equal-digit-count-and-digit-value/ 判断一个数的数字计数是否等于数位的值
+    def digitCount(self, num: str) -> bool:
+        c = Counter(num)
+        for idx, st in enumerate(num):
+            if c[str(idx)] != int(st):
+                return False
+        return True
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

@@ -935,6 +935,20 @@ class Solution:
                 return False
         return True
 
+    # https://leetcode.cn/problems/evaluate-the-bracket-pairs-of-a-string/ 替换字符串中的括号内容
+    def evaluate(self, s: str, knowledge: List[List[str]]) -> str:
+        d = dict(knowledge)
+        ans, start = [], -1
+        for i, c in enumerate(s):
+            if c == "(":
+                start = i
+            elif c == ")":
+                ans.append(d.get(s[start + 1:i], "?"))
+                start = -1
+            elif start == -1:
+                ans.append(c)
+        return "".join(ans)
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

@@ -6,6 +6,22 @@ import java.util.*;
 
 public class LeetcodeP2 {
 
+    //https://leetcode.cn/problems/min-max-game/ 极大极小游戏
+    public int minMaxGame(int[] nums) {
+        int n = nums.length;
+        while (n != 1) {
+            n /= 2;
+            for (int i = 0; i < n; i++) {
+                if ((i & 1) == 0) {
+                    nums[i] = Math.min(nums[i * 2], nums[i * 2 + 1]);
+                } else {
+                    nums[i] = Math.max(nums[i * 2], nums[i * 2 + 1]);
+                }
+            }
+        }
+        return nums[0];
+    }
+
     //https://leetcode-cn.com/problems/construct-quad-tree/ 建立四叉树
     int[][] mPreSum;
     int[][] mGrid;

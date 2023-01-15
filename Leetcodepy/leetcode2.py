@@ -3,6 +3,7 @@ import collections
 from collections import Counter
 from functools import reduce
 from itertools import product
+from math import inf
 from operator import or_
 from typing import List, Optional
 
@@ -948,6 +949,16 @@ class Solution:
             elif start == -1:
                 ans.append(c)
         return "".join(ans)
+
+    # https://leetcode.cn/problems/rearrange-characters-to-make-target-string/ 重排字符形成目标字符串
+    def rearrangeCharacters(self, s: str, target: str) -> int:
+        ans = inf
+        cnt_s = Counter(s)
+        cnt_target = Counter(target)
+        for c, cnt in cnt_target.items():
+            if not (ans := min(ans, cnt_s[c] // cnt)):
+                return 0
+        return ans
 
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流

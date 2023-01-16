@@ -249,3 +249,18 @@ fun minimumMoves(s: String): Int {
     }
     return res
 }
+
+//https://leetcode.cn/problems/sentence-similarity-iii/ 句子相似性 III
+fun areSentencesSimilar(sentence1: String, sentence2: String): Boolean {
+    var a = 0
+    var b = 0
+    val s1 = sentence1.split(" ")
+    val s2 = sentence2.split(" ")
+    while (a < s1.size && a < s2.size && s1[a] == s2[a]) {
+        ++a
+    }
+    while (b < s1.size - a && b < s2.size - a && s1[s1.size - b - 1] == s2[s2.size - b - 1]) {
+        ++b
+    }
+    return a + b == Math.min(s1.size, s2.size)
+}

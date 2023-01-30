@@ -1316,6 +1316,30 @@ class MagicDictionary {
             dfsIsland(x + dir[0], y + dir[1], deque);
         }
     }
+
+    //https://leetcode.cn/problems/merge-in-between-linked-lists/ 合并两个链表
+    public ListNode mergeInBetween(ListNode list1, int a, int b, ListNode list2) {
+        ListNode la = list1;
+        for (int i = 0; i < a - 1; i++) {
+            la = la.next;
+        }
+        ListNode lb = la;
+        for (int i = 0; i < b - a + 2; i++) {
+            lb = lb.next;
+        }
+        la.next = list2;
+        while (list2.next != null) list2 = list2.next;
+        list2.next = lb;
+        return list1;
+    }
+}
+
+class ListNode {
+    int val;
+    ListNode next;
+    ListNode() {}
+    ListNode(int val) { this.val = val; }
+    ListNode(int val, ListNode next) { this.val = val; this.next = next; }
 }
 
 //https://leetcode.cn/problems/online-stock-span/ 股票价格跨度

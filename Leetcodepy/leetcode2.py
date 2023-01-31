@@ -960,6 +960,14 @@ class Solution:
                 return 0
         return ans
 
+    # https://leetcode.cn/problems/check-if-matrix-is-x-matrix/ 判断矩阵是否是一个 X 矩阵
+    def checkXMatrix(self, grid: List[List[int]]) -> bool:
+        for i, row in enumerate(grid):
+            for j, x in enumerate(row):
+                if (x == 0) == (i == j or (i + j) == len(grid) - 1):
+                    return False
+        return True
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

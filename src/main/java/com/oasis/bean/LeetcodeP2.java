@@ -1332,6 +1332,24 @@ class MagicDictionary {
         list2.next = lb;
         return list1;
     }
+
+    //https://leetcode.cn/problems/decode-the-message/ 解密消息
+    public String decodeMessage(String key, String message) {
+        char[] map = new char[26];
+        char a = 'a';
+        for (int i = 0; i < key.length(); i++) {
+            char c = key.charAt(i);
+            if (c != ' ' && map[c - 'a'] == 0) {
+                map[c - 'a'] = a++;
+            }
+        }
+        StringBuilder ans = new StringBuilder();
+        for (int i = 0; i < message.length(); i++) {
+            char c = message.charAt(i);
+            ans.append(c == ' ' ? c : map[c - 'a']);
+        }
+        return ans.toString();
+    }
 }
 
 class ListNode {

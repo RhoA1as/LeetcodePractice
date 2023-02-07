@@ -968,6 +968,19 @@ class Solution:
                     return False
         return True
 
+    # https://leetcode.cn/problems/alert-using-same-key-card-three-or-more-times-in-a-one-hour-period/ 警告一小时内使用相同员工卡大于等于三次的人
+    def alertNames(self, keyName: List[str], keyTime: List[str]) -> List[str]:
+        time_map = collections.defaultdict(list)
+        for name, time in zip(keyName, keyTime):
+            time_map[name].append(int(time[:2]) * 60 + int(time[3:]))
+        ans = []
+        for name, time_list in time_map.items():
+            time_list.sort()
+            if any(t2 - t1 <= 60 for t1, t2 in zip(time_list, time_list[2:])):
+                ans.append(name)
+        ans.sort()
+        return ans
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

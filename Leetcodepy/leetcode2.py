@@ -968,7 +968,8 @@ class Solution:
                     return False
         return True
 
-    # https://leetcode.cn/problems/alert-using-same-key-card-three-or-more-times-in-a-one-hour-period/ 警告一小时内使用相同员工卡大于等于三次的人
+    # https://leetcode.cn/problems/alert-using-same-key-card-three-or-more-times-in-a-one-hour-period/
+    # 警告一小时内使用相同员工卡大于等于三次的人
     def alertNames(self, keyName: List[str], keyTime: List[str]) -> List[str]:
         time_map = collections.defaultdict(list)
         for name, time in zip(keyName, keyTime):
@@ -979,6 +980,15 @@ class Solution:
             if any(t2 - t1 <= 60 for t1, t2 in zip(time_list, time_list[2:])):
                 ans.append(name)
         ans.sort()
+        return ans
+
+    # https://leetcode.cn/problems/remove-sub-folders-from-the-filesystem/ 删除子文件夹
+    def removeSubfolders(self, folder: List[str]) -> List[str]:
+        folder.sort()
+        ans = [folder[0]]
+        for i in range(1, len(folder)):
+            if not ((pre := len(ans[-1])) < len(folder[i]) and ans[-1] == folder[i][:pre] and folder[i][pre] == '/'):
+                ans.append(folder[i])
         return ans
 
 

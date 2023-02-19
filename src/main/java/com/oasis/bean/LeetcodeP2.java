@@ -1375,6 +1375,29 @@ class MagicDictionary {
         }
         return res;
     }
+
+    // https://leetcode.cn/problems/maximum-average-pass-ratio/ 最大平均通过率
+    public double maxAverageRatio(int[][] classes, int extraStudents) {
+        PriorityQueue<int[]> queue = new PriorityQueue<>((a,b) -> {
+            long v1 = (b[1] + 1L) * b[1] * (a[1] - a[0]);
+            long v2 = (a[1] + 1L) * a[1] * (b[1] - b[0]);
+            if (v1 == v2) return 0;
+            return v1 < v2 ? 1 : -1;
+        });
+        for (int[] aClass : classes) {
+            queue.offer(new int[]{aClass[0], aClass[1]});
+        }
+        for (int i = 0; i < extraStudents; i++) {
+            int[] top = queue.poll();
+            queue.offer(new int[]{top[0] + 1, top[1] + 1});
+        }
+        double res = 0;
+        for (int i = 0; i < classes.length; i++) {
+            int[] top = queue.poll();
+            res += 1.0 * top[0] / top[1];
+        }
+        return res / classes.length;
+    }
 }
 
 class ListNode {

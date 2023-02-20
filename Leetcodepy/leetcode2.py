@@ -991,6 +991,18 @@ class Solution:
                 ans.append(folder[i])
         return ans
 
+    # https://leetcode.cn/problems/best-poker-hand/ 最好的扑克手牌
+    def bestHand(self, ranks: List[int], suits: List[str]) -> str:
+        if len(set(suits)) == 1:
+            return "Flush"
+        c = Counter(ranks)
+        if len(c) == 5:
+            return "High Card"
+        for v in c.values():
+            if v > 2:
+                return "Three of a Kind"
+        return "Pair"
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

@@ -1003,6 +1003,10 @@ class Solution:
                 return "Three of a Kind"
         return "Pair"
 
+    # https://leetcode.cn/problems/make-array-zero-by-subtracting-equal-amounts/ 使数组中所有元素都等于零
+    def minimumOperations(self, nums: List[int]) -> int:
+        return len(set(nums) - {0})
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

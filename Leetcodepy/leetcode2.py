@@ -1007,9 +1007,20 @@ class Solution:
     def minimumOperations(self, nums: List[int]) -> int:
         return len(set(nums) - {0})
 
+    # https://leetcode.cn/problems/minimum-swaps-to-make-strings-equal/ 交换字符使得字符串相同
+    def minimumSwap(self, s1: str, s2: str) -> int:
+        xy = yx = 0
+        for a, b in zip(s1, s2):
+            if a == 'x' and b == 'y':
+                xy += 1
+            elif a == 'y' and b == 'x':
+                yx += 1
+        if (xy + yx) & 1:
+            return -1
+        return xy // 2 + yx // 2 + xy % 2 + yx % 2
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
-class OrderedStream:
+class OrderedStream:6
 
     def __init__(self, n: int):
         self.stream = [""] * (n + 1)

@@ -1019,6 +1019,21 @@ class Solution:
             return -1
         return xy // 2 + yx // 2 + xy % 2 + yx % 2
 
+    # https://leetcode.cn/problems/decrease-elements-to-make-array-zigzag/ 递减元素使数组呈锯齿状
+    def movesToMakeZigzag(self, nums: List[int]) -> int:
+        even = odd = 0
+        for i, num in enumerate(nums):
+            a = 0
+            if i - 1 >= 0:
+                a = max(a, nums[i] - nums[i-1] + 1)
+            if i + 1 < len(nums):
+                a = max(a, nums[i] - nums[i+1] + 1)
+            if i & 1:
+                odd += a
+            else:
+                even += a
+        return min(even, odd)
+
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:6
 

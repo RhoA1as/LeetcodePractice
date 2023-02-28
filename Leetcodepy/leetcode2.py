@@ -1034,8 +1034,18 @@ class Solution:
                 even += a
         return min(even, odd)
 
+    # https://leetcode.cn/problems/merge-similar-items/ 合并相似的物品
+    def mergeSimilarItems(self, items1: List[List[int]], items2: List[List[int]]) -> List[List[int]]:
+        m = Counter()
+        for v, w in items1:
+            m[v] += w
+        for v, w in items2:
+            m[v] += w
+        return sorted([[v, w] for v, w in m.items()])
+
+
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
-class OrderedStream:6
+class OrderedStream:
 
     def __init__(self, n: int):
         self.stream = [""] * (n + 1)

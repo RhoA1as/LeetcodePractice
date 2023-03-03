@@ -1052,6 +1052,23 @@ class Solution:
                 ans[i][j] = max(grid[a][b] for a in range(i, i + 3) for b in range(j, j + 3))
         return ans
 
+    # https://leetcode.cn/problems/making-file-names-unique/ 保证文件名唯一
+    def getFolderNames(self, names: List[str]) -> List[str]:
+        ans = []
+        m = {}
+        for name in names:
+            if name not in m:
+                ans.append(name)
+                m[name] = 1
+            else:
+                k = m[name]
+                while (s := f"{name}({k})") in m:
+                    k += 1
+                ans.append(s)
+                m[s] = 1
+                m[name] = k
+        return ans
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

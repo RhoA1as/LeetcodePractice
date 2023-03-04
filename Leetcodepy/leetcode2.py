@@ -1079,6 +1079,16 @@ class Solution:
             num -= b
         return ans if len(ans) <= 32 else 'ERROR'
 
+    # https://leetcode.cn/problems/triples-with-bitwise-and-equal-to-zero/ 按位与为零的三元组
+    def countTriplets(self, nums: List[int]) -> int:
+        ans = 0
+        a = Counter(x & y for x in nums for y in nums)
+        for num in nums:
+            for x, cnt in a.items():
+                if not (num & x):
+                    ans += cnt
+        return ans
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

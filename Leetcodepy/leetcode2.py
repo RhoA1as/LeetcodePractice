@@ -1069,6 +1069,16 @@ class Solution:
                 m[name] = k
         return ans
 
+    # https://leetcode.cn/problems/bianry-number-to-string-lcci/ 面试题 05.02. 二进制数转字符串
+    def printBin(self, num: float) -> str:
+        ans = "0."
+        while len(ans) <= 32 and num:
+            num *= 2
+            b = int(num)
+            ans += str(b)
+            num -= b
+        return ans if len(ans) <= 32 else 'ERROR'
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

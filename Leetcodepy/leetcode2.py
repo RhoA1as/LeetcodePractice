@@ -1089,6 +1089,18 @@ class Solution:
                     ans += cnt
         return ans
 
+    # https://leetcode.cn/problems/minimum-deletions-to-make-string-balanced/ 使字符串平衡的最少删除次数
+    def minimumDeletions(self, s: str) -> int:
+        lb, ra = 0, s.count('a')
+        ans = ra
+        for c in s:
+            if c == 'a':
+                ra -= 1
+            else:
+                lb += 1
+            ans = min(ans, lb + ra)
+        return ans
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

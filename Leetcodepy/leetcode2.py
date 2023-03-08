@@ -1101,6 +1101,19 @@ class Solution:
             ans = min(ans, lb + ra)
         return ans
 
+    # https://leetcode.cn/problems/li-wu-de-zui-da-jie-zhi-lcof/ 礼物的最大价值
+    def maxValue(self, grid: List[List[int]]) -> int:
+        m, n = len(grid), len(grid[0])
+        dp = [[0] * n for _ in range(m)]
+        for i in range(m):
+            for j in range(n):
+                if i > 0:
+                    dp[i][j] = max(dp[i][j], dp[i-1][j])
+                if j > 0:
+                    dp[i][j] = max(dp[i][j], dp[i][j-1])
+                dp[i][j] += grid[i][j]
+        return dp[m-1][n-1]
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

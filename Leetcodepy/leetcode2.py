@@ -1114,6 +1114,18 @@ class Solution:
                 dp[i][j] += grid[i][j]
         return dp[m-1][n-1]
 
+    # https://leetcode.cn/problems/minimum-recolors-to-get-k-consecutive-black-blocks/ 得到 K 个黑块的最少涂色次数
+    def minimumRecolors(self, blocks: str, k: int) -> int:
+        ans, op = inf, 0
+        for i, b in enumerate(blocks):
+            if b == 'W':
+                op += 1
+            if i >= k and blocks[i-k] == 'W':
+                op -= 1
+            if i >= k-1:
+                ans = min(ans, op)
+        return ans
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

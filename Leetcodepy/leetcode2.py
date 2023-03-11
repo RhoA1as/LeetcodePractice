@@ -1126,6 +1126,25 @@ class Solution:
                 ans = min(ans, op)
         return ans
 
+    # https://leetcode.cn/problems/find-longest-subarray-lcci/ 字母与数字
+    def findLongestSubarray(self, array: List[str]) -> List[str]:
+        m = {0: -1}
+        l = s = idx = 0
+        for i, v in enumerate(array):
+            if v.isdigit():
+                s += 1
+            else:
+                s -= 1
+            if s in m:
+                cl = i - m[s]
+                if cl > l:
+                    l, idx = cl, m[s] + 1
+            else:
+                m[s] = i
+        if l == 0:
+            return []
+        return array[idx:idx+l]
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

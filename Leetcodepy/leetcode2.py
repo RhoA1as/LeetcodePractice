@@ -1145,6 +1145,21 @@ class Solution:
             return []
         return array[idx:idx+l]
 
+    # https://leetcode.cn/problems/make-sum-divisible-by-p/ 使数组和能被 P 整除
+    def minSubarray(self, nums: List[int], p: int) -> int:
+        s = sum(nums)
+        x = s % p
+        if not x:
+            return 0
+        m = {0: -1}
+        cs, ans = 0, len(nums)
+        for i, v in enumerate(nums):
+            cs = (cs + v) % p
+            if (t := (cs - x) % p) in m:
+                ans = min(ans, i - m[t])
+            m[cs] = i
+        return -1 if ans == len(nums) else ans
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

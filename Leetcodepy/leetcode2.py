@@ -1160,6 +1160,18 @@ class Solution:
             m[cs] = i
         return -1 if ans == len(nums) else ans
 
+    # https://leetcode.cn/problems/minimum-hours-of-training-to-win-a-competition/ 赢得比赛需要的最少训练时长
+    def minNumberOfHours(self, initialEnergy: int, initialExperience: int, energy: List[int], experience: List[int]) -> int:
+        total_energy = sum(energy)
+        ans = 0 if initialEnergy > total_energy else 1 + total_energy - initialEnergy
+        for e in experience:
+            if initialExperience > e:
+                initialExperience += e
+            else:
+                ans += (1 + e - initialExperience)
+                initialExperience = 2 * e + 1
+        return ans
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

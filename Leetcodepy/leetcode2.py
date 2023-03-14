@@ -1172,6 +1172,21 @@ class Solution:
                 initialExperience = 2 * e + 1
         return ans
 
+    # https://leetcode.cn/problems/find-valid-matrix-given-row-and-column-sums/ 给定行和列的和求可行矩阵
+    def restoreMatrix(self, rowSum: List[int], colSum: List[int]) -> List[List[int]]:
+        m, n = len(rowSum), len(colSum)
+        ans = [[0] * n for _ in range(m)]
+        i = j = 0
+        while i < m and j < n:
+            ans[i][j] = min(rowSum[i], colSum[j])
+            rowSum[i] -= ans[i][j]
+            colSum[j] -= ans[i][j]
+            if not rowSum[i]:
+                i += 1
+            if not colSum[j]:
+                j += 1
+        return ans
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

@@ -1187,6 +1187,21 @@ class Solution:
                 j += 1
         return ans
 
+    # https://leetcode.cn/problems/maximal-network-rank/ 最大网络秩
+    def maximalNetworkRank(self, n: int, roads: List[List[int]]) -> int:
+        rc = [0] * n
+        con = [[0] * n for _ in range(n)]
+        for a, b in roads:
+            con[a][b] = con[b][a] = True
+            rc[a] += 1
+            rc[b] += 1
+        max_val = 0
+        for i in range(n):
+            for j in range(i+1, n):
+                val = rc[i] + rc[j] - con[i][j]
+                max_val = max(max_val, val)
+        return max_val
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

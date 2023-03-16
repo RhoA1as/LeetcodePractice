@@ -1202,6 +1202,24 @@ class Solution:
                 max_val = max(max_val, val)
         return max_val
 
+    # https://leetcode.cn/problems/count-subarrays-with-median-k/ 统计中位数为 K 的子数组
+    def countSubarrays(self, nums: List[int], k: int) -> int:
+        def trans(n: int) -> int:
+            if not n:
+                return 0
+            return -1 if n < 0 else 1
+        idx = nums.index(k)
+        c = Counter()
+        c[0] = 1
+        ans = s = 0
+        for i, v in enumerate(nums):
+            s += trans(v-k)
+            if i < idx:
+                c[s] += 1
+            else:
+                ans += (c[s] + c[s-1])
+        return ans
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

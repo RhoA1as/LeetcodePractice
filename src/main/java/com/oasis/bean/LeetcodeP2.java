@@ -261,6 +261,37 @@ public class LeetcodeP2 {
         return ans;
     }
 
+    // https://leetcode.cn/problems/lexicographically-smallest-string-after-applying-operations/ 执行操作后字典序最小的字符串
+    public String findLexSmallestString(String s, int a, int b) {
+        int n = s.length();
+        String ans = s;
+        s = s + s;
+        boolean[] visited = new boolean[n];
+        for (int i = 0; !visited[i]; i = (i + b) % n) {
+            visited[i] = true;
+            char[] array = s.substring(i, i + n).toCharArray();
+            for (int j = 0; j < 10; j++) {
+                for (int n1 = 1; n1 < n; n1 += 2) {
+                    array[n1] = (char) ('0' + (array[n1] - '0' + a) % 10);
+                }
+                if ((b & 1) != 0) {
+                    for (int k = 0; k < 10; k++) {
+                        for (int l = 0; l < n; l += 2) {
+                            array[l] = (char) ('0' + (array[l] - '0' + a) % 10);
+                        }
+                        String tmp = new String(array);
+                        if (tmp.compareTo(ans) < 0) ans = tmp;
+                    }
+                } else {
+                    String tmp = new String(array);
+                    if (tmp.compareTo(ans) < 0) ans = tmp;
+                }
+
+            }
+        }
+        return ans;
+    }
+
     //https://leetcode.cn/problems/qIsx9U/ 滑动窗口的平均值
     class MovingAverage {
 

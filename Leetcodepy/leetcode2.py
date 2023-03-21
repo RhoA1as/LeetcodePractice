@@ -1220,6 +1220,10 @@ class Solution:
                 ans += (c[s] + c[s-1])
         return ans
 
+    # https://leetcode.cn/problems/convert-the-temperature/ 温度转换
+    def convertTemperature(self, celsius: float) -> List[float]:
+        return [celsius + 273.15, celsius * 1.8 + 32]
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

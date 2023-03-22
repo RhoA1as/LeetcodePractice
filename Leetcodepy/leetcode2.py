@@ -1224,6 +1224,19 @@ class Solution:
     def convertTemperature(self, celsius: float) -> List[float]:
         return [celsius + 273.15, celsius * 1.8 + 32]
 
+    # https://leetcode.cn/problems/best-team-with-no-conflicts/ 无矛盾的最佳球队
+    def bestTeamScore(self, scores: List[int], ages: List[int]) -> int:
+        ans, n = 0, len(scores)
+        dp = [0] * n
+        t = sorted(zip(scores, ages))
+        for i in range(n):
+            for j in range(i):
+                if t[i][1] >= t[j][1]:
+                    dp[i] = max(dp[i], dp[j])
+            dp[i] += t[i][0]
+            ans = max(ans, dp[i])
+        return ans
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

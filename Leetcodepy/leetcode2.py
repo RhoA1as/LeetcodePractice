@@ -1237,6 +1237,29 @@ class Solution:
             ans = max(ans, dp[i])
         return ans
 
+    # https://leetcode.cn/problems/arithmetic-subarrays/ 等差子数组
+    def checkArithmeticSubarrays(self, nums: List[int], l: List[int], r: List[int]) -> List[bool]:
+        ans = []
+        for s, e in zip(l, r):
+            minv = min(nums[s:e+1])
+            maxv = max(nums[s:e+1])
+            if minv == maxv:
+                ans.append(True)
+                continue
+            d, f = divmod(maxv - minv, e - s)
+            if f:
+                ans.append(False)
+                continue
+            sl, flag = set(), True
+            for i in range(s, e+1):
+                t, tf = divmod(nums[i] - minv, d)
+                if tf or (t in sl):
+                    flag = False
+                    break
+                sl.add(t)
+            ans.append(flag)
+        return ans
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

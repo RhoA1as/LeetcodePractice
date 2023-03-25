@@ -1260,6 +1260,23 @@ class Solution:
             ans.append(flag)
         return ans
 
+    # https://leetcode.cn/problems/shortest-subarray-to-be-removed-to-make-array-sorted/ 删除最短的子数组使剩余数组有序
+    def findLengthOfShortestSubarray(self, arr: List[int]) -> int:
+        n = len(arr)
+        j = n - 1
+        while j > 0 and arr[j - 1] <= arr[j]:
+            j -= 1
+        if not j:
+            return 0
+        ans = j
+        for i in range(n):
+            while j < n and arr[j] < arr[i]:
+                j += 1
+            ans = min(ans, j - 1 - i)
+            if i < n - 1 and arr[i + 1] < arr[i]:
+                break
+        return ans
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

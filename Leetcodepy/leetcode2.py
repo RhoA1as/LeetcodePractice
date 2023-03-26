@@ -1277,6 +1277,17 @@ class Solution:
                 break
         return ans
 
+    # https://leetcode.cn/problems/find-subarrays-with-equal-sum/ 和相等的子数组
+    def findSubarrays(self, nums: List[int]) -> bool:
+        n = len(nums)
+        s = set()
+        for i in range(n-1):
+            c = nums[i] + nums[i+1]
+            if c in s:
+                return True
+            s.add(c)
+        return False
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

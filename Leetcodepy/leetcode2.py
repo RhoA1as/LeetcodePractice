@@ -1288,6 +1288,14 @@ class Solution:
             s.add(c)
         return False
 
+    # https://leetcode.cn/problems/count-sorted-vowel-strings/ 统计字典序元音字符串的数目
+    def countVowelStrings(self, n: int) -> int:
+        dp = [1] * 5
+        for _ in range(n-1):
+            for i in range(1, 5):
+                dp[i] += dp[i-1]
+        return sum(dp)
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

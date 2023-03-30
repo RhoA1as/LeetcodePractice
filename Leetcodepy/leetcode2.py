@@ -1296,6 +1296,15 @@ class Solution:
                 dp[i] += dp[i-1]
         return sum(dp)
 
+    # https://leetcode.cn/problems/number-of-arithmetic-triplets/ 算术三元组的数目
+    def arithmeticTriplets(self, nums: List[int], diff: int) -> int:
+        s = set(nums)
+        ans = 0
+        for i in nums:
+            if (i + diff) in s and (i + 2 * diff) in s:
+                ans += 1
+        return ans
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

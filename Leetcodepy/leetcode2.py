@@ -1,7 +1,7 @@
 import bisect
 import collections
 from collections import Counter
-from functools import reduce
+from functools import reduce, lru_cache
 from itertools import product
 from math import inf
 from operator import or_
@@ -1304,6 +1304,17 @@ class Solution:
             if (i + diff) in s and (i + 2 * diff) in s:
                 ans += 1
         return ans
+
+    # https://leetcode.cn/problems/minimum-score-triangulation-of-polygon/ 多边形三角剖分的最低得分
+    def minScoreTriangulation(self, values: List[int]) -> int:
+        @lru_cache(None)
+        def dp(i, j):
+            if i + 2 > j:
+                return 0
+            if i + 2 == j:
+                return values[i] * values[i+1] * values[j]
+            return min(values[i] * values[j] * values[k] + dp(i, k) + dp(k, j) for k in range(i+1, j))
+        return dp(0, len(values) - 1)
 
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流

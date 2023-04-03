@@ -1316,6 +1316,18 @@ class Solution:
             return min(values[i] * values[j] * values[k] + dp(i, k) + dp(k, j) for k in range(i+1, j))
         return dp(0, len(values) - 1)
 
+    # https://leetcode.cn/problems/previous-permutation-with-one-swap/ 交换一次的先前排列 3 2 1
+    def prevPermOpt1(self, arr: List[int]) -> List[int]:
+        n = len(arr)
+        for i in range(n-2, -1, -1):
+            if arr[i] > arr[i+1]:
+                j = n - 1
+                while arr[j] >= arr[i] or arr[j] == arr[j-1]:
+                    j -= 1
+                arr[i], arr[j] = arr[j], arr[i]
+                break
+        return arr
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

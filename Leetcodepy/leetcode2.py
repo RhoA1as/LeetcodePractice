@@ -3,7 +3,7 @@ import collections
 from collections import Counter
 from functools import reduce, lru_cache
 from itertools import product
-from math import inf
+from math import inf, gcd
 from operator import or_
 from typing import List, Optional
 
@@ -1327,6 +1327,18 @@ class Solution:
                 arr[i], arr[j] = arr[j], arr[i]
                 break
         return arr
+
+    # https://leetcode.cn/problems/number-of-common-factors/ 公因子的数目
+    def commonFactors(self, a: int, b: int) -> int:
+        c, i = gcd(a, b), 1
+        ans = 0
+        while i ** 2 <= c:
+            if not c % i:
+                ans += 1
+                if i ** 2 != c:
+                    ans += 1
+            i += 1
+        return ans
 
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流

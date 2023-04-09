@@ -1340,6 +1340,19 @@ class Solution:
             i += 1
         return ans
 
+    # https://leetcode.cn/problems/check-distances-between-same-letters/ 检查相同字母间的距离
+    def checkDistances(self, s: str, distance: List[int]) -> bool:
+        n = len(s)
+        for i in range(n):
+            b = distance[ord(s[i]) - ord('a')]
+            if b < 0:
+                continue
+            idx = i + b + 1
+            if idx >= n or s[idx] != s[i]:
+                return False
+            distance[ord(s[i]) - ord('a')] = -1
+        return True
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

@@ -1353,6 +1353,21 @@ class Solution:
             distance[ord(s[i]) - ord('a')] = -1
         return True
 
+    # https://leetcode.cn/problems/next-greater-node-in-linked-list/ 链表中下一个更大的节点
+    def nextLargerNodes(self, head: Optional[ListNode]) -> List[int]:
+        ans = []
+        stack = []
+        idx = 0
+        while head:
+            ans.append(0)
+            while stack and stack[-1][0] < head.val:
+                ans[stack[-1][1]] = head.val
+                stack.pop(-1)
+            stack.append((head.val, idx))
+            idx += 1
+            head = head.next
+        return ans
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

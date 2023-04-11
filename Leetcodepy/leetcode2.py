@@ -1368,6 +1368,20 @@ class Solution:
             head = head.next
         return ans
 
+    # https://leetcode.cn/problems/robot-bounded-in-circle/ 困于环中的机器人
+    def isRobotBounded(self, instructions: str) -> bool:
+        dict = [[0, 1], [1, 0], [0, -1], [-1, 0]]
+        curr = x = y = 0
+        for instruction in instructions:
+            if instruction == 'G':
+                x += dict[curr][0]
+                y += dict[curr][1]
+            elif instruction == 'L':
+                curr = (curr + 3) % 4
+            else:
+                curr = (curr + 1) % 4
+        return curr != 0 or (x == 0 and y == 0)
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

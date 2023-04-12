@@ -1382,6 +1382,20 @@ class Solution:
                 curr = (curr + 1) % 4
         return curr != 0 or (x == 0 and y == 0)
 
+    # https://leetcode.cn/problems/most-frequent-even-element/ 出现最频繁的偶数元素
+    def mostFrequentEven(self, nums: List[int]) -> int:
+        cnt = Counter()
+        ans, tot = -1, 0
+        for num in nums:
+            if not (num & 1):
+                cnt[num] += 1
+                if cnt[num] > tot:
+                    tot = cnt[num]
+                    ans = num
+                elif cnt[num] == tot and num < ans:
+                    ans = num
+        return ans
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

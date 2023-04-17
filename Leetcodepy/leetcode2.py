@@ -496,7 +496,7 @@ class Solution:
             if arr[i] not in m:
                 return False
             l = pieces[m[arr[i]]]
-            if arr[i:i+len(l)] != l:
+            if arr[i:i + len(l)] != l:
                 return False
             i += len(l)
         return True
@@ -581,9 +581,9 @@ class Solution:
         for i in range(1, n):
             at, bt = a, b
             a = b = n
-            if nums1[i] > nums1[i-1] and nums2[i] > nums2[i-1]:
+            if nums1[i] > nums1[i - 1] and nums2[i] > nums2[i - 1]:
                 a, b = at, bt + 1
-            if nums1[i] > nums2[i-1] and nums2[i] > nums1[i-1]:
+            if nums1[i] > nums2[i - 1] and nums2[i] > nums1[i - 1]:
                 a, b = min(a, bt), min(b, at + 1)
         return min(a, b)
 
@@ -662,10 +662,10 @@ class Solution:
         array[0] = 1
         array[1] = array[2] = 2
         i, j, ans = 2, 2, 1
-        while j < n-1:
+        while j < n - 1:
             k = array[i]
             num = 3 - array[j]
-            while k and j < n-1:
+            while k and j < n - 1:
                 if num == 1:
                     ans += 1
                 array[j] = num
@@ -748,7 +748,8 @@ class Solution:
                     f = True
                 ans.append(f"{st[:i]}.{st[i:]}")
             return ans
-        s = s[1:len(s)-1]
+
+        s = s[1:len(s) - 1]
         l = len(s)
         res = []
         for idx in range(1, l):
@@ -771,7 +772,7 @@ class Solution:
         for i in range(n - 3, -1, -1):
             if nums[i] > min_val:
                 return False
-            min_val = min(min_val, nums[i+1])
+            min_val = min(min_val, nums[i + 1])
         return True
 
     # https://leetcode.cn/problems/number-of-matching-subsequences/ 匹配子序列的单词数
@@ -789,7 +790,7 @@ class Solution:
                 if j == len(words[i]) - 1:
                     res += 1
                 else:
-                    d[words[i][j+1]].append((i, j+1))
+                    d[words[i][j + 1]].append((i, j + 1))
         return res
 
     # https://leetcode.cn/problems/maximum-number-of-balls-in-a-box/ 盒子中小球的最大数量
@@ -1025,9 +1026,9 @@ class Solution:
         for i, num in enumerate(nums):
             a = 0
             if i - 1 >= 0:
-                a = max(a, nums[i] - nums[i-1] + 1)
+                a = max(a, nums[i] - nums[i - 1] + 1)
             if i + 1 < len(nums):
-                a = max(a, nums[i] - nums[i+1] + 1)
+                a = max(a, nums[i] - nums[i + 1] + 1)
             if i & 1:
                 odd += a
             else:
@@ -1108,11 +1109,11 @@ class Solution:
         for i in range(m):
             for j in range(n):
                 if i > 0:
-                    dp[i][j] = max(dp[i][j], dp[i-1][j])
+                    dp[i][j] = max(dp[i][j], dp[i - 1][j])
                 if j > 0:
-                    dp[i][j] = max(dp[i][j], dp[i][j-1])
+                    dp[i][j] = max(dp[i][j], dp[i][j - 1])
                 dp[i][j] += grid[i][j]
-        return dp[m-1][n-1]
+        return dp[m - 1][n - 1]
 
     # https://leetcode.cn/problems/minimum-recolors-to-get-k-consecutive-black-blocks/ 得到 K 个黑块的最少涂色次数
     def minimumRecolors(self, blocks: str, k: int) -> int:
@@ -1120,9 +1121,9 @@ class Solution:
         for i, b in enumerate(blocks):
             if b == 'W':
                 op += 1
-            if i >= k and blocks[i-k] == 'W':
+            if i >= k and blocks[i - k] == 'W':
                 op -= 1
-            if i >= k-1:
+            if i >= k - 1:
                 ans = min(ans, op)
         return ans
 
@@ -1143,7 +1144,7 @@ class Solution:
                 m[s] = i
         if l == 0:
             return []
-        return array[idx:idx+l]
+        return array[idx:idx + l]
 
     # https://leetcode.cn/problems/make-sum-divisible-by-p/ 使数组和能被 P 整除
     def minSubarray(self, nums: List[int], p: int) -> int:
@@ -1161,7 +1162,8 @@ class Solution:
         return -1 if ans == len(nums) else ans
 
     # https://leetcode.cn/problems/minimum-hours-of-training-to-win-a-competition/ 赢得比赛需要的最少训练时长
-    def minNumberOfHours(self, initialEnergy: int, initialExperience: int, energy: List[int], experience: List[int]) -> int:
+    def minNumberOfHours(self, initialEnergy: int, initialExperience: int, energy: List[int],
+                         experience: List[int]) -> int:
         total_energy = sum(energy)
         ans = 0 if initialEnergy > total_energy else 1 + total_energy - initialEnergy
         for e in experience:
@@ -1197,7 +1199,7 @@ class Solution:
             rc[b] += 1
         max_val = 0
         for i in range(n):
-            for j in range(i+1, n):
+            for j in range(i + 1, n):
                 val = rc[i] + rc[j] - con[i][j]
                 max_val = max(max_val, val)
         return max_val
@@ -1208,16 +1210,17 @@ class Solution:
             if not n:
                 return 0
             return -1 if n < 0 else 1
+
         idx = nums.index(k)
         c = Counter()
         c[0] = 1
         ans = s = 0
         for i, v in enumerate(nums):
-            s += trans(v-k)
+            s += trans(v - k)
             if i < idx:
                 c[s] += 1
             else:
-                ans += (c[s] + c[s-1])
+                ans += (c[s] + c[s - 1])
         return ans
 
     # https://leetcode.cn/problems/convert-the-temperature/ 温度转换
@@ -1241,8 +1244,8 @@ class Solution:
     def checkArithmeticSubarrays(self, nums: List[int], l: List[int], r: List[int]) -> List[bool]:
         ans = []
         for s, e in zip(l, r):
-            minv = min(nums[s:e+1])
-            maxv = max(nums[s:e+1])
+            minv = min(nums[s:e + 1])
+            maxv = max(nums[s:e + 1])
             if minv == maxv:
                 ans.append(True)
                 continue
@@ -1251,7 +1254,7 @@ class Solution:
                 ans.append(False)
                 continue
             sl, flag = set(), True
-            for i in range(s, e+1):
+            for i in range(s, e + 1):
                 t, tf = divmod(nums[i] - minv, d)
                 if tf or (t in sl):
                     flag = False
@@ -1281,8 +1284,8 @@ class Solution:
     def findSubarrays(self, nums: List[int]) -> bool:
         n = len(nums)
         s = set()
-        for i in range(n-1):
-            c = nums[i] + nums[i+1]
+        for i in range(n - 1):
+            c = nums[i] + nums[i + 1]
             if c in s:
                 return True
             s.add(c)
@@ -1291,9 +1294,9 @@ class Solution:
     # https://leetcode.cn/problems/count-sorted-vowel-strings/ 统计字典序元音字符串的数目
     def countVowelStrings(self, n: int) -> int:
         dp = [1] * 5
-        for _ in range(n-1):
+        for _ in range(n - 1):
             for i in range(1, 5):
-                dp[i] += dp[i-1]
+                dp[i] += dp[i - 1]
         return sum(dp)
 
     # https://leetcode.cn/problems/number-of-arithmetic-triplets/ 算术三元组的数目
@@ -1312,17 +1315,18 @@ class Solution:
             if i + 2 > j:
                 return 0
             if i + 2 == j:
-                return values[i] * values[i+1] * values[j]
-            return min(values[i] * values[j] * values[k] + dp(i, k) + dp(k, j) for k in range(i+1, j))
+                return values[i] * values[i + 1] * values[j]
+            return min(values[i] * values[j] * values[k] + dp(i, k) + dp(k, j) for k in range(i + 1, j))
+
         return dp(0, len(values) - 1)
 
     # https://leetcode.cn/problems/previous-permutation-with-one-swap/ 交换一次的先前排列 3 2 1
     def prevPermOpt1(self, arr: List[int]) -> List[int]:
         n = len(arr)
-        for i in range(n-2, -1, -1):
-            if arr[i] > arr[i+1]:
+        for i in range(n - 2, -1, -1):
+            if arr[i] > arr[i + 1]:
                 j = n - 1
-                while arr[j] >= arr[i] or arr[j] == arr[j-1]:
+                while arr[j] >= arr[i] or arr[j] == arr[j - 1]:
                     j -= 1
                 arr[i], arr[j] = arr[j], arr[i]
                 break
@@ -1395,6 +1399,25 @@ class Solution:
                 elif cnt[num] == tot and num < ans:
                     ans = num
         return ans
+
+    # https://leetcode.cn/problems/count-days-spent-together/ 统计共同度过的日子数
+    def countDaysTogether(self, arriveAlice: str, leaveAlice: str, arriveBob: str, leaveBob: str) -> int:
+
+        months = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+        pre_sum = [0]
+        for i in months:
+            pre_sum.append(pre_sum[-1] + i)
+
+        def calculate_days(s: str) -> int:
+            month = int(s[:2])
+            day = int(s[3:])
+            return pre_sum[month - 1] + day
+
+        a1 = calculate_days(arriveAlice)
+        a2 = calculate_days(leaveAlice)
+        b1 = calculate_days(arriveBob)
+        b2 = calculate_days(leaveBob)
+        return max(0, min(a2, b2) - max(a1, b1) + 1)
 
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流

@@ -1419,6 +1419,18 @@ class Solution:
         b2 = calculate_days(leaveBob)
         return max(0, min(a2, b2) - max(a1, b1) + 1)
 
+    # https://leetcode.cn/problems/partition-array-for-maximum-sum/ 分隔数组以得到最大和
+    def maxSumAfterPartitioning(self, arr: List[int], k: int) -> int:
+        n = len(arr)
+        dp = [0] * (n + 1)
+        for i in range(1, n + 1):
+            max_val = arr[i - 1]
+            for j in range(i - 1, max(-1, i - k - 1), -1):
+                dp[i] = max(dp[i], dp[j] + max_val * (i - j))
+                if j > 0:
+                    max_val = max(max_val, arr[j - 1])
+        return dp[n]
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

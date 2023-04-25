@@ -1431,6 +1431,10 @@ class Solution:
                     max_val = max(max_val, arr[j - 1])
         return dp[n]
 
+    # https://leetcode.cn/problems/sort-the-people/ 按身高排序
+    def sortPeople(self, names: List[str], heights: List[int]) -> List[str]:
+        return [name for _, name in sorted(zip(heights, names), reverse=True)]
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

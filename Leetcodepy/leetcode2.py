@@ -1435,6 +1435,21 @@ class Solution:
     def sortPeople(self, names: List[str], heights: List[int]) -> List[str]:
         return [name for _, name in sorted(zip(heights, names), reverse=True)]
 
+    # https://leetcode.cn/problems/longest-string-chain/ 最长字符串链
+    def longestStrChain(self, words: List[str]) -> int:
+        words.sort(key=len)
+        ans = 1
+        cnt = collections.defaultdict(int)
+        for word in words:
+            cnt[word] = 1
+            for i in range(len(word)):
+                tmp = word[:i] + word[i+1:]
+                if tmp in cnt:
+                    cnt[word] = max(cnt[word], 1 + cnt[tmp])
+
+            ans = max(cnt[word], ans)
+        return ans
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

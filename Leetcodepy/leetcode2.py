@@ -1450,6 +1450,15 @@ class Solution:
             ans = max(cnt[word], ans)
         return ans
 
+    # https://leetcode.cn/problems/check-if-word-is-valid-after-substitutions/ 检查替换后的词是否有效
+    def isValid(self, s: str) -> bool:
+        t = []
+        for c in s:
+            t.append(c)
+            if ''.join(t[-3:]) == 'abc':
+                t[-3:] = []
+        return len(t) == 0
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

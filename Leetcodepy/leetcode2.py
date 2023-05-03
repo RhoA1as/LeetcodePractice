@@ -1459,6 +1459,24 @@ class Solution:
                 t[-3:] = []
         return len(t) == 0
 
+    # https://leetcode.cn/problems/powerful-integers/ 强整数
+    def powerfulIntegers(self, x: int, y: int, bound: int) -> List[int]:
+        ans = set()
+        v1 = 1
+        for i in range(21):
+            v2 = 1
+            for j in range(21):
+                v = v1 + v2
+                if v <= bound:
+                    ans.add(v)
+                else:
+                    break
+                v2 *= y
+            if v1 > bound:
+                break
+            v1 *= x
+        return list(ans)
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

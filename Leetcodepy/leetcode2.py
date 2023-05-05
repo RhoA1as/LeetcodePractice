@@ -1477,6 +1477,15 @@ class Solution:
             v1 *= x
         return list(ans)
 
+    # https://leetcode.cn/problems/the-employee-that-worked-on-the-longest-task/ 处理用时最长的那个任务的员工
+    def hardestWorker(self, n: int, logs: List[List[int]]) -> int:
+        idx, time = logs[0]
+        for i in range(1, len(logs)):
+            c_idx, c_time = logs[i][0], logs[i][1] - logs[i-1][1]
+            if c_time > time or (c_time == time and c_idx < idx):
+                idx, time = c_idx, c_time
+        return idx
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

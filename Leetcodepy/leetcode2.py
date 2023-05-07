@@ -1486,6 +1486,15 @@ class Solution:
                 idx, time = c_idx, c_time
         return idx
 
+    # https://leetcode.cn/problems/pairs-of-songs-with-total-durations-divisible-by-60/ 总持续时间可被 60 整除的歌曲
+    def numPairsDivisibleBy60(self, time: List[int]) -> int:
+        ans = 0
+        cnt = [0] * 60
+        for t in time:
+            ans += cnt[(60 - t % 60) % 60]
+            cnt[t % 60] += 1
+        return ans
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

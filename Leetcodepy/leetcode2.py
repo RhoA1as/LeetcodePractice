@@ -1495,6 +1495,22 @@ class Solution:
             cnt[t % 60] += 1
         return ans
 
+    # https://leetcode.cn/problems/number-of-valid-clock-times/ 有效时间的数目 23:59
+    def countTime(self, time: str) -> int:
+        a, b, c, d = time[0], time[1], time[3], time[4]
+        ans = 1
+        if d == '?':
+            ans *= 10
+        if c == '?':
+            ans *= 6
+        if a == '?' and b == '?':
+            ans *= 24
+        elif b == '?':
+            ans *= 10 if ord(a) < ord('2') else 4
+        elif a == '?':
+            ans *= 2 if ord(b) > ord('3') else 3
+        return ans
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

@@ -1511,6 +1511,17 @@ class Solution:
             ans *= 2 if ord(b) > ord('3') else 3
         return ans
 
+    # https://leetcode.cn/problems/flip-columns-for-maximum-number-of-equal-rows/ 按列翻转得到最大值等行数
+    def maxEqualRowsAfterFlips(self, matrix: List[List[int]]) -> int:
+        m, n = len(matrix), len(matrix[0])
+        c = Counter()
+        for i in range(m):
+            v = 0
+            for j in range(n):
+                v = v * 10 + (matrix[i][j] ^ matrix[i][0])
+            c[v] += 1
+        return max(c.values())
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

@@ -1522,6 +1522,10 @@ class Solution:
             c[v] += 1
         return max(c.values())
 
+    # https://leetcode.cn/problems/determine-if-two-events-have-conflict/ 判断两个事件是否存在冲突
+    def haveConflict(self, event1: List[str], event2: List[str]) -> bool:
+        return not (event1[1] < event2[0] or event2[1] < event1[0])
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

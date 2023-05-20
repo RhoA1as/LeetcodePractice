@@ -1443,7 +1443,7 @@ class Solution:
         for word in words:
             cnt[word] = 1
             for i in range(len(word)):
-                tmp = word[:i] + word[i+1:]
+                tmp = word[:i] + word[i + 1:]
                 if tmp in cnt:
                     cnt[word] = max(cnt[word], 1 + cnt[tmp])
 
@@ -1481,7 +1481,7 @@ class Solution:
     def hardestWorker(self, n: int, logs: List[List[int]]) -> int:
         idx, time = logs[0]
         for i in range(1, len(logs)):
-            c_idx, c_time = logs[i][0], logs[i][1] - logs[i-1][1]
+            c_idx, c_time = logs[i][0], logs[i][1] - logs[i - 1][1]
             if c_time > time or (c_time == time and c_idx < idx):
                 idx, time = c_idx, c_time
         return idx
@@ -1525,6 +1525,24 @@ class Solution:
     # https://leetcode.cn/problems/determine-if-two-events-have-conflict/ 判断两个事件是否存在冲突
     def haveConflict(self, event1: List[str], event2: List[str]) -> bool:
         return not (event1[1] < event2[0] or event2[1] < event1[0])
+
+    # https://leetcode.cn/problems/letter-tile-possibilities/ 活字印刷
+    def numTilePossibilities(self, tiles: str) -> int:
+        l, c = set(tiles), collections.Counter(tiles)
+
+        def dfs(n: int) -> int:
+            if not n:
+                return 0
+            res = 0
+            for t in l:
+                if c[t]:
+                    res += 1
+                    c[t] -= 1
+                    res += dfs(n - 1)
+                    c[t] += 1
+            return res
+
+        return dfs(len(tiles))
 
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流

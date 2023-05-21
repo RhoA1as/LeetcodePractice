@@ -1544,6 +1544,20 @@ class Solution:
 
         return dfs(len(tiles))
 
+    # https://leetcode.cn/problems/o8SXZn/  蓄水
+    def storeWater(self, bucket: List[int], vat: List[int]) -> int:
+        n = len(bucket)
+        max_vat = max(vat)
+        if not max_vat:
+            return 0
+        res = inf
+        for i in range(1, max_vat + 1):
+            t = 0
+            for j in range(n):
+                t += max(0, (vat[j] + i - 1) // i - bucket[j])
+            res = min(res, t + i)
+        return res
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

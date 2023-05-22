@@ -763,6 +763,21 @@ class MagicDictionary {
         return ans.toString();
     }
 
+    // https://leetcode.cn/problems/insufficient-nodes-in-root-to-leaf-paths/ 根到叶路径上的不足节点
+    public TreeNode sufficientSubset(TreeNode root, int limit) {
+        return checkSufficientSubset(root, 0, limit) ? root : null;
+    }
+
+    private boolean checkSufficientSubset(TreeNode root, int sum, int limit) {
+        if (root == null) return false;
+        if (root.left == null && root.right == null) return sum + root.val >= limit;
+        boolean checkLeft = checkSufficientSubset(root.left, sum + root.val, limit);
+        boolean checkRight = checkSufficientSubset(root.right, sum + root.val, limit);
+        if (!checkLeft) root.left = null;
+        if (!checkRight) root.right = null;
+        return checkLeft || checkRight;
+    }
+
     @Test
     public void testSplitArraySameAverage(){
         System.out.println(splitArraySameAverage(new int[]{1, 6, 1}));

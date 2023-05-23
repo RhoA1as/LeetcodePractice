@@ -1558,6 +1558,21 @@ class Solution:
             res = min(res, t + i)
         return res
 
+    # https://leetcode.cn/problems/largest-values-from-labels/ 受标签影响的最大值
+    def largestValsFromLabels(self, values: List[int], labels: List[int], numWanted: int, useLimit: int) -> int:
+        tmp = sorted(zip(values, labels), reverse=True)
+        ans = cnt = 0
+        c = Counter()
+        for value, label in tmp:
+            if c[label] == useLimit:
+                continue
+            ans += value
+            c[label] += 1
+            cnt += 1
+            if cnt == numWanted:
+                break
+        return ans
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

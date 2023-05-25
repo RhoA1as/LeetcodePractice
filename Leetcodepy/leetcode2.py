@@ -1573,6 +1573,19 @@ class Solution:
                 break
         return ans
 
+    # https://leetcode.cn/problems/odd-string-difference/ 差值数组不同的字符串
+    def oddString(self, words: List[str]) -> str:
+        def get_diff(s: str):
+            return [ord(s[i]) - ord(s[i - 1]) for i in range(1, len(s))]
+
+        d0 = get_diff(words[0])
+        d1 = get_diff(words[1])
+        if d0 == d1:
+            for i in range(2, len(words)):
+                if get_diff(words[i]) != d0:
+                    return words[i]
+        return words[1] if get_diff(words[2]) == d0 else words[0]
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

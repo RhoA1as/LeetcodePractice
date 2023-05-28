@@ -573,6 +573,39 @@ class MagicDictionary {
         return r - l;
     }
 
+    // https://leetcode.cn/problems/shortest-path-in-binary-matrix/ 二进制矩阵中的最短路径
+    public int shortestPathBinaryMatrix(int[][] grid) {
+        if (grid == null || grid[0] == null || grid[0].length == 0) {
+            return -1;
+        }
+        if (grid[0][0] == 1) {
+            return -1;
+        }
+        int[][] d = {{0 , 1}, {0, -1}, {1, 0}, {-1, 0}, {-1, -1}, {-1, 1}, {1, -1}, {1, 1}};
+        int ans = 0, l = grid.length;
+        boolean[][] visited = new boolean[l][l];
+        Deque<int[]> deque = new ArrayDeque<>();
+        deque.offer(new int[]{0, 0});
+        visited[0][0] = true;
+        while (!deque.isEmpty()) {
+            int n = deque.size();
+            ans++;
+            for (int i = 0; i < n; i++) {
+                int[] point = deque.poll();
+                visited[point[0]][point[1]] = true;
+                if (point[0] == l - 1 && point[1] == l - 1) return ans;
+                for (int[] de : d) {
+                    int x = point[0] + de[0], y = point[1] + de[1];
+                    if (x < 0 || x >= l || y < 0 || y >= l) continue;
+                    if (visited[x][y] || grid[x][y] != 0) continue;
+                    deque.offer(new int[]{x, y});
+                    visited[x][y] = true;
+                }
+            }
+        }
+        return -1;
+    }
+
     //https://leetcode.cn/problems/design-circular-queue/ 设计循环队列
     class MyCircularQueue {
 

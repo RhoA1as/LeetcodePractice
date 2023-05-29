@@ -1586,6 +1586,15 @@ class Solution:
                     return words[i]
         return words[1] if get_diff(words[2]) == d0 else words[0]
 
+    # https://leetcode.cn/problems/average-value-of-even-numbers-that-are-divisible-by-three/ 可被三整除的偶数的平均值
+    def averageValue(self, nums: List[int]) -> int:
+        n = s = 0
+        for num in nums:
+            if not (num % 6):
+                n += 1
+                s += num
+        return 0 if not n else s // n
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

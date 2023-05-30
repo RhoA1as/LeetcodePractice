@@ -606,6 +606,29 @@ class MagicDictionary {
         return -1;
     }
 
+    // https://leetcode.cn/problems/delete-nodes-and-return-forest/ 删点成林
+    public List<TreeNode> delNodes(TreeNode root, int[] to_delete) {
+        Set<Integer> set = new HashSet<>();
+        for (int i : to_delete) {
+            set.add(i);
+        }
+        List<TreeNode> ans = new ArrayList<>();
+        dfsDelNodes(root, true, set, ans);
+        return ans;
+    }
+
+    public TreeNode dfsDelNodes(TreeNode root, boolean isRoot, Set<Integer> set, List<TreeNode> ans) {
+        if (root == null) return null;
+        boolean isDelete = set.contains(root.val);
+        root.left = dfsDelNodes(root.left, isDelete, set, ans);
+        root.right = dfsDelNodes(root.right, isDelete, set, ans);
+        if (isDelete) {
+            return null;
+        }
+        if (isRoot) ans.add(root);
+        return root;
+    }
+
     //https://leetcode.cn/problems/design-circular-queue/ 设计循环队列
     class MyCircularQueue {
 

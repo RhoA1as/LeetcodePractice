@@ -1595,6 +1595,18 @@ class Solution:
                 s += num
         return 0 if not n else s // n
 
+    # https://leetcode.cn/problems/apply-operations-to-an-array/ 对数组执行操作
+    def applyOperations(self, nums: List[int]) -> List[int]:
+        n, j = len(nums), 0
+        for i in range(n):
+            if i != n - 1 and nums[i] == nums[i+1]:
+                nums[i] *= 2
+                nums[i+1] = 0
+            if nums[i]:
+                nums[i], nums[j] = nums[j], nums[i]
+                j += 1
+        return nums
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

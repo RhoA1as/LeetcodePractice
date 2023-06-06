@@ -1607,6 +1607,14 @@ class Solution:
                 j += 1
         return nums
 
+    # https://leetcode.cn/problems/equal-row-and-column-pairs/ 相等行列对
+    def equalPairs(self, grid: List[List[int]]) -> int:
+        c = Counter(tuple(row) for row in grid)
+        res = 0
+        for colum in zip(*grid):
+            res += c[tuple(colum)]
+        return res
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

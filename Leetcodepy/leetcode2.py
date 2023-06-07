@@ -1615,6 +1615,13 @@ class Solution:
             res += c[tuple(colum)]
         return res
 
+    # https://leetcode.cn/problems/mice-and-cheese/ 老鼠和奶酪
+    def miceAndCheese(self, reward1: List[int], reward2: List[int], k: int) -> int:
+        res, n = sum(reward2), len(reward1)
+        diff = [reward1[i] - reward2[i] for i in range(n)]
+        diff.sort(reverse=True)
+        return res + sum(diff[:k])
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

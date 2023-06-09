@@ -1622,6 +1622,23 @@ class Solution:
         diff.sort(reverse=True)
         return res + sum(diff[:k])
 
+    # https://leetcode.cn/problems/minimum-cost-tree-from-leaf-values/  叶值的最小代价生成树
+    def mctFromLeafValues(self, arr: List[int]) -> int:
+        stk = []
+        res = 0
+        for a in arr:
+            while stk and stk[-1] <= a:
+                b = stk.pop()
+                if not stk or stk[-1] > a:
+                    res += a * b
+                else:
+                    res += b * stk[-1]
+            stk.append(a)
+        while len(stk) >= 2:
+            a = stk.pop()
+            res += stk[-1] * a
+        return res
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

@@ -1639,6 +1639,27 @@ class Solution:
             res += stk[-1] * a
         return res
 
+    # https://leetcode.cn/problems/compare-strings-by-frequency-of-the-smallest-character/ 比较字符串最小字母出现频次
+    def numSmallerByFrequency(self, queries: List[str], words: List[str]) -> List[int]:
+
+        def count(st):
+            ch, cnt = 'z', 0
+            for a in st:
+                if a < ch:
+                    ch, cnt = a, 1
+                elif a == ch:
+                    cnt += 1
+            return cnt
+        cnts = [0] * 12
+        for w in words:
+            cnts[count(w)] += 1
+        for i in range(9, 0, -1):
+            cnts[i] += cnts[i+1]
+        res = []
+        for a in queries:
+            res.append(cnts[count(a) + 1])
+        return res
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

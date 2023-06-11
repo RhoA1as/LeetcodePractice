@@ -629,6 +629,28 @@ class MagicDictionary {
         return root;
     }
 
+    // https://leetcode.cn/problems/remove-zero-sum-consecutive-nodes-from-linked-list/ 从链表中删去总和值为零的连续节点
+    public ListNode removeZeroSumSublists(ListNode head) {
+        ListNode tmp = new ListNode(0);
+        tmp.next = head;
+        Map<Integer, ListNode> map = new HashMap<>();
+        int preSum = 0;
+        ListNode flag = tmp;
+        while (flag != null) {
+            preSum += flag.val;
+            map.put(preSum, flag);
+            flag = flag.next;
+        }
+        preSum = 0;
+        flag = tmp;
+        while (flag != null) {
+            preSum += flag.val;
+            flag.next = map.get(preSum).next;
+            flag = flag.next;
+        }
+        return tmp.next;
+    }
+
     //https://leetcode.cn/problems/design-circular-queue/ 设计循环队列
     class MyCircularQueue {
 

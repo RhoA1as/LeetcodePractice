@@ -1660,6 +1660,15 @@ class Solution:
             res.append(cnts[count(a) + 1])
         return res
 
+    # https://leetcode.cn/problems/number-of-unequal-triplets-in-array/ 数组中不等三元组的数目
+    def unequalTriplets(self, nums: List[int]) -> int:
+        n, prev, res = len(nums), 0, 0
+        c = Counter(nums)
+        for v in c.values():
+            res += prev * v * (n - prev - v)
+            prev += v
+        return res
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

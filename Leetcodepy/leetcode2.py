@@ -1669,6 +1669,15 @@ class Solution:
             prev += v
         return res
 
+    # https://leetcode.cn/problems/number-of-times-binary-string-is-prefix-aligned/ 二进制字符串前缀一致的次数
+    def numTimesAllBlue(self, flips: List[int]) -> int:
+        res = max_val = 0
+        for i, f in enumerate(flips):
+            max_val = max(max_val, f)
+            if i + 1 == max_val:
+                res += 1
+        return res
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

@@ -1678,6 +1678,17 @@ class Solution:
                 res += 1
         return res
 
+    # https://leetcode.cn/problems/can-make-palindrome-from-substring/ 构建回文串检测
+    def canMakePaliQueries(self, s: str, queries: List[List[int]]) -> List[bool]:
+        n = len(s)
+        res = []
+        cnts = [0] * (n + 1)
+        for i, c in enumerate(s):
+            cnts[i + 1] = cnts[i] ^ (1 << (ord(c) - ord('a')))
+        for i, j, k in queries:
+            res.append((cnts[i] ^ cnts[j + 1]).bit_count() <= 2 * k + 1)
+        return res
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

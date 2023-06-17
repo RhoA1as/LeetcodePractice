@@ -1689,6 +1689,12 @@ class Solution:
             res.append((cnts[i] ^ cnts[j + 1]).bit_count() <= 2 * k + 1)
         return res
 
+    # https://leetcode.cn/problems/minimum-cuts-to-divide-a-circle/ 分割圆的最少切割次数
+    def numberOfCuts(self, n: int) -> int:
+        if n == 1:
+            return 0
+        return n if n & 1 else n // 2
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

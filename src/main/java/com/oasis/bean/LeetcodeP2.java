@@ -651,6 +651,43 @@ class MagicDictionary {
         return tmp.next;
     }
 
+    // https://leetcode.cn/problems/number-of-closed-islands/ 统计封闭岛屿的数目
+    public int closedIsland(int[][] grid) {
+        int m = grid.length;
+        int n = grid[0].length;
+        int[][] dirs = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+        int res = 0;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (grid[i][j] == 0) {
+                    Deque<int[]> deque = new ArrayDeque<>();
+                    deque.offer(new int[] {i, j});
+                    grid[i][j] = 1;
+                    boolean flag = true;
+                    while (!deque.isEmpty()) {
+                        int[] node = deque.poll();
+                        int x = node[0], y = node[1];
+                        if (x == 0 || y == 0 || x == m - 1 || y == n - 1) {
+                            flag = false;
+                        }
+                        for (int[] dir : dirs) {
+                            int nx = x + dir[0], ny = y + dir[1];
+                            if (nx < 0 || ny < 0 || nx >= m || ny >= n || grid[nx][ny] == 1) {
+                                continue;
+                            }
+                            grid[nx][ny] = 1;
+                            deque.offer(new int[] {nx, ny});
+                        }
+                    }
+                    if (flag) {
+                        res++;
+                    }
+                }
+            }
+        }
+        return res;
+    }
+
     //https://leetcode.cn/problems/design-circular-queue/ 设计循环队列
     class MyCircularQueue {
 

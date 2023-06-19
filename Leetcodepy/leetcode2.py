@@ -1695,6 +1695,19 @@ class Solution:
             return 0
         return n if n & 1 else n // 2
 
+    # https://leetcode.cn/problems/greatest-sum-divisible-by-three/ 可被3整除的最大和
+    def maxSumDivThree(self, nums: List[int]) -> int:
+        a = [num for num in nums if num % 3 == 0]
+        b = sorted([num for num in nums if num % 3 == 1], reverse=True)
+        c = sorted([num for num in nums if num % 3 == 2], reverse=True)
+        lb, lc, res = len(b), len(c), 0
+        for i in (lb - 2, lb - 1, lb):
+            if i >= 0:
+                for j in (lc - 2, lc - 1, lc):
+                    if j >= 0 and (i - j) % 3 == 0:
+                        res = max(res, sum(b[:i]) + sum(c[:j]))
+        return sum(a) + res
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

@@ -688,6 +688,49 @@ class MagicDictionary {
         return res;
     }
 
+    // https://leetcode.cn/problems/pond-sizes-lcci/ 水域大小
+    public int[] pondSizes(int[][] land) {
+        mLand = land;
+        mLandRow = land.length;
+        mLandCol = land[0].length;
+        List<Integer> ans = new ArrayList<>();
+        for (int i = 0; i < mLandRow; i++) {
+            for (int j = 0; j < mLandCol; j++) {
+                if (land[i][j] == 0) {
+                    land[i][j] = -1;
+                    ans.add(dfsPondSize(i, j));
+                }
+            }
+        }
+        int size = ans.size();
+        int[] res = new int[size];
+        for (int i = 0; i < size; i++) {
+            res[i] = ans.get(i);
+        }
+        Arrays.sort(res);
+        return res;
+    }
+
+    int[][] mLand;
+    int mLandRow;
+    int mLandCol;
+
+    public int dfsPondSize(int x, int y) {
+        int res = 1;
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
+                if (i == 0 && j == 0) continue;
+                int newX = x + i, newY = y + j;
+                if (newX < 0 || newY < 0 || newX >= mLandRow || newY >= mLandCol || mLand[newX][newY] != 0) {
+                    continue;
+                }
+                mLand[newX][newY] = -1;
+                res += dfsPondSize(newX, newY);
+            }
+        }
+        return res;
+    }
+
     //https://leetcode.cn/problems/design-circular-queue/ 设计循环队列
     class MyCircularQueue {
 

@@ -731,6 +731,21 @@ class MagicDictionary {
         return res;
     }
 
+    // https://leetcode.cn/problems/maximum-value-of-a-string-in-an-array/ 数组中字符串的最大值
+    public int maximumValue(String[] strs) {
+        int max = -1;
+        for (String str : strs) {
+            int s;
+            try {
+                s = Integer.parseInt(str);
+            } catch (Exception e) {
+                s = str.length();
+            }
+            max = Math.max(max, s);
+        }
+        return max;
+    }
+
     //https://leetcode.cn/problems/design-circular-queue/ 设计循环队列
     class MyCircularQueue {
 

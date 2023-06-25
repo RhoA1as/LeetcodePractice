@@ -1708,6 +1708,15 @@ class Solution:
                         res = max(res, sum(b[:i]) + sum(c[:j]))
         return sum(a) + res
 
+    # https://leetcode.cn/problems/circle-and-rectangle-overlapping/ 圆和矩形是否有重叠
+    def checkOverlap(self, radius: int, xCenter: int, yCenter: int, x1: int, y1: int, x2: int, y2: int) -> bool:
+        des = 0
+        if xCenter < x1 or xCenter > x2:
+            des += min((x1 - xCenter) ** 2, (x2 - xCenter) ** 2)
+        if yCenter < y1 or yCenter > y2:
+            des += min((y1 - yCenter) ** 2, (y2 - yCenter) ** 2)
+        return des <= radius ** 2
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

@@ -1717,6 +1717,12 @@ class Solution:
             des += min((y1 - yCenter) ** 2, (y2 - yCenter) ** 2)
         return des <= radius ** 2
 
+    # https://leetcode.cn/problems/find-the-pivot-integer/ 找出中枢整数
+    def pivotInteger(self, n: int) -> int:
+        t = (n * n + n) // 2
+        res = int(t ** 0.5)
+        return -1 if res ** 2 != t else res
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

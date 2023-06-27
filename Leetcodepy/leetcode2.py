@@ -1723,6 +1723,16 @@ class Solution:
         res = int(t ** 0.5)
         return -1 if res ** 2 != t else res
 
+    # https://leetcode.cn/problems/maximum-subarray-sum-with-one-deletion/ 删除一次得到子数组最大和
+    def maximumSum(self, arr: List[int]) -> int:
+        dp0, dp1, res = arr[0], 0, arr[0]
+        n = len(arr)
+        for i in range(1, n):
+            dp1 = max(dp1 + arr[i], dp0)
+            dp0 = max(dp0, 0) + arr[i]
+            res = max(dp0, dp1, res)
+        return res
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

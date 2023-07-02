@@ -1372,6 +1372,21 @@ class Solution:
             head = head.next
         return ans
 
+    # https://leetcode.cn/problems/add-two-numbers/ 两数相加
+    def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+        head = curr = ListNode()
+        ext = 0
+        while l1 or l2 or ext:
+            val = (l1.val if l1 else 0) + (l2.val if l2 else 0) + ext
+            curr.next = ListNode(val % 10)
+            ext = val // 10
+            curr = curr.next
+            if l1:
+                l1 = l1.next
+            if l2:
+                l2 = l2.next
+        return head.next
+
     # https://leetcode.cn/problems/robot-bounded-in-circle/ 困于环中的机器人
     def isRobotBounded(self, instructions: str) -> bool:
         dict = [[0, 1], [1, 0], [0, -1], [-1, 0]]
@@ -1599,9 +1614,9 @@ class Solution:
     def applyOperations(self, nums: List[int]) -> List[int]:
         n, j = len(nums), 0
         for i in range(n):
-            if i != n - 1 and nums[i] == nums[i+1]:
+            if i != n - 1 and nums[i] == nums[i + 1]:
                 nums[i] *= 2
-                nums[i+1] = 0
+                nums[i + 1] = 0
             if nums[i]:
                 nums[i], nums[j] = nums[j], nums[i]
                 j += 1
@@ -1650,11 +1665,12 @@ class Solution:
                 elif a == ch:
                     cnt += 1
             return cnt
+
         cnts = [0] * 12
         for w in words:
             cnts[count(w)] += 1
         for i in range(9, 0, -1):
-            cnts[i] += cnts[i+1]
+            cnts[i] += cnts[i + 1]
         res = []
         for a in queries:
             res.append(cnts[count(a) + 1])

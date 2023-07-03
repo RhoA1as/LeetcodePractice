@@ -1387,6 +1387,24 @@ class Solution:
                 l2 = l2.next
         return head.next
 
+    # https://leetcode.cn/problems/add-two-numbers-ii/ 两数相加 II
+    def addTwoNumbers2(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+        s1, s2 = [], []
+        while l1:
+            s1.append(l1.val)
+            l1 = l1.next
+        while l2:
+            s2.append(l2.val)
+            l2 = l2.next
+        ext, prev = 0, None
+        while s1 or s2 or ext:
+            val = (s1.pop() if s1 else 0) + (s2.pop() if s2 else 0) + ext
+            curr = ListNode(val % 10)
+            curr.next = prev
+            prev = curr
+            ext = val // 10
+        return prev
+
     # https://leetcode.cn/problems/robot-bounded-in-circle/ 困于环中的机器人
     def isRobotBounded(self, instructions: str) -> bool:
         dict = [[0, 1], [1, 0], [0, -1], [-1, 0]]

@@ -1,5 +1,6 @@
 import bisect
 import collections
+import heapq
 from collections import Counter
 from functools import reduce, lru_cache
 from itertools import product
@@ -1404,6 +1405,22 @@ class Solution:
             prev = curr
             ext = val // 10
         return prev
+
+    # https://leetcode.cn/problems/sum-in-a-matrix/ 矩阵中的和
+    def matrixSum(self, nums: List[List[int]]) -> int:
+        m, n = len(nums), len(nums[0])
+        ans = 0
+        pq = []
+        for i in range(m):
+            pq.append([])
+            for j in range(n):
+                heapq.heappush(pq[i], -nums[i][j])
+        for i in range(n):
+            max_val = 0
+            for j in range(m):
+                max_val = max(max_val, -heapq.heappop(pq[j]))
+            ans += max_val
+        return ans
 
     # https://leetcode.cn/problems/robot-bounded-in-circle/ 困于环中的机器人
     def isRobotBounded(self, instructions: str) -> bool:

@@ -1422,6 +1422,10 @@ class Solution:
             ans += max_val
         return ans
 
+    # https://leetcode.cn/problems/k-items-with-the-maximum-sum/ K 件物品的最大和
+    def kItemsWithMaximumSum(self, numOnes: int, numZeros: int, numNegOnes: int, k: int) -> int:
+        return min(k, numOnes) - max(0, k - numOnes - numZeros)
+
     # https://leetcode.cn/problems/robot-bounded-in-circle/ 困于环中的机器人
     def isRobotBounded(self, instructions: str) -> bool:
         dict = [[0, 1], [1, 0], [0, -1], [-1, 0]]

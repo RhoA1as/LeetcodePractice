@@ -1426,6 +1426,18 @@ class Solution:
     def kItemsWithMaximumSum(self, numOnes: int, numZeros: int, numNegOnes: int, k: int) -> int:
         return min(k, numOnes) - max(0, k - numOnes - numZeros)
 
+    # https://leetcode.cn/problems/maximum-split-of-positive-even-integers/ 拆分成最多数目的正偶数之和
+    def maximumEvenSplit(self, finalSum: int) -> List[int]:
+        if finalSum & 1:
+            return []
+        i, ans = 2, []
+        while i <= finalSum:
+            ans.append(i)
+            finalSum -= i
+            i += 2
+        ans[-1] += finalSum
+        return ans
+
     # https://leetcode.cn/problems/robot-bounded-in-circle/ 困于环中的机器人
     def isRobotBounded(self, instructions: str) -> bool:
         dict = [[0, 1], [1, 0], [0, -1], [-1, 0]]

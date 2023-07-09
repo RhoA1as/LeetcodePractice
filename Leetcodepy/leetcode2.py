@@ -1444,12 +1444,35 @@ class Solution:
         while i < j:
             val = numbers[i] + numbers[j]
             if val == target:
-                return [i+1, j+1]
+                return [i + 1, j + 1]
             elif val < target:
                 i += 1
             else:
                 j -= 1
         return [-1, -1]
+
+    # https://leetcode.cn/problems/3sum/ 三数之和
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        if nums is None or len(nums) < 3:
+            return []
+        ans, n = [], len(nums)
+        nums.sort()
+        for i in range(n - 2):
+            if (nums[i] + nums[i + 1] + nums[i + 2]) > 0:
+                break
+            if (i and nums[i] == nums[i - 1]) or (nums[i] + nums[n - 2] + nums[n - 1]) < 0:
+                continue
+            target, k = -nums[i], n - 1
+            for j in range(i + 1, n - 1):
+                if j != i + 1 and nums[j] == nums[j - 1]:
+                    continue
+                while j < k and nums[j] + nums[k] > target:
+                    k -= 1
+                if j == k:
+                    break
+                if nums[j] + nums[k] == target:
+                    ans.append([nums[i], nums[j], nums[k]])
+        return ans
 
     # https://leetcode.cn/problems/robot-bounded-in-circle/ 困于环中的机器人
     def isRobotBounded(self, instructions: str) -> bool:
@@ -1857,5 +1880,4 @@ class OrderedStream:
 
 if __name__ == '__main__':
     s = Solution()
-    s.intersectionSizeTwo([[1, 2], [2, 3], [2, 4], [4, 5]])
-    print(500 + 55100 + 678 + 1500 + 5000 + 43000 + 1026 + 7280 + 20000 + 580 + 430 + 1932 + 6800)
+    print(s.threeSum([1, 2, -2, -1]))

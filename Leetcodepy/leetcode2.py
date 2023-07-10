@@ -1474,6 +1474,43 @@ class Solution:
                     ans.append([nums[i], nums[j], nums[k]])
         return ans
 
+    # https://leetcode.cn/problems/3sum-closest/ 最接近的三数之和
+    def threeSumClosest(self, nums: List[int], target: int) -> int:
+        if nums is None or len(nums) < 3:
+            return -1
+        n, ans = len(nums), 10 ** 7
+        nums.sort()
+
+        def update_val(curr):
+            nonlocal ans
+            if abs(curr - target) < abs(ans - target):
+                ans = curr
+
+        for i in range(n - 2):
+            if i and nums[i] == nums[i - 1]:
+                continue
+            if (v := nums[i] + nums[i + 1] + nums[i + 2]) > target:
+                update_val(v)
+                return ans
+            if (v := nums[i] + nums[n - 1] + nums[n - 2]) < target:
+                update_val(v)
+                continue
+            j, k = i + 1, n - 1
+            while j < k:
+                v = nums[i] + nums[j] + nums[k]
+                if v == target:
+                    return target
+                update_val(v)
+                if v < target:
+                    j += 1
+                    while j < k and nums[j] == nums[j - 1]:
+                        j += 1
+                elif v > target:
+                    k -= 1
+                    while j < k and nums[k] == nums[k + 1]:
+                        k -= 1
+        return ans
+
     # https://leetcode.cn/problems/robot-bounded-in-circle/ 困于环中的机器人
     def isRobotBounded(self, instructions: str) -> bool:
         dict = [[0, 1], [1, 0], [0, -1], [-1, 0]]

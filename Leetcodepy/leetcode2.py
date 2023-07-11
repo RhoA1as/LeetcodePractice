@@ -1511,6 +1511,13 @@ class Solution:
                         k -= 1
         return ans
 
+    # https://leetcode.cn/problems/maximum-alternating-subsequence-sum/ 最大子序列交替和
+    def maxAlternatingSum(self, nums: List[int]) -> int:
+        even, odd = nums[0], 0
+        for i in range(1, len(nums)):
+            even, odd = max(even, odd + nums[i]), max(odd, even - nums[i])
+        return even
+
     # https://leetcode.cn/problems/robot-bounded-in-circle/ 困于环中的机器人
     def isRobotBounded(self, instructions: str) -> bool:
         dict = [[0, 1], [1, 0], [0, -1], [-1, 0]]

@@ -1518,6 +1518,15 @@ class Solution:
             even, odd = max(even, odd + nums[i]), max(odd, even - nums[i])
         return even
 
+    # https://leetcode.cn/problems/alternating-digit-sum/ 交替数字和
+    def alternateDigitSum(self, n: int) -> int:
+        ans, flag = 0, 1
+        while n:
+            ans += n % 10 * flag
+            flag *= -1
+            n //= 10
+        return -flag * ans
+
     # https://leetcode.cn/problems/robot-bounded-in-circle/ 困于环中的机器人
     def isRobotBounded(self, instructions: str) -> bool:
         dict = [[0, 1], [1, 0], [0, -1], [-1, 0]]

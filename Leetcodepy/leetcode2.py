@@ -1527,6 +1527,21 @@ class Solution:
             n //= 10
         return -flag * ans
 
+    # https://leetcode.cn/problems/minimum-falling-path-sum/ 下降路径最小和
+    def minFallingPathSum(self, matrix: List[List[int]]) -> int:
+        dp = matrix[0]
+        m, n = len(matrix), len(dp)
+        for i in range(1, m):
+            curr = dp.copy()
+            for j in range(n):
+                if j > 0:
+                    curr[j] = min(curr[j], dp[j-1])
+                if j < m-1:
+                    curr[j] = min(curr[j], dp[j+1])
+                curr[j] += matrix[i][j]
+            dp = curr
+        return min(dp)
+
     # https://leetcode.cn/problems/robot-bounded-in-circle/ 困于环中的机器人
     def isRobotBounded(self, instructions: str) -> bool:
         dict = [[0, 1], [1, 0], [0, -1], [-1, 0]]

@@ -1535,12 +1535,49 @@ class Solution:
             curr = dp.copy()
             for j in range(n):
                 if j > 0:
-                    curr[j] = min(curr[j], dp[j-1])
-                if j < m-1:
-                    curr[j] = min(curr[j], dp[j+1])
+                    curr[j] = min(curr[j], dp[j - 1])
+                if j < m - 1:
+                    curr[j] = min(curr[j], dp[j + 1])
                 curr[j] += matrix[i][j]
             dp = curr
         return min(dp)
+
+    # https://leetcode.cn/problems/4sum/ 四数之和
+    def fourSum(self, nums: List[int], target: int) -> List[List[int]]:
+        if not nums or len(nums) < 4:
+            return []
+        n, ans = len(nums), []
+        nums.sort()
+        for i in range(n - 3):
+            if i and nums[i] == nums[i - 1]:
+                continue
+            if nums[i] + nums[i + 1] + nums[i + 2] + nums[i + 3] > target:
+                break
+            if nums[i] + nums[n - 1] + nums[n - 2] + nums[n - 3] < target:
+                continue
+            for j in range(i + 1, n - 2):
+                if j != i + 1 and nums[j] == nums[j - 1]:
+                    continue
+                if nums[i] + nums[j] + nums[j + 1] + nums[j + 2] > target:
+                    break
+                if nums[i] + nums[j] + nums[n - 1] + nums[n - 2] < target:
+                    continue
+                k, l = j + 1, n - 1
+                while k < l:
+                    val = nums[i] + nums[j] + nums[k] + nums[l]
+                    if val == target:
+                        ans.append([nums[i], nums[j], nums[k], nums[l]])
+                        k += 1
+                        while k < j and nums[k] == nums[k - 1]:
+                            k += 1
+                        l -= 1
+                        while k < l and nums[l] == nums[l + 1]:
+                            l -= 1
+                    elif val < target:
+                        k += 1
+                    else:
+                        l -= 1
+        return ans
 
     # https://leetcode.cn/problems/robot-bounded-in-circle/ 困于环中的机器人
     def isRobotBounded(self, instructions: str) -> bool:
@@ -1948,4 +1985,4 @@ class OrderedStream:
 
 if __name__ == '__main__':
     s = Solution()
-    print(s.threeSum([1, 2, -2, -1]))
+    print(s.fourSum([1,0,-1,0,-2,2], 0))

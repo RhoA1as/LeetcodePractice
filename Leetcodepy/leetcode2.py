@@ -1579,6 +1579,21 @@ class Solution:
                         l -= 1
         return ans
 
+    # https://leetcode.cn/problems/add-strings/ 字符串相加
+    def addStrings(self, num1: str, num2: str) -> str:
+        n1, n2 = len(num1), len(num2)
+        ext, ans = 0, ''
+        l1, l2 = n1-1, n2-1
+        while l1 >= 0 or l2 >= 0 or ext:
+            s1 = int(num1[l1]) if l1 >= 0 else 0
+            s2 = int(num2[l2]) if l2 >= 0 else 0
+            v = s1 + s2 + ext
+            ans = str(v % 10) + ans
+            ext = v // 10
+            l1 -= 1
+            l2 -= 1
+        return ans
+
     # https://leetcode.cn/problems/robot-bounded-in-circle/ 困于环中的机器人
     def isRobotBounded(self, instructions: str) -> bool:
         dict = [[0, 1], [1, 0], [0, -1], [-1, 0]]
@@ -1985,4 +2000,4 @@ class OrderedStream:
 
 if __name__ == '__main__':
     s = Solution()
-    print(s.fourSum([1,0,-1,0,-2,2], 0))
+    print(s.fourSum([1, 0, -1, 0, -2, 2], 0))

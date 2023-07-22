@@ -1594,6 +1594,24 @@ class Solution:
             l2 -= 1
         return ans
 
+    # https://leetcode.cn/problems/lemonade-change/ 柠檬水找零
+    def lemonadeChange(self, bills: List[int]) -> bool:
+        cnt_5 = cnt_10 = 0
+        for bill in bills:
+            if bill == 5:
+                cnt_5 += 1
+            elif bill == 10:
+                cnt_10 += 1
+                cnt_5 -= 1
+            elif cnt_10:
+                cnt_10 -= 1
+                cnt_5 -= 1
+            else:
+                cnt_5 -= 3
+            if cnt_5 < 0:
+                return False
+        return True
+
     # https://leetcode.cn/problems/robot-bounded-in-circle/ 困于环中的机器人
     def isRobotBounded(self, instructions: str) -> bool:
         dict = [[0, 1], [1, 0], [0, -1], [-1, 0]]

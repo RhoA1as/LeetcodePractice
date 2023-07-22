@@ -1594,6 +1594,20 @@ class Solution:
             l2 -= 1
         return ans
 
+    # https://leetcode.cn/problems/maximum-sum-circular-subarray/ 环形子数组的最大和
+    def maxSubarraySumCircular(self, nums: List[int]) -> int:
+        max_s, min_s = -inf, 0
+        max_c = min_c = 0
+        s = sum(nums)
+        for num in nums:
+            max_c = max(max_c, 0) + num
+            max_s = max(max_s, max_c)
+            min_c = min(min_c, 0) + num
+            min_s = min(min_s, min_c)
+        if min_s == s:
+            return max_s
+        return max(max_s, s - min_s)
+
     # https://leetcode.cn/problems/lemonade-change/ 柠檬水找零
     def lemonadeChange(self, bills: List[int]) -> bool:
         cnt_5 = cnt_10 = 0

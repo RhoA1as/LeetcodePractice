@@ -1608,6 +1608,21 @@ class Solution:
             return max_s
         return max(max_s, s - min_s)
 
+    # https://leetcode.cn/problems/trapping-rain-water/ 接雨水
+    def trap(self, height: List[int]) -> int:
+        l, r = 0, len(height) - 1
+        ans = l_max = r_max = 0
+        while l <= r:
+            l_max = max(height[l], l_max)
+            r_max = max(height[r], r_max)
+            if height[l] < height[r]:
+                ans += l_max - height[l]
+                l += 1
+            else:
+                ans += r_max - height[r]
+                r -= 1
+        return ans
+
     # https://leetcode.cn/problems/lemonade-change/ 柠檬水找零
     def lemonadeChange(self, bills: List[int]) -> bool:
         cnt_5 = cnt_10 = 0

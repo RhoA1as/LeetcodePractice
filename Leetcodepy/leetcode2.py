@@ -1623,6 +1623,20 @@ class Solution:
                 r -= 1
         return ans
 
+    # https://leetcode.cn/problems/minimum-operations-to-halve-array-sum/ 将数组和减半的最少操作次数
+    def halveArray(self, nums: List[int]) -> int:
+        s = sum(nums)
+        pq = []
+        for num in nums:
+            heapq.heappush(pq, -num)
+        res = v = 0
+        while v < s / 2:
+            c = -heapq.heappop(pq)
+            v += c / 2
+            heapq.heappush(pq, -c / 2)
+            res += 1
+        return res
+
     # https://leetcode.cn/problems/lemonade-change/ 柠檬水找零
     def lemonadeChange(self, bills: List[int]) -> bool:
         cnt_5 = cnt_10 = 0

@@ -1637,6 +1637,12 @@ class Solution:
             res += 1
         return res
 
+    # https://leetcode.cn/problems/delete-greatest-value-in-each-row/ 删除每行中的最大值
+    def deleteGreatestValue(self, grid: List[List[int]]) -> int:
+        for i in grid:
+            i.sort()
+        return sum([max(i) for i in zip(*grid)])
+
     # https://leetcode.cn/problems/lemonade-change/ 柠檬水找零
     def lemonadeChange(self, bills: List[int]) -> bool:
         cnt_5 = cnt_10 = 0

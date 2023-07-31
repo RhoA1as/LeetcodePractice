@@ -843,6 +843,43 @@ class MagicDictionary {
         return root;
     }
 
+    // https://leetcode.cn/problems/reorder-list/ 重排链表
+    public void reorderList(ListNode head) {
+        if (head == null || head.next == null) return;
+        ListNode midNode = getMidNode(head);
+        ListNode tmp = midNode.next;
+        midNode.next = null;
+        ListNode f2 = reverseListNode(tmp);
+        ListNode f1 = head;
+        while (f1 != null && f2 != null) {
+            ListNode t1 = f1.next, t2 = f2.next;
+            f1.next = f2;
+            f2.next = t1;
+            f1 = t1;
+            f2 = t2;
+        }
+    }
+
+    private ListNode getMidNode(ListNode node) {
+        ListNode fast = node, slow = node;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow;
+    }
+
+    private ListNode reverseListNode(ListNode node) {
+        ListNode f = node, prev = null;
+        while (f != null) {
+            ListNode nxt = f.next;
+            f.next = prev;
+            prev = f;
+            f = nxt;
+        }
+        return prev;
+    }
+
     @Test
     public void testExclusiveTime(){
         List<String> logs = new ArrayList<>();

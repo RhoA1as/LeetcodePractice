@@ -1583,7 +1583,7 @@ class Solution:
     def addStrings(self, num1: str, num2: str) -> str:
         n1, n2 = len(num1), len(num2)
         ext, ans = 0, ''
-        l1, l2 = n1-1, n2-1
+        l1, l2 = n1 - 1, n2 - 1
         while l1 >= 0 or l2 >= 0 or ext:
             s1 = int(num1[l1]) if l1 >= 0 else 0
             s2 = int(num2[l2]) if l2 >= 0 else 0
@@ -1654,6 +1654,14 @@ class Solution:
                 nums1[p] = nums2[p2]
                 p2 -= 1
             p -= 1
+
+    # https://leetcode.cn/problems/merge-two-binary-trees/description/ 合并二叉树
+    def mergeTrees(self, root1: Optional[TreeNode], root2: Optional[TreeNode]) -> Optional[TreeNode]:
+        if not root1:
+            return root2
+        if not root2:
+            return root1
+        return TreeNode(root1.val + root2.val, self.mergeTrees(root1.left, root2.left), self.mergeTrees(root1.right, root2.right))
 
     # https://leetcode.cn/problems/lemonade-change/ 柠檬水找零
     def lemonadeChange(self, bills: List[int]) -> bool:

@@ -1663,6 +1663,21 @@ class Solution:
             return root1
         return TreeNode(root1.val + root2.val, self.mergeTrees(root1.left, root2.left), self.mergeTrees(root1.right, root2.right))
 
+    # https://leetcode.cn/problems/move-pieces-to-obtain-a-string/ 移动片段得到字符串
+    def canChange(self, start: str, target: str) -> bool:
+        if start.replace('_', '') != target.replace('_', ''):
+            return False
+        j = 0
+        for i, c in enumerate(start):
+            if c == '_':
+                continue
+            while target[j] == '_':
+                j += 1
+            if i != j and (c == 'L') == (i < j):
+                return False
+            j += 1
+        return True
+
     # https://leetcode.cn/problems/lemonade-change/ 柠檬水找零
     def lemonadeChange(self, bills: List[int]) -> bool:
         cnt_5 = cnt_10 = 0

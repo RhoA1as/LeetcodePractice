@@ -1678,6 +1678,19 @@ class Solution:
             j += 1
         return True
 
+    # https://leetcode.cn/problems/maximize-distance-to-closest-person/ 到最近的人的最大距离
+    def maxDistToClosest(self, seats: List[int]) -> int:
+        first = last = -1
+        d = 0
+        for i, c in enumerate(seats):
+            if c:
+                if last != -1:
+                    d = max(d, i - last)
+                if first == -1:
+                    first = i
+                last = i
+        return max(first, len(seats) - last - 1, d // 2)
+
     # https://leetcode.cn/problems/lemonade-change/ 柠檬水找零
     def lemonadeChange(self, bills: List[int]) -> bool:
         cnt_5 = cnt_10 = 0

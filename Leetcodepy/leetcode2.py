@@ -1709,6 +1709,26 @@ class Solution:
                 return False
         return True
 
+    # https://leetcode.cn/problems/insert-interval/ 插入区间
+    def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
+        l, r = newInterval
+        ans = []
+        flag = False
+        for li, ri in intervals:
+            if li > r:
+                if not flag:
+                    ans.append([l, r])
+                    flag = True
+                ans.append([li, ri])
+            elif ri < l:
+                ans.append([li, ri])
+            else:
+                l = min(l, li)
+                r = max(r, ri)
+        if not flag:
+            ans.append([l, r])
+        return ans
+
     # https://leetcode.cn/problems/robot-bounded-in-circle/ 困于环中的机器人
     def isRobotBounded(self, instructions: str) -> bool:
         dict = [[0, 1], [1, 0], [0, -1], [-1, 0]]

@@ -843,6 +843,25 @@ class MagicDictionary {
         return root;
     }
 
+    // https://leetcode.cn/problems/house-robber-iii/ 打家劫舍 III
+    Map<TreeNode, Integer> s;
+    Map<TreeNode, Integer> n;
+    public int rob(TreeNode root) {
+        s = new HashMap<>();
+        n = new HashMap<>();
+        dfsRob(root);
+        return Math.max(s.getOrDefault(root, 0), n.getOrDefault(root, 0));
+    }
+
+    private void dfsRob(TreeNode root) {
+        if (root == null) return;
+        dfsRob(root.left);
+        dfsRob(root.right);
+        s.put(root, root.val + n.getOrDefault(root.left, 0) + n.getOrDefault(root.right, 0));
+        n.put(root, Math.max(s.getOrDefault(root.left, 0), n.getOrDefault(root.left, 0))
+                + Math.max(s.getOrDefault(root.right, 0), n.getOrDefault(root.right, 0)));
+    }
+
     // https://leetcode.cn/problems/reorder-list/ 重排链表
     public void reorderList(ListNode head) {
         if (head == null || head.next == null) return;

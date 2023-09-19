@@ -1729,6 +1729,10 @@ class Solution:
             ans.append([l, r])
         return ans
 
+    # https://leetcode.cn/problems/na-ying-bi/ 拿硬币
+    def minCount(self, coins: List[int]) -> int:
+        return sum((c + 1) // 2 for c in coins)
+
     # https://leetcode.cn/problems/robot-bounded-in-circle/ 困于环中的机器人
     def isRobotBounded(self, instructions: str) -> bool:
         dict = [[0, 1], [1, 0], [0, -1], [-1, 0]]

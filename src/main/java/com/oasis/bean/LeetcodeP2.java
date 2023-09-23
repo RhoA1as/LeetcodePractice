@@ -899,6 +899,76 @@ class MagicDictionary {
         return prev;
     }
 
+    // https://leetcode.cn/problems/operations-on-tree/description/ 树上的操作
+    class LockingTree {
+
+        int[] mParent;
+
+        int[] mLockUser;
+        List<List<Integer>> mChildren;
+
+
+        public LockingTree(int[] parent) {
+            int n = parent.length;
+            mParent = parent;
+            mLockUser = new int[n];
+            Arrays.fill(mLockUser, -1);
+            mChildren = new ArrayList<>();
+            for (int i = 0; i < n; i++) {
+                mChildren.add(new ArrayList<>());
+            }
+            for (int i = 0; i < n; i++) {
+                int p = parent[i];
+                if (p != -1) {
+                    mChildren.get(p).add(i);
+                }
+            }
+        }
+
+        public boolean lock(int num, int user) {
+            if (mLockUser[num] == -1) {
+                mLockUser[num] = user;
+                return true;
+            }
+            return false;
+        }
+
+        public boolean unlock(int num, int user) {
+            if (mLockUser[num] == user) {
+                mLockUser[num] = -1;
+                return true;
+            }
+            return false;
+        }
+
+        public boolean upgrade(int num, int user) {
+            boolean check = mLockUser[num] == -1 && checkParent(mParent[num]) && checkChildrenAndUnlock(num);
+            if (check) {
+                mLockUser[num] = user;
+            }
+            return check;
+        }
+
+        private boolean checkParent(int num) {
+            if (num == -1) {
+                return true;
+            }
+            if (mLockUser[num] != -1) {
+                return false;
+            }
+            return checkParent(mParent[num]);
+        }
+
+        private boolean checkChildrenAndUnlock(int num) {
+            boolean lock = mLockUser[num] != -1;
+            mLockUser[num] = -1;
+            for (int child : mChildren.get(num)) {
+                lock |= checkChildrenAndUnlock(child);
+            }
+            return lock;
+        }
+    }
+
     @Test
     public void testExclusiveTime(){
         List<String> logs = new ArrayList<>();

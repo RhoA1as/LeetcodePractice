@@ -969,6 +969,85 @@ class MagicDictionary {
         }
     }
 
+    // https://leetcode.cn/problems/lru-cache/ LRU 缓存
+    class LRUCache {
+
+        class Node {
+            int val;
+            int key;
+            Node prev;
+            Node next;
+
+            public Node() {}
+            public Node(int key, int val) {
+                this.key = key;
+                this.val = val;
+            }
+        }
+
+        int mCapacity;
+        Node head;
+        Node tail;
+        Map<Integer, Node> map;
+
+        public LRUCache(int capacity) {
+            mCapacity = capacity;
+            head = new Node();
+            tail = new Node();
+            head.next = tail;
+            tail.prev = head;
+            map = new HashMap<>();
+        }
+
+        public int get(int key) {
+            Node node = map.get(key);
+            if (node != null) {
+                moveToFirst(node);
+                return node.val;
+            }
+            return -1;
+        }
+
+        public void put(int key, int value) {
+            Node node = map.get(key);
+            if (node != null) {
+                node.val = value;
+                moveToFirst(node);
+            } else {
+                if (map.size() == mCapacity) {
+                    Node last = removeLast();
+                    map.remove(last.key);
+                }
+                node = new Node(key, value);
+                map.put(key, node);
+                addToFirst(node);
+            }
+        }
+
+        private void removeNode(Node node) {
+            node.prev.next = node.next;
+            node.next.prev = node.prev;
+        }
+
+        private void addToFirst(Node node) {
+            node.next = head.next;
+            node.prev = head;
+            head.next = node;
+            node.next.prev = node;
+        }
+
+        private void moveToFirst(Node node) {
+            removeNode(node);
+            addToFirst(node);
+        }
+
+        private Node removeLast() {
+            Node last = tail.prev;
+            removeNode(last);
+            return last;
+        }
+    }
+
     @Test
     public void testExclusiveTime(){
         List<String> logs = new ArrayList<>();

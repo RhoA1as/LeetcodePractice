@@ -1637,6 +1637,11 @@ class Solution:
             res += 1
         return res
 
+    # https://leetcode.cn/problems/pass-the-pillow/ 递枕头
+    def passThePillow(self, n: int, time: int) -> int:
+        time %= (n - 1) * 2
+        return time + 1 if time < n else 2 * n - time - 1
+
     # https://leetcode.cn/problems/delete-greatest-value-in-each-row/ 删除每行中的最大值
     def deleteGreatestValue(self, grid: List[List[int]]) -> int:
         for i in grid:

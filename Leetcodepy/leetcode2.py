@@ -1666,7 +1666,8 @@ class Solution:
             return root2
         if not root2:
             return root1
-        return TreeNode(root1.val + root2.val, self.mergeTrees(root1.left, root2.left), self.mergeTrees(root1.right, root2.right))
+        return TreeNode(root1.val + root2.val, self.mergeTrees(root1.left, root2.left),
+                        self.mergeTrees(root1.right, root2.right))
 
     # https://leetcode.cn/problems/move-pieces-to-obtain-a-string/ 移动片段得到字符串
     def canChange(self, start: str, target: str) -> bool:
@@ -2140,6 +2141,21 @@ class OrderedStream:
             ans.append(self.stream[self.ptr])
             self.ptr += 1
         return ans
+
+
+# https://leetcode.cn/problems/online-stock-span/ 股票价格跨度
+class StockSpanner:
+
+    def __init__(self):
+        self.stack = [(-1, inf)]
+        self.index = -1
+
+    def next(self, price: int) -> int:
+        self.index += 1
+        while price >= self.stack[-1][1]:
+            self.stack.pop()
+        self.stack.append((self.index, price))
+        return self.index - self.stack[-2][0]
 
 
 if __name__ == '__main__':

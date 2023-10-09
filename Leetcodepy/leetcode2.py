@@ -2126,6 +2126,11 @@ class Solution:
                     lower -= 1
         return ans
 
+    # https://leetcode.cn/problems/split-with-minimum-sum/ 最小和分割
+    def splitNum(self, num: int) -> int:
+        numStr = "".join(sorted(str(num)))
+        return int(numStr[::2]) + int(numStr[1::2])
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

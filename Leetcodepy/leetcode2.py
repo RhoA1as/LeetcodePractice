@@ -2136,6 +2136,7 @@ class Solution:
         if not (n <= target <= n * k):
             return 0
         MOD = 10 ** 9 + 7
+
         @cache
         def dfs(i: int, j: int) -> int:
             if not i:
@@ -2147,6 +2148,17 @@ class Solution:
 
         return dfs(n, target - n)
 
+    # https://leetcode.cn/problems/h-index-ii/ H 指数 II
+    def hIndex(self, citations: List[int]) -> int:
+        i, n = 0, len(citations)
+        j = n - 1
+        while i <= j:
+            k = i + (j - i) // 2
+            if citations[k] >= n - k:
+                j = k - 1
+            else:
+                i = k + 1
+        return n - i
 
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流

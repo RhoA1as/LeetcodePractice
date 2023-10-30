@@ -2,7 +2,7 @@ import bisect
 import collections
 import heapq
 from collections import Counter
-from functools import reduce, lru_cache
+from functools import reduce, lru_cache, cache
 from itertools import product
 from math import inf, gcd
 from operator import or_
@@ -2130,6 +2130,23 @@ class Solution:
     def splitNum(self, num: int) -> int:
         numStr = "".join(sorted(str(num)))
         return int(numStr[::2]) + int(numStr[1::2])
+
+    # https://leetcode.cn/problems/number-of-dice-rolls-with-target-sum/ 掷骰子等于目标和的方法数
+    def numRollsToTarget(self, n: int, k: int, target: int) -> int:
+        if not (n <= target <= n * k):
+            return 0
+        MOD = 10 ** 9 + 7
+        @cache
+        def dfs(i: int, j: int) -> int:
+            if not i:
+                return int(j == 0)
+            res = 0
+            for x in range(min(j + 1, k)):
+                res += dfs(i - 1, j - x)
+            return res % MOD
+
+        return dfs(n, target - n)
+
 
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流

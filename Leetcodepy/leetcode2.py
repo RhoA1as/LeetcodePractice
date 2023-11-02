@@ -2160,6 +2160,19 @@ class Solution:
                 i = k + 1
         return n - i
 
+    # https://leetcode.cn/problems/rings-and-rods/ 环和杆
+    def countPoints(self, rings: str) -> int:
+        state = [0] * 10
+        n = len(rings)
+        m = {'G': 0, 'R': 1, 'B': 2}
+        for i in range(0, n, 2):
+            idx = int(rings[i + 1])
+            state[idx] |= 1 << m[rings[i]]
+        res = 0
+        for s in state:
+            res += 0 if s != 7 else 1
+        return res
+
 
 # https://leetcode.cn/problems/design-an-ordered-stream/ 设计有序流
 class OrderedStream:

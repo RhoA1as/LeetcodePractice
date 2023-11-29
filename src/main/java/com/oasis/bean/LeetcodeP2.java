@@ -1824,6 +1824,34 @@ class MagicDictionary {
     }
 }
 
+// https://leetcode.cn/problems/smallest-number-in-infinite-set/ 无限集中的最小数字
+class SmallestInfiniteSet {
+
+    int mIndex;
+    TreeSet<Integer> mSet;
+
+    public SmallestInfiniteSet() {
+        mIndex = 1;
+        mSet = new TreeSet<>();
+    }
+
+    public int popSmallest() {
+        int ans;
+        if (!mSet.isEmpty()) {
+            ans = mSet.pollFirst();
+        } else {
+            ans = mIndex++;
+        }
+        return ans;
+    }
+
+    public void addBack(int num) {
+        if (num < mIndex) {
+            mSet.add(num);
+        }
+    }
+}
+
 class ListNode {
     int val;
     ListNode next;

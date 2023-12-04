@@ -1824,6 +1824,27 @@ class MagicDictionary {
     }
 }
 
+// https://leetcode.cn/problems/binary-search-tree-to-greater-sum-tree/ 从二叉搜索树到更大和树
+class Solution {
+
+    private int mVal;
+    public TreeNode bstToGst(TreeNode root) {
+        mVal = 0;
+        dfs(root);
+        return root;
+    }
+
+    public void dfs(TreeNode node) {
+        if (node == null) {
+            return;
+        }
+        dfs(node.right);
+        mVal += node.val;
+        node.val = mVal;
+        dfs(node.left);
+    }
+}
+
 // https://leetcode.cn/problems/smallest-number-in-infinite-set/ 无限集中的最小数字
 class SmallestInfiniteSet {
 

@@ -29,6 +29,18 @@ def connect(self, root: 'Node') -> 'Node':
     return root
 
 
+# https://leetcode.cn/problems/find-peak-element/ 寻找峰值
+def findPeakElement(self, nums: List[int]) -> int:
+    l, r = 0, len(nums) - 1
+    while l < r:
+        m = l + (r - l) // 2
+        if nums[m] < nums[m + 1]:
+            l = m + 1
+        else:
+            r = m
+    return l
+
+
 # https://leetcode.cn/problems/find-the-longest-balanced-substring-of-a-binary-string/ 最长平衡子字符串
 def findTheLongestBalancedSubstring(self, s: str) -> int:
     res = cnt0 = cnt1 = 0
@@ -54,7 +66,7 @@ def longestAlternatingSubarray(self, nums: List[int], threshold: int) -> int:
             continue
         start = i
         i += 1
-        while i < n and nums[i] <= threshold and nums[i] % 2 != nums[i-1] % 2:
+        while i < n and nums[i] <= threshold and nums[i] % 2 != nums[i - 1] % 2:
             i += 1
         res = max(res, i - start)
     return res

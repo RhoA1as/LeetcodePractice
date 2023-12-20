@@ -41,6 +41,11 @@ def findPeakElement(self, nums: List[int]) -> int:
     return l
 
 
+# https://leetcode.cn/problems/check-if-a-string-is-an-acronym-of-words/ 判别首字母缩略词
+def isAcronym(self, words: List[str], s: str) -> bool:
+    return len(s) == len(words) and all(words[i][0] == s[i] for i in range(len(words)))
+
+
 # https://leetcode.cn/problems/find-the-longest-balanced-substring-of-a-binary-string/ 最长平衡子字符串
 def findTheLongestBalancedSubstring(self, s: str) -> int:
     res = cnt0 = cnt1 = 0

@@ -990,8 +990,8 @@ def nextPermutation(self, nums: List[int]) -> None:
     if not nums:
         return
     n, left = len(nums), -1
-    for i in range(n-2, -1, -1):
-        if nums[i] < nums[i+1]:
+    for i in range(n - 2, -1, -1):
+        if nums[i] < nums[i + 1]:
             left = i
             break
     a, b = left + 1, n - 1
@@ -1001,7 +1001,17 @@ def nextPermutation(self, nums: List[int]) -> None:
         b -= 1
     if left == -1:
         return
-    idx = bisect.bisect_right(nums[left+1:], nums[left]) + left + 1
+    idx = bisect.bisect_right(nums[left + 1:], nums[left]) + left + 1
     nums[idx], nums[left] = nums[left], nums[idx]
 
 
+# https://leetcode.cn/problems/first-missing-positive/?envType=study-plan-v2&envId=top-100-liked
+def firstMissingPositive(self, nums: List[int]) -> int:
+    n = len(nums)
+    for i in range(n):
+        while 1 <= nums[i] <= n and nums[nums[i] - 1] != nums[i]:
+            nums[nums[i] - 1], nums[i] = nums[i], nums[nums[i] - 1]
+    for i in range(n):
+        if nums[i] != i + 1:
+            return i + 1
+    return n + 1

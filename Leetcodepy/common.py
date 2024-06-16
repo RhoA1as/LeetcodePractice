@@ -1,6 +1,7 @@
 # leetcode hot100 https://leetcode.cn/studyplan/top-100-liked/
 import bisect
 import collections
+import heapq
 from functools import reduce
 from math import inf
 from typing import List, Optional
@@ -1015,3 +1016,30 @@ def firstMissingPositive(self, nums: List[int]) -> int:
         if nums[i] != i + 1:
             return i + 1
     return n + 1
+
+
+# https://leetcode.cn/problems/binary-tree-maximum-path-sum/?envType=study-plan-v2&envId=top-100-liked
+def maxPathSum(self, root: Optional[TreeNode]) -> int:
+    if not root:
+        return 0
+    ans = -inf
+
+    def backtrack(node: Optional[TreeNode]):
+        nonlocal ans
+        if not node:
+            return 0
+        left_val = max(backtrack(node.left), 0)
+        right_val = max(backtrack(node.right), 0)
+        ans = max(ans, node.val + left_val + right_val)
+        return node.val + max(left_val, right_val)
+
+    backtrack(root)
+    return int(ans)
+
+
+# https://leetcode.cn/problems/top-k-frequent-elements/submissions/105611194/?envType=study-plan-v2&envId=top-100-liked
+def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+    if not nums:
+        return []
+    cnt = collections.Counter(nums)
+    return heapq.nlargest(k, cnt.keys(), key=lambda x: cnt[x])
